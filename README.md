@@ -8,6 +8,6 @@
 
 ## 라이브러리 부가설명
 
-- tsc-watch: ts 파일이 변경되는 걸 감시하면서 내용이 바뀔 때마다 js로 변환
-- node-sass: .scss를 사용하기 위해 필요
-- styled-component: CSS in JS, 재사용하기 편한 styled 컴포넌트를 만듦
+- `tsc-watch`: ts 파일이 변경되는 걸 감시하면서 내용이 바뀔 때마다 js로 변환
+- `node-sass`: .scss를 사용하기 위해 필요
+- `styled-component`: CSS in JS, 재사용하기 편한 styled 컴포넌트를 만듦
