@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
-import Config from '../../configure/Config';
+import BottomBtn from '../common/BottomBtn';
+import Config from '../config/EnvConfig';
 import './signUp.scss';
 
 const SignUp = () => {

@@ -1,31 +1,27 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 interface IHeader {
-    pageNm: string
+  pageNm: string;
 }
 
-const Header = ({pageNm}: IHeader) => {
-    return (
-        <StyledHeader>
-            {pageNm}
-        </StyledHeader>
-    )
-}
+const Header = ({ pageNm }: IHeader) => {
+  return <StyledHeader>{pageNm}</StyledHeader>;
+};
 
 const StyledHeader = styled.header`
-&:before {
+  &:before {
     content: '＜';
     font-size: 1.5rem;
     position: absolute;
     left: 10px;
     top: 10px;
-}
-padding: 1rem;
-background: #FDC0D2;
-text-align: center;
-font-weight: bold;
-font-size: 1.25rem; 
-`
+  }
+  padding: 1rem;
+  background: #fdc0d2;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+`;
 
-export default Header
+export default Header;
