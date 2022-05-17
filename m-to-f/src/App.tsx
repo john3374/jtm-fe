@@ -6,6 +6,7 @@ import InputEmail from './components/kakao/InputEmail';
 import axios from 'axios';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignUp from './components/sign_up/SignUp';
+import LoginEmail from './components/login/LoginEmail';
 
 function App() {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<GoToLogin api={REST_API} />} />
           <Route path="/inputEmail" element={<InputEmail />}></Route>
+          <Route path="/login" element={<LoginEmail />} />
           <Route
             path="/oauth/kakao/callback"
             element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
