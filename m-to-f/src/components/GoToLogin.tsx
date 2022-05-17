@@ -1,7 +1,7 @@
 import React from "react"
-import styled from "styled-components"
-import { CustomButton } from "./common/CustomButton"
-import {log} from "util";
+// import styled from "styled-components"
+import { Btn } from "./common/Btn"
+// import {log} from "util";
 
 interface PropsType {
     api:string
@@ -14,19 +14,19 @@ const GoToLogin = (props : PropsType) => {
 
     return (
         <>
-        <CustomButton 
-            text="카카오톡으로 시작하기"
-            href={KAKAO_AUTH_URL}
-            logo="kakao.svg" 
-            background="#FAE54D"
-            />
-        <CustomButton
-            text="이메일로 시작하기"
-            href=""
-            logo="mail.svg"
-            background="black"
-            color="white"
-            />
+            <Btn 
+                text="카카오톡으로 시작하기"
+                href={KAKAO_AUTH_URL}
+                logo="kakao.svg" 
+                background="#FAE54D"
+                />
+            <Btn
+                text="이메일로 시작하기"
+                href=""
+                logo="mail.svg"
+                background="black"
+                color="white"
+                />
         </>
     )
 }

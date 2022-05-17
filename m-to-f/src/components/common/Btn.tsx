@@ -6,7 +6,10 @@ interface IBtnStyle {
     background?: string
 }
 
-const CustomButton = ({text, href, logo, color, background}: {
+/*
+공통 버튼 컴포넌트
+*/
+const Btn = ({text, href, logo, color, background}: {
     text: string
     href: string
     color?: string
@@ -16,8 +19,7 @@ const CustomButton = ({text, href, logo, color, background}: {
     
     return (
         <StyledBtn color={color} 
-                   background={background}
-        >
+                   background={background}>
             <a href={href}>
                 {text}
             </a>
@@ -43,7 +45,5 @@ const StyledBtn = styled.div<IBtnStyle>`
     }
 `
 
-// const BlackBtn = styled(CustomButton)`
 
-// `
-export {CustomButton}
+export {Btn}
