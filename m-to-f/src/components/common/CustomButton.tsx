@@ -6,10 +6,7 @@ interface IBtnStyle {
   background?: string;
 }
 
-/*
-공통 버튼 컴포넌트
-*/
-const Btn = ({
+const CustomButton = ({
   text,
   href,
   logo,
@@ -45,4 +42,7 @@ const StyledBtn = styled.div<IBtnStyle>`
   }
 `;
 
-export { Btn };
+// const BlackBtn = styled(CustomButton)`
+
+// `
+export { CustomButton };
