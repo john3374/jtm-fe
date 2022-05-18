@@ -17,15 +17,14 @@ const StyledHeader = styled.header`
 &:before {
     content: '＜';
     font-size: 1.5rem;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-padding: 1rem;
-background: #FDC0D2;
-text-align: center;
-font-weight: bold;
-font-size: 1.25rem; 
-`
+    // position: absolute;
+    // left: 10px;
+    // top: 10px;
+  }
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+`;
 
 export default Header
