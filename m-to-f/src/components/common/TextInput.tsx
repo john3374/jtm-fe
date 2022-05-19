@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
 interface ITextInput {
   title: string;
   placeholder?: string;
+  event?: ChangeEventHandler<HTMLInputElement>;
 }
 
 /*
 공통 텍스트 인풋 (로그인 등)
 */
-const TextInput = ({ title, placeholder }: ITextInput) => {
+const TextInput = ({ title, placeholder, event }: ITextInput) => {
   return (
     <Wrapper>
       <StyledLabel>{title}</StyledLabel>
       <StyledTextInput
+        onChange={event && event}
         type="text"
         placeholder={placeholder ? placeholder : ''}
       />

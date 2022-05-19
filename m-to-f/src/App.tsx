@@ -29,23 +29,23 @@ function App() {
         console.log(err);
       });
   }, []);
-  console.log(EnvConfig.REST_API);
   return (
-    <BrowserRouter>
-      {REST_API && CLIENT_SECRET ? (
-        <Routes>
-          <Route path="/" element={<GoToLogin api={REST_API} />} />
-          <Route path="/inputEmail" element={<InputEmail />}></Route>
-          <Route
-            path="/oauth/kakao/callback"
-            element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
-          />
-          <Route path="/signUp" element={<SignUp />} />
-        </Routes>
-      ) : (
-        'loading...'
-      )}
-    </BrowserRouter>
+    // <BrowserRouter>
+    //   {REST_API && CLIENT_SECRET ? (
+    //     <Routes>
+    //       <Route path="/" element={<GoToLogin api={REST_API} />} />
+    //       <Route path="/inputEmail" element={<InputEmail />}></Route>
+    //       <Route
+    //         path="/oauth/kakao/callback"
+    //         element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
+    //       />
+    //       <Route path="/signUp" element={<SignUp />} />
+    //     </Routes>
+    //   ) : (
+    //     'loading...'
+    //   )}
+    // </BrowserRouter>
+    <SignUp />
   );
 }
 
