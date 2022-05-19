@@ -5,6 +5,7 @@ import KakaoLogin from "./components/kakao/KakaoLogin";
 import InputEmail from "./components/kakao/InputEmail";
 import axios from "axios";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import AppLayout from './components/layout/AppLayout';
 
 function App() {
     const [REST_API, set_REST_API]=useState<string>('')
@@ -29,15 +30,16 @@ function App() {
       <BrowserRouter>
           {REST_API && CLIENT_SECRET ? (
                   <Routes>
-                      <Route path="/" element={<GoToLogin api={REST_API}/>} />
-                      <Route path="/inputEmail" element={<InputEmail/>}></Route>
-                      <Route path="/oauth/kakao/callback" element={<KakaoLogin api={REST_API} client={CLIENT_SECRET}/>} />
+                      <Route element={<AppLayout />}>
+                        <Route path="/" element={<GoToLogin api={REST_API}/>} />
+                        <Route path="/inputEmail" element={<InputEmail/>}></Route>
+                        <Route path="/oauth/kakao/callback" element={<KakaoLogin api={REST_API} client={CLIENT_SECRET}/>} />
+                      </Route>
                   </Routes>
               ) :
               (
                   "loading..."
               )}
-
       </BrowserRouter>
   );
 }

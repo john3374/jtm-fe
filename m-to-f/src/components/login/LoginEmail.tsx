@@ -8,14 +8,23 @@ import Header from "../layout/Header";
 const LoginEmail = () => {
     return (
         <>
-            <Header pageNm='로그인'/>
+            <Header pageNm="로그인" />
             <StyledFormWrapper>
-                <TextInput title="이메일"/>
-                <TextInput title="비밀번호"/>
-                <MoveBtn 
-                    text="아직 회원이 아니신가요?"/>
-            </StyledFormWrapper>
-            <CustomBottomButton text="로그인하기" href=""/>
+              <TextInput htmlFor="email" 
+                        // value={email} 
+                        title="이메일"
+                        // onChange={(e : any)=> setEmail(e.target.value)}
+                        // disabled={loading} 
+                        />
+              <TextInput htmlFor="password" 
+                        // value={password} 
+                        title="비밀번호"
+                        // onChange={(e : any)=> setPassword(e.target.value)}
+                        // disabled={loading} 
+                        />
+              <MoveBtn text="아직 회원이 아니신가요?" />
+          </StyledFormWrapper>
+            <CustomBottomButton text="로그인하기"/>
         </>
     )
 }

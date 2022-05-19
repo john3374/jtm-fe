@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface IBottomBtn {
     text: string
-    onclick: any
+    onclick?: any
 }
 
 const BottomBtn = ({text, onclick}: IBottomBtn) => {
