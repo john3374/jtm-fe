@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
           {REST_API && CLIENT_SECRET ? (
                   <Routes>
-                      <Route element={<AppLayout />}>
+                       <Route element={<AppLayout />}>
                         <Route path="/" element={<GoToLogin api={REST_API}/>} />
                         <Route path="/inputEmail" element={<InputEmail/>}></Route>
                         <Route path="/oauth/kakao/callback" element={<KakaoLogin api={REST_API} client={CLIENT_SECRET}/>} />
