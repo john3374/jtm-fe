@@ -20,7 +20,6 @@ const Btn = ({text, href, logo, color, background}: {
     <StyledBtn href={href}
                color={color} 
                background={background}>
-      {/* <a href={href}>{text}</a> */}
       {text}
       {logo && <img src={`${process.env.PUBLIC_URL}/icons/${logo}`} alt="" />}
     </StyledBtn>
@@ -30,16 +29,12 @@ const Btn = ({text, href, logo, color, background}: {
 const StyledBtn = styled.a<IBtnStyle>`
   display: flex;
   width: 15rem;
-  margin: 1rem;
+  margin: 1rem 1rem 0;
   padding: 1rem 1.5rem;
   border-radius: 60px;
-  font-weight: 500;
   justify-content: space-between;
   background: ${props => props.background || 'initial'};
-  a {
-    margin-right: 3rem;
-    color: ${props => props.color || 'initial'};
-  }
+  color: ${props => props.color || 'initial'};
 `;
 
 export {Btn}
