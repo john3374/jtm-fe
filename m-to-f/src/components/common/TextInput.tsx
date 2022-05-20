@@ -1,13 +1,16 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react"
-import styled from "styled-components"
+import React, { ChangeEvent, ChangeEventHandler } from 'react';
+import styled from 'styled-components';
+import { IBtnStyle } from '../interface/IStyled';
 
 interface ITextInput {
-  title: string
-  placeholder?: string
-  htmlFor: string
-  value?: any
-  onChange?: any
-  disabled?: boolean
+  title: string;
+  placeholder?: string;
+  htmlFor: string;
+  value?: any;
+  onChange?: any;
+  disabled?: boolean;
+  background?: string;
+  border?: string;
 }
 
 /*
@@ -19,10 +22,8 @@ const TextInput = (props: ITextInput) => {
       <StyledLabel {...props.htmlFor}>{props.title}</StyledLabel>
       <StyledTextInput
         id={props.htmlFor}
-        type='text'
-        placeholder={props.placeholder
-          ? props.placeholder
-          : ''}
+        type="text"
+        placeholder={props.placeholder ? props.placeholder : ''}
         {...props}
       />
     </Wrapper>
@@ -33,14 +34,14 @@ const StyledLabel = styled.label`
   font-size: 1rem;
   font-weight: bold;
   display: inline-block;
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 
-const StyledTextInput = styled.input`
+const StyledTextInput = styled.input<ITextInput>`
   padding: 0.8rem;
   font-size: 1.5rem;
-  border: none;
-  background: lightgrey;
+  border: ${props => props.border || 'none'};
+  background: ${props => props.background || 'lightgrey'};
   border-radius: 12px;
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.6);

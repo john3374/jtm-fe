@@ -6,7 +6,7 @@ interface IBottomBtn {
     onclick?: any
 }
 
-const BottomBtn = ({text, onclick}: IBottomBtn) => {
+const BottomBtn = ({ text, onclick }: IBottomBtn) => {
     return (
         <StyledBtn onClick={onclick}>
             {text}
