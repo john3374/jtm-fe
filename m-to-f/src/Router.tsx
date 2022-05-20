@@ -8,6 +8,7 @@ import KakaoLogin from './components/kakao/KakaoLogin';
 import InputEmail from './components/kakao/InputEmail';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
+import { NamePaper } from './components/create_paper/NamePaper';
 
 const Router = () => {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -39,9 +40,8 @@ const Router = () => {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<GoToLogin api={REST_API} />} />
-            <Route path="/inputEmail" element={<InputEmail />}>
-              {' '}
-            </Route>
+            <Route path="/inputEmail" element={<InputEmail />} />
+            <Route path="/createPaper" element={<NamePaper />} />
             <Route
               path="/oauth/kakao/callback"
               element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
