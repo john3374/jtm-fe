@@ -1,7 +1,5 @@
 import React from 'react';
-// import styled from "styled-components"
 import { Btn } from './common/Btn';
-// import {log} from "util";
 
 interface PropsType {
   api: string;
@@ -21,7 +19,7 @@ const GoToLogin = (props: PropsType) => {
       />
       <Btn
         text="이메일로 시작하기"
-        href=""
+        link="login"
         logo="mail.svg"
         background="black"
         color="white"

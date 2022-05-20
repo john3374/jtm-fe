@@ -1,76 +1,118 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import BottomBtn from '../common/BottomBtn';
+import { TextInput } from '../common/TextInput';
 import EnvConfig from '../config/EnvConfig';
-import { CurrentNum } from './SignUpInterface';
+import { emailTest } from '../config/RegExp';
+import { passVerify } from './SignUpFunction';
+import { SignUpEmailInter } from './SignUpInterface';
+import {
+  clickNum,
+  double,
+  email,
+  enterVerifyNum,
+  veriftNum,
+} from './signUpStore';
 
-const [email, setEmail] = useState<string>('');
-const [clickNum, setClickNum] = useState<number>(3);
-const [verifyNum, setVerifyNum] = useState<string>('');
-const [enterVerify, setEnterVerify] = useState<string>('');
-const [doubleCheck, setDoubleCheck] = useState<boolean>(false);
-
-export const emailVerifyActive = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setEmail(e.target.value);
-};
-
-const mailSend = async (): Promise<void> => {
-  try {
-    if (clickNum <= 0) {
-      return alert('인증 한도를 초과했습니다');
-    } else {
-      setClickNum(prev => prev - 1);
-      alert(
-        `인증 번호가 메일로 발송되었습니다. 메일 발송 가능 횟수 : ${clickNum}`
-      );
-      const codeSend = await axios({
-        url: EnvConfig.VERIFY_MAIL,
+const SignUpEmail = ({
+  doubleState,
+  clickNumState,
+  emailState,
+  nicknameState,
+  passwordState,
+  enterVerifyState,
+  verifyState,
+  dispatch,
+}: SignUpEmailInter) => {
+  const emailVerify = async (event: any): Promise<void> => {
+    event.preventDefault();
+    try {
+      const getDouble: AxiosResponse<object[]> = await axios({
+        url: EnvConfig.DOUBLE_CHECK,
+        method: 'get',
         params: {
           email: email,
         },
       });
-      setVerifyNum(codeSend.data);
+      if (getDouble) {
+        dispatch(double(true));
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(double(false));
+      alert('이미 가입되어 있는 메일입니다.');
     }
-  } catch (e) {
-    console.log(e);
-  }
-};
+  };
 
-const emailVerify = async (): Promise<void> => {
-  try {
-    const getDouble: AxiosResponse<object[]> = await axios({
-      url: EnvConfig.DOUBLE_CHECK,
-      method: 'get',
-      params: {
-        email: email,
-      },
-    });
-    if (getDouble) {
-      setDoubleCheck(true);
+  const mailSend = async (): Promise<void> => {
+    try {
+      if (clickNumState <= 0) {
+        return alert('인증 한도를 초과했습니다');
+      } else {
+        dispatch(clickNum());
+        alert(
+          `인증 번호가 메일로 발송되었습니다. 메일 발송 가능 횟수 : ${clickNumState}`
+        );
+        const codeSend = await axios({
+          url: EnvConfig.VERIFY_MAIL,
+          params: {
+            email: emailState,
+          },
+        });
+        dispatch(veriftNum(codeSend.data));
+      }
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e);
-    setDoubleCheck(false);
-    alert('이미 가입되어 있는 메일입니다.');
-  }
-};
+  };
 
-export const SignUpEmail = ({ current, setCurrent }: CurrentNum) => {
+  useEffect(() => {
+    if (doubleState) {
+      mailSend();
+    }
+  }, [doubleState]);
+
   return (
     <>
-      <div
-        className={`emailVerifyWrap ${current === 5 ? 'current' : ''} ${
-          verifyNum ? '' : 'hidden'
-        }`}
-        onClick={() => setCurrent(5)}
-      >
-        <label htmlFor="emailerify">인증번호를 입력해주세요</label>
-        <input
-          onChange={e => setEnterVerify(e.target.value)}
-          type="text"
-          id="emailverify"
-          required
+      <div className="emailWrap">
+        <TextInput
+          title={'이메일'}
+          htmlFor={'email'}
+          placeholder={'이메일을 입력해주세요'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(email(e.target.value))
+          }
         />
       </div>
+      <div className={doubleState ? '' : 'hidden'}>
+        <TextInput
+          title={'인증번호'}
+          htmlFor={'email'}
+          placeholder={'인증번호를 입력해주세요'}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            dispatch(enterVerifyNum(e.target.value))
+          }
+        />
+      </div>
+      <BottomBtn
+        text={doubleState ? '회원가입 하기' : '인증번호 받기'}
+        onclick={
+          doubleState
+            ? (e: any) =>
+                passVerify(e, {
+                  nicknameState,
+                  passwordState,
+                  emailTest,
+                  emailState,
+                  enterVerifyState,
+                  verifyState,
+                  doubleState,
+                })
+            : emailVerify
+        }
+      />
     </>
   );
 };
+
+export default SignUpEmail;

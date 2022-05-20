@@ -1,62 +1,73 @@
-// interface SignIn {
-//   doubleCheck: boolean;
-//   passVerify(): Verify;
-//   nickname: string;
-//   email: string;
-//   password: string;
-// }
+import axios from 'axios';
+import EnvConfig from '../config/EnvConfig';
+import { FirstVerify, SecondVerify } from './SignUpInterface';
+import { next } from './signUpStore';
 
-import { Verify } from './SignUpInterface';
-
-export const passVerify = ({
-  nickNameTest,
-  nickname,
-  emailTest,
-  email,
-  passwordTest,
-  password,
-  repassword,
-  enterVerify,
-  verifyNum,
-  doubleCheck,
-}: Verify): boolean => {
-  return (
-    nickNameTest.test(nickname) &&
-    emailTest.test(email) &&
-    passwordTest.test(password) &&
-    repassword === password &&
-    enterVerify === verifyNum &&
-    doubleCheck
-  );
+export const firstVerify = (
+  e: any,
+  {
+    nickNameTest,
+    nicknameState,
+    passwordTest,
+    passwordState,
+    repassword,
+    dispatch,
+  }: FirstVerify
+) => {
+  e.preventDefault();
+  if (
+    nickNameTest.test(nicknameState) &&
+    passwordTest.test(passwordState) &&
+    repassword === passwordState
+  ) {
+    dispatch(next(true));
+    return true;
+  } else {
+    alert('입력 내용을 확인해주세요');
+  }
 };
 
-// export const signInTest = async (
-//   e: React.FormEvent<HTMLFormElement>,
-//   { doubleCheck, passVerify, nickname, email, password }: SignIn
-// ) => {
-//   e.preventDefault();
-
-//   if (doubleCheck) {
-//     if (passVerify()) {
-//       await axios({
-//         method: 'post',
-//         url: EnvConfig.POST_DATA,
-//         data: {
-//           email: email,
-//           password: password,
-//           userName: nickname,
-//         },
-//       })
-//         .then(function (response) {
-//           if (response.status === 200) {
-//             alert('complete');
-//           }
-//         })
-//         .catch(function (error) {
-//           console.log(error);
-//         });
-//     } else {
-//       alert('입력 내용이 잘못됐습니다.');
-//     }
-//   }
-// };
+export const passVerify = async (
+  e: React.FormEvent<HTMLFormElement>,
+  {
+    nicknameState,
+    passwordState,
+    emailTest,
+    emailState,
+    enterVerifyState,
+    verifyState,
+    doubleState,
+  }: SecondVerify
+): Promise<void> => {
+  e.preventDefault();
+  if (
+    emailTest.test(emailState) &&
+    enterVerifyState === verifyState &&
+    doubleState
+  ) {
+    try {
+      await axios({
+        method: 'post',
+        url: EnvConfig.POST_DATA,
+        data: {
+          email: emailState,
+          password: passwordState,
+          userName: nicknameState,
+        },
+      })
+        .then(function (response) {
+          if (response.status === 200) {
+            alert('회원가입이 완료되었습니다');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+    // return
+  } else {
+    alert('입력 정보를 확인해주세요');
+  }
+};

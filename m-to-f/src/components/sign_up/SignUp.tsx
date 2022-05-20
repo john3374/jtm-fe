@@ -1,165 +1,94 @@
-import axios, { AxiosResponse } from 'axios';
 import React, { useState, useReducer } from 'react';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
-import Config from '../config/EnvConfig';
-import { emailTest, nickNameTest, passwordTest } from '../config/RegExp';
+import { nickNameTest, passwordTest } from '../config/RegExp';
 import './signUp.scss';
-import { emailVerifyActive } from './SignUpEmail';
-// import {
-//   doubleCheck,
-//   email,
-//   emailVerifyActive,
-//   enterVerify,
-//   verifyNum,
-// } from './SignUpEmail';
-import { passVerify } from './SignUpFunction';
-import { initialState, reducer } from './signUpStore';
+import SignUpEmail from './SignUpEmail';
+
+import { firstVerify } from './SignUpFunction';
+import { initialState, nickname, password, reducer } from './signUpStore';
 
 const SignUp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [current, setCurrent] = useState<number>(0);
-  const [nickname, setNickname] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [repassword, setRePassword] = useState<string>('');
 
-  //   console.log(state);
-
-  // const [disabled, setDisabled] = useState<boolean>(true);
-
-  // const signInTest = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   if (doubleCheck) {
-  //     if (
-  //       passVerify({
-  //         nickNameTest,
-  //         nickname,
-  //         emailTest,
-  //         email,
-  //         passwordTest,
-  //         password,
-  //         repassword,
-  //         enterVerify,
-  //         verifyNum,
-  //         doubleCheck,
-  //       })
-  //     ) {
-  //       await axios({
-  //         method: 'post',
-  //         url: Config.POST_DATA,
-  //         data: {
-  //           email: email,
-  //           password: password,
-  //           userName: nickname,
-  //         },
-  //       })
-  //         .then(function (response) {
-  //           if (response.status === 200) {
-  //             alert('complete');
-  //           }
-  //         })
-  //         .catch(function (error) {
-  //           console.log(error);
-  //         });
-  //     } else {
-  //       alert('입력 내용이 잘못됐습니다.');
-  //     }
-  //   }
-  // };
+  const doubleState = state.doubleState;
+  const clickNumState = state.clickNumState;
+  const emailState = state.emailState;
+  const nicknameState = state.nicknameState;
+  const passwordState = state.passwordState;
+  const enterVerifyState = state.enterVerifyState;
+  const verifyState = state.verifyState;
+  const next = state.next;
 
   return (
-    // <>
-    //   <TextInput
-    //     title={'회원가입'}
-    //     placeholder={'내용'}
-    //     event={emailVerifyActive}
-    //   />
-    //   <div className="signWrap">
-    //     <div className="top">
-    //       <p>회원가입</p>
-    //     </div>
-    //     <form id="signUp" onSubmit={signInTest}>
-    //       <div
-    //         className={`nickNameWrap ${current === 1 ? 'current' : ''}`}
-    //         onClick={() => setCurrent(1)}
-    //       >
-    //         <label htmlFor="nickName">닉네임</label>
-    //         <label
-    //           className={`red ${nickname.length > 10 ? '' : 'hidden'}`}
-    //           htmlFor="nickName"
-    //         >
-    //           닉네임이 10글자 이상입니다.
-    //         </label>
-    //         <input
-    //           onChange={e => setNickname(e.target.value)}
-    //           placeholder="10글자 이하의 닉네임이 좋아요."
-    //           type="text"
-    //           id="nickName"
-    //           required
-    //         />
-    //       </div>
-    //       <div
-    //         className={`passwordWrap ${current === 2 ? 'current' : ''}`}
-    //         onClick={() => setCurrent(2)}
-    //       >
-    //         <label htmlFor="password">비밀번호</label>
-    //         <input
-    //           onChange={e => setPassword(e.target.value)}
-    //           type="password"
-    //           id="password"
-    //           required
-    //         />
-    //       </div>
-    //       <div
-    //         className={`rePasswordWrap ${current === 3 ? 'current' : ''}`}
-    //         onClick={() => setCurrent(3)}
-    //       >
-    //         <label htmlFor="rePassword">비밀번호 확인</label>
-    //         <input
-    //           onChange={e => setRePassword(e.target.value)}
-    //           type="password"
-    //           id="rePassword"
-    //           required
-    //         />
-    //       </div>
-    //       <div
-    //         className={`emailWrap ${current === 4 ? 'current' : ''}`}
-    //         onClick={() => setCurrent(4)}
-    //       >
-    //         <label htmlFor="email">이메일을 입력해주세요</label>
-    //         <input
-    //           onChange={emailVerifyActive}
-    //           type="email"
-    //           id="email"
-    //           required
-    //         />
-    //       </div>
-    //       {/* {verifyNum ? (
-    //         <button
-    //           className={`verify ${enterVerify ? 'active' : 'not-verify'}`}
-    //           disabled={passVerify() && false}
-    //           type="submit"
-    //           onClick={emailVerify}
-    //         >
-    //           {enterVerify ? '회원가입 하기' : '다음'}
-    //         </button>
-    //       ) : (
-    //         <button
-    //           className={`verify ${
-    //             emailTest.test(email) ? 'active' : 'not-verify'
-    //           }`}
-    //           disabled={emailTest.test(email) && false}
-    //           type="button"
-    //           onClick={mailSend}
-    //         >
-    //           {emailTest.test(email) ? '인증메일 받기' : '다음'}
-    //         </button>
-    //       )} */}
-    //     </form>
-    //   </div>
-    // </>
-    <p>sdsad</p>
+    <>
+      <div className="signWrap">
+        <div className="top">
+          <p>회원가입</p>
+        </div>
+        <form id="signUp">
+          {next ? (
+            <SignUpEmail
+              doubleState={doubleState}
+              clickNumState={clickNumState}
+              emailState={emailState}
+              nicknameState={nicknameState}
+              passwordState={passwordState}
+              enterVerifyState={enterVerifyState}
+              verifyState={verifyState}
+              dispatch={dispatch}
+            />
+          ) : (
+            <>
+              <div className="nickNameWrap">
+                <TextInput
+                  title={'닉네임'}
+                  htmlFor={'nickName'}
+                  placeholder={'10글자 이하의 닉네임이 좋아요.'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch(nickname(e.target.value))
+                  }
+                />
+              </div>
+              <div className="passwordWrap">
+                <TextInput
+                  title={'비밀번호'}
+                  htmlFor={'password'}
+                  placeholder={'8글자 이상, 특수문자를 포함해주세요'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch(password(e.target.value))
+                  }
+                />
+              </div>
+              <div className="rePasswordWrap">
+                <TextInput
+                  title={'비밀번호 확인'}
+                  htmlFor={'rePassword'}
+                  placeholder={'비밀번호를 다시 입력해주세요'}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setRePassword(e.target.value)
+                  }
+                />
+              </div>
+              <BottomBtn
+                text={'다음'}
+                onclick={(e: any) =>
+                  firstVerify(e, {
+                    nickNameTest,
+                    nicknameState,
+                    passwordTest,
+                    passwordState,
+                    repassword,
+                    dispatch,
+                  })
+                }
+              />
+            </>
+          )}
+        </form>
+      </div>
+    </>
   );
 };
 

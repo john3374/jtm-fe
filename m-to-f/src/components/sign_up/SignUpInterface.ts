@@ -1,24 +1,40 @@
-export interface User {
+export interface Base {
   email: string;
+  password: string;
+  nickname: string;
+}
+
+export interface User extends Base {
   veriftNum: string;
-  nickname: string;
-  password: string;
+  enterVerifyNum: string;
+  next: boolean;
+  double: boolean;
+  clickNum: number;
 }
 
-export interface Verify {
+export interface State {
+  doubleState: boolean;
+  clickNumState: number;
+  emailState: string;
+  nicknameState: string;
+  passwordState: string;
+  enterVerifyState: string;
+  verifyState: string;
+  next: boolean;
+}
+
+export interface FirstVerify {
   nickNameTest: RegExp;
-  nickname: string;
-  emailTest: RegExp;
-  email: string;
+  nicknameState: string;
   passwordTest: RegExp;
-  password: string;
+  passwordState: string;
   repassword: string;
-  enterVerify: string;
-  verifyNum: string;
-  doubleCheck: boolean;
+  dispatch: React.Dispatch<any>;
 }
+export type SecondVerify = Omit<State, 'clickNumState' | 'next'> & {
+  emailTest: RegExp;
+};
 
-export interface CurrentNum {
-  current: number;
-  setCurrent: React.Dispatch<React.SetStateAction<number>>;
-}
+export type SignUpEmailInter = Omit<State, 'next'> & {
+  dispatch: React.Dispatch<any>;
+};

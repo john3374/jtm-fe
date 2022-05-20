@@ -1,35 +1,88 @@
-import { User } from './SignUpInterface';
+import { State } from './SignUpInterface';
 
 const EMAIL = 'signUpStore/EMAIL';
-const VERIFYNUM = 'signUpStore/VERIFYNUM';
+const VERIFYSTATE = 'signUpStore/VERIFYSTATE';
+const ENTERVERIFYSTATE = 'signUpStore/ENTERVERIFYSTATE';
 const NICKNAME = 'signUpStore/NICKNAME';
 const PASSWORD = 'signUpStore/PASSWORD';
+const NEXT = 'signUpStore/NEXT';
+const DOUBLE = 'signUpStore/DOUBLE';
+const CLICKNUM = 'signUpStore/CLICKNUM';
 
 export const email = (email: string) => ({ type: EMAIL, email });
-export const veriftNum = (num: string) => ({ type: VERIFYNUM, num });
-export const nickname = (nickname: string) => ({ type: NICKNAME, nickname });
-export const password = (password: string) => ({ type: PASSWORD, password });
+export const veriftNum = (veriftState: string) => ({
+  type: VERIFYSTATE,
+  veriftState,
+});
+export const enterVerifyNum = (enterVerifyState: string) => ({
+  type: ENTERVERIFYSTATE,
+  enterVerifyState,
+});
+export const nickname = (nicknameState: string) => ({
+  type: NICKNAME,
+  nicknameState,
+});
+export const password = (passwordState: string) => ({
+  type: PASSWORD,
+  passwordState,
+});
+export const next = (next: boolean) => ({ type: NEXT, next });
+export const double = (doubleState: boolean) => ({ type: DOUBLE, doubleState });
+export const clickNum = () => ({ type: CLICKNUM });
 
 export const initialState = {
-  email: '',
-  veriftNum: '',
-  nickname: '',
-  password: '',
+  emailState: '',
+  verifyState: '',
+  enterVerifyState: '',
+  nicknameState: '',
+  passwordState: '',
+  next: false,
+  doubleState: false,
+  clickNumState: 3,
 };
 
-export const reducer = (state: User = initialState, action: any) => {
+export const reducer = (state: State = initialState, action: any) => {
   switch (action.type) {
     case EMAIL:
       return {
         ...state,
-        email: action.email,
+        emailState: action.email,
       };
-    case VERIFYNUM:
-      return action.num;
+    case VERIFYSTATE:
+      return {
+        ...state,
+        verifyState: action.veriftState,
+      };
+    case ENTERVERIFYSTATE:
+      return {
+        ...state,
+        enterVerifyState: action.enterVerifyState,
+      };
     case NICKNAME:
-      return action.nickname;
+      return {
+        ...state,
+        nicknameState: action.nicknameState,
+      };
     case PASSWORD:
-      return action.password;
+      return {
+        ...state,
+        passwordState: action.passwordState,
+      };
+    case NEXT:
+      return {
+        ...state,
+        next: true,
+      };
+    case DOUBLE:
+      return {
+        ...state,
+        doubleState: true,
+      };
+    case CLICKNUM:
+      return {
+        ...state,
+        clickNumState: state.clickNumState - 1,
+      };
     default:
       return state;
   }
