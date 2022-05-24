@@ -36,10 +36,8 @@ const SignUpEmail = ({
       });
       if (getDouble) {
         dispatch(double(true));
-        console.log(getDouble);
       }
     } catch (e) {
-      console.log(e);
       dispatch(double(false));
       alert('이미 가입되어 있는 메일입니다.');
     }
