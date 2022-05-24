@@ -31,7 +31,7 @@ const SignUpEmail = ({
         url: EnvConfig.DOUBLE_CHECK,
         method: 'get',
         params: {
-          email: email,
+          email: emailState,
         },
       });
       if (getDouble) {

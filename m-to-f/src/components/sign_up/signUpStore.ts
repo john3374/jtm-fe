@@ -76,7 +76,7 @@ export const reducer = (state: State = initialState, action: any) => {
     case DOUBLE:
       return {
         ...state,
-        doubleState: true,
+        doubleState: action.doubleState,
       };
     case CLICKNUM:
       return {
