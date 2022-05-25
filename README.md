@@ -15,3 +15,5 @@ main 브랜치 pull 받은 후 새로 추가된 패키지가 있다면 `npm inst
 - `tsc-watch`: ts 파일이 변경되는 걸 감시하면서 내용이 바뀔 때마다 js로 변환
 - `node-sass`: .scss를 사용하기 위해 필요
 - `styled-component`: CSS in JS, 재사용하기 편한 styled 컴포넌트를 만듦
+
+- `npm i -D typescript @babel/core @babel/preset-env @babel/preset-typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint prettier eslint-plugin-prettier`: eslint를 사용할 때 install 해줘야 하는 목록들 
