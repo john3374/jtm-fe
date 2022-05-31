@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
 import { NamePaper } from './components/create_paper/NamePaper';
 import Theme from './components/create_paper/Theme';
+import PaperMain from './components/Paper_main/PaperMain';
 
 const Router = () => {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -43,6 +44,7 @@ const Router = () => {
             <Route path="/" element={<GoToLogin api={REST_API} />} />
             <Route path="/inputEmail" element={<InputEmail />} />
             <Route path="/createPaper" element={<NamePaper />} />
+            <Route path="/Paper" element={<PaperMain />} />
             <Route path="/selectTheme" element={<Theme />} />
             <Route
               path="/oauth/kakao/callback"
