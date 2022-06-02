@@ -16,7 +16,8 @@ const LoginEmail = () => {
                         // onChange={(e : any)=> setEmail(e.target.value)}
                         // disabled={loading} 
                         />
-              <TextInput htmlFor="password" 
+              <TextInput htmlFor="password"
+                        isPassword={true}
                         // value={password} 
                         title="비밀번호"
                         // onChange={(e : any)=> setPassword(e.target.value)}
