@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 interface ITextInput {
     title: string
+    isPassword?: boolean
     placeholder?: string
     htmlFor: string
     value?: any
@@ -14,12 +15,15 @@ interface ITextInput {
 공통 텍스트 인풋 (로그인 등)
 */
 const TextInput = (props : ITextInput) => {
+  
     return (
     <Wrapper>
         <StyledLabel {...props.htmlFor}>{props.title}</StyledLabel>
         <StyledTextInput 
             id={props.htmlFor}
-            type='text'
+            type={props?.isPassword 
+                  ? 'password'
+                  : 'text'}
             placeholder={ props.placeholder
                 ? props.placeholder
                 : ''}
