@@ -20,7 +20,7 @@ const Header = ({ ...props }: IHeader) => {
 };
 
 const StyledHeader = styled.header<IBtnStyle>`
-  padding: 0 1rem;
+  padding: 1rem;
   color: ${props => props.color || 'initial'};
   background: ${props => props.background || 'initial'};
   text-align: center;
