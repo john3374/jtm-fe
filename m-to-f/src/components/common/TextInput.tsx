@@ -16,16 +16,21 @@ interface ITextInput {
 /*
 공통 텍스트 인풋 (로그인 등)
 */
-const TextInput = (props: ITextInput) => {
-  return (
+const TextInput = (props : ITextInput) => {
+  
+    return (
     <Wrapper>
-      <StyledLabel {...props.htmlFor}>{props.title}</StyledLabel>
-      <StyledTextInput
-        id={props.htmlFor}
-        type="text"
-        placeholder={props.placeholder ? props.placeholder : ''}
-        {...props}
-      />
+        <StyledLabel {...props.htmlFor}>{props.title}</StyledLabel>
+        <StyledTextInput 
+            id={props.htmlFor}
+            type={props?.isPassword 
+                  ? 'password'
+                  : 'text'}
+            placeholder={ props.placeholder
+                ? props.placeholder
+                : ''}
+            {...props}
+            />
     </Wrapper>
   );
 };
