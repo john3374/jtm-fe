@@ -37,7 +37,9 @@ const PaperMain = () => {
         <p>
           아직 페이퍼가 없네요, <br /> 새로 만들어보시겠어요?
         </p>
-        <Link to="/">{<MoveBtn text="새 롤링페이퍼 만들기" />}</Link>
+        <Link to="/createPaper/decideName">
+          {<MoveBtn text="새 롤링페이퍼 만들기" />}
+        </Link>
       </GreyBox>
       <Link to="/">
         <Option>

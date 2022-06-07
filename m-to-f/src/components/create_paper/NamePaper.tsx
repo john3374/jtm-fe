@@ -1,9 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
 import Header from '../layout/Header';
 
 export const NamePaper = () => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate('/createPaper/selectTheme');
+  };
   return (
     <>
       <Header pageNm="롤링페이퍼 만들기" />
@@ -15,7 +20,7 @@ export const NamePaper = () => {
           border="1px solid black"
         />
       </main>
-      <BottomBtn text="다음" />
+      <BottomBtn onclick={onClick} text="다음" />
     </>
   );
 };
