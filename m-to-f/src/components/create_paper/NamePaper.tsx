@@ -14,7 +14,7 @@ export const NamePaper = () => {
       <Header pageNm="롤링페이퍼 만들기" />
       <main>
         <TextInput
-          title="롤링페이퍼의 이름을 정해주세요"
+          title="롤링페이퍼의 제목을 정해주세요"
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
