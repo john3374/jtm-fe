@@ -19,6 +19,8 @@ const StyledBtn = styled.button`
   text-align: center;
   color: white;
   font-size: 1.2rem;
+  position: fixed;
+  bottom: 0;
 `;
 
 export default BottomBtn;
