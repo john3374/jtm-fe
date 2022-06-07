@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IBtnStyle } from '../interface/IStyled';
 
-interface IBtn {
+export interface IBtn {
   text: string;
   href?: string;
   link?: string;
