@@ -33,8 +33,8 @@ function ThemeList(props: PropsType) {
 const ItemStyle = styled.div`
   margin-bottom: 1rem;
   word-break: break-all;
-  width: 8vw;
-  height: 30vh;
+  width: 160px;
+  height: 40vh;
 `;
 
 const ImgStyle = styled.div`
