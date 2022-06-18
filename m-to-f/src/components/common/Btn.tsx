@@ -55,7 +55,7 @@ const LinkBtn = ({ ...props }: IBtn) => {
 const StyledLink = styled(Link)<IBtnStyle>`
   display: flex;
   width: 15rem;
-  margin: 1rem 1rem 0;
+  margin: 1rem;
   padding: 1rem 1.5rem;
   border-radius: 60px;
   justify-content: space-between;

@@ -15,11 +15,11 @@ const StyledBtn = styled.button`
   width: 100%;
   background: black;
   padding: 1rem 0;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  position: fixed;
+  // position: fixed;
   bottom: 0;
 `;
 

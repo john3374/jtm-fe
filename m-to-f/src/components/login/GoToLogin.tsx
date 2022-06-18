@@ -1,5 +1,7 @@
 import React from 'react';
-import { Btn } from './common/Btn';
+import styled from 'styled-components';
+import { Btn } from '../common/Btn';
+import { TempBgSvg } from './TempBgSvg';
 
 interface PropsType {
   api: string;
@@ -10,7 +12,7 @@ const GoToLogin = (props: PropsType) => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
-    <>
+    <Container style={{ backgroundImage: `url(${TempBgSvg})` }}>
       <Btn
         text="카카오톡으로 시작하기"
         href={KAKAO_AUTH_URL}
@@ -24,8 +26,10 @@ const GoToLogin = (props: PropsType) => {
         background="black"
         color="white"
       />
-    </>
+    </Container>
   );
 };
+
+const Container = styled.main``;
 
 export default GoToLogin;

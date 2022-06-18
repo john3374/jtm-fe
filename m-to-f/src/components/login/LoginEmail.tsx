@@ -35,6 +35,8 @@ const LoginEmail = () => {
 const StyledFormWrapper = styled.section`
   display: flex;
   flex-flow: column nowrap;
+  align-self: stretch;
+  margin: auto 1rem;
 `;
 
 export default LoginEmail;
