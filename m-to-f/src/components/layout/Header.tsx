@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IBtnStyle } from '../interface/IStyled';
 
@@ -6,14 +7,15 @@ interface IHeader {
   pageNm: string;
   background?: string;
   color?: string;
+  to: string; // router link
 }
 
 const Header = ({ ...props }: IHeader) => {
   return (
     <StyledHeader background={props.background} color={props.color}>
-      <ArrowA>
+      <ArrowLink to={props.to}>
         <ArrowLeft />
-      </ArrowA>
+      </ArrowLink>
       <p>{props.pageNm}</p>
     </StyledHeader>
   );
@@ -31,7 +33,8 @@ const StyledHeader = styled.header<IBtnStyle>`
   grid-template-columns: 10% 80%;
 `;
 
-const ArrowA = styled.a`
+// react router dom link
+const ArrowLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;

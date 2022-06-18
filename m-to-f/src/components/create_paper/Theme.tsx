@@ -28,7 +28,7 @@ function Theme() {
 
   return (
     <>
-      <Header pageNm="롤링페이퍼 만들기" />
+      <Header pageNm="롤링페이퍼 만들기" to="/createPaper/decideName" />
       <ComponentStyle>
         {theme.map(value => (
           <ThemeList path={value.path} name={value.name} key={value.id} />
