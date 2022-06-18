@@ -46,6 +46,7 @@ const ComponentStyle = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: 100%;
 `;
 
 export default Theme;

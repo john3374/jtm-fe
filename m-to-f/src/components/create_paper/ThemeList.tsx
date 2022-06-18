@@ -31,10 +31,10 @@ function ThemeList(props: PropsType) {
 }
 
 const ItemStyle = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   word-break: break-all;
   width: 160px;
-  height: 40vh;
+  height: 35vh;
 `;
 
 const ImgStyle = styled.div`
@@ -42,7 +42,7 @@ const ImgStyle = styled.div`
   position: relative;
   border: 2px solid black;
   width: 100%;
-  height: 85%;
+  height: 100%;
 `;
 
 const TextStyle = styled.div`
