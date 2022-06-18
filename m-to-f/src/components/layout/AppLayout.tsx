@@ -16,6 +16,10 @@ const StyledContainer = styled.div`
   height: 100vh;
   margin: auto;
   border: 1px solid lightgrey; // 경계 구분용
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  align-content: stretch;
 `;
 
 export default AppLayout;

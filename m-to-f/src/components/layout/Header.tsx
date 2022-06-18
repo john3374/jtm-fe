@@ -20,13 +20,14 @@ const Header = ({ ...props }: IHeader) => {
 };
 
 const StyledHeader = styled.header<IBtnStyle>`
-  padding: 1rem;
+  padding: 1.5rem 0;
   color: ${props => props.color || 'initial'};
   background: ${props => props.background || 'initial'};
   text-align: center;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.25rem;
   display: grid;
+  width: 100%;
   grid-template-columns: 10% 80%;
 `;
 
