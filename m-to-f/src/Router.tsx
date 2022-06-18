@@ -11,6 +11,7 @@ import { NamePaper } from './components/create_paper/NamePaper';
 import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
+import { Loading } from './components/Loading';
 
 const Router = () => {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -53,7 +54,7 @@ const Router = () => {
           </Route>
         </Routes>
       ) : (
-        'loading...'
+        <Loading />
       )}
     </BrowserRouter>
   );
