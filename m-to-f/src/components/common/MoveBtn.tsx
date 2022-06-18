@@ -15,9 +15,9 @@ const MoveBtn = ({ ...props }: IBtn) => {
 };
 
 const StyledWrapper = styled.section`
-  // margin: 1rem 0.5rem;
   text-align: right;
   padding: 0 10%;
+  margin-top: 1rem;
 `;
 
 const StyledLink = styled(Link)`
