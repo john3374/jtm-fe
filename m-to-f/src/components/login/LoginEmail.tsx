@@ -8,7 +8,7 @@ import Header from '../layout/Header';
 const LoginEmail = () => {
   return (
     <>
-      <Header pageNm="로그인" />
+      <Header pageNm="로그인" to="/login" />
       <StyledFormWrapper>
         <TextInput
           htmlFor="email"
