@@ -29,7 +29,7 @@ const Option = styled.div`
 
 const PaperMain = () => {
   return (
-    <div className="paper-main-wrap">
+    <main className="paper-main-wrap">
       <h2 className="paper-title">
         마라님, <br /> 안녕하세요!
       </h2>
@@ -37,9 +37,10 @@ const PaperMain = () => {
         <p>
           아직 페이퍼가 없네요, <br /> 새로 만들어보시겠어요?
         </p>
-        {/* <Link to="/createPaper/decideName"> */}
-        <MoveBtn link="/createPaper/decideName" text="새 롤링페이퍼 만들기" />
-        {/* </Link> */}
+        <StyledMoveBtn
+          link="/createPaper/decideName"
+          text="새 롤링페이퍼 만들기"
+        />
       </GreyBox>
       <Link to="/">
         <Option>
@@ -67,8 +68,12 @@ const PaperMain = () => {
           </svg>
         </Option>
       </Link>
-    </div>
+    </main>
   );
 };
+
+const StyledMoveBtn = styled(MoveBtn)`
+  margin-top: 2rem;
+`;
 
 export default PaperMain;
