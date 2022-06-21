@@ -29,18 +29,19 @@ function Theme() {
   return (
     <>
       <Header pageNm="롤링페이퍼 만들기" to="/createPaper/decideName" />
-      <ComponentStyle>
-        {theme.map(value => (
-          <ThemeList path={value.path} name={value.name} key={value.id} />
-        ))}
-      </ComponentStyle>
+      <main>
+        <ComponentStyle>
+          {theme.map(value => (
+            <ThemeList path={value.path} name={value.name} key={value.id} />
+          ))}
+        </ComponentStyle>
+      </main>
       <BottomBtn text="다음" />
     </>
   );
 }
 
 const ComponentStyle = styled.div`
-  margin-top: 1.3rem;
   margin-left: 1rem;
   margin-right: 1rem;
   display: flex;
