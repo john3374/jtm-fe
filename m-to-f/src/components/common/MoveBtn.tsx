@@ -1,37 +1,36 @@
-import React from "react"
-import styled from "styled-components"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { IBtn } from './Btn';
 
-interface IMove {
-    text: string
-}
-const MoveBtn = ({text} : IMove) => {
-    return (
-        <StyledWrapper>
-            <StyledLink>{text}</StyledLink>
-        </StyledWrapper>
-    )
-}
+const MoveBtn = ({ ...props }: IBtn) => {
+  const link = props.link ? props.link : '';
+  return (
+    <StyledWrapper>
+      <StyledLink to={link} color={props.color}>
+        {props.text}
+      </StyledLink>
+    </StyledWrapper>
+  );
+};
 
 const StyledWrapper = styled.section`
+  text-align: right;
+  padding: 0 10%;
+  margin-top: 1rem;
+`;
 
-margin: 1rem 0.5rem;
-text-align: right;
-
-`
-
-const StyledLink = styled.a`
-font-weight: bold;
-border-bottom: 2px solid black;
-padding-bottom: 0.75rem;
-&:after {
+const StyledLink = styled(Link)`
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  padding-bottom: 0.75rem;
+  &:after {
     content: '→';
     font-size: 1.2rem;
     display: relative;
-    
-    margin-left: 1rem;
-}
-`
 
-export {
-    MoveBtn
-}
+    margin-left: 1rem;
+  }
+`;
+
+export { MoveBtn };

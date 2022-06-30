@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
 }
 
 code {
@@ -16,4 +19,9 @@ code {
 a {
   text-decoration: none;
   color: initial;
+}
+
+main {
+  // main content height 늘리기용
+  margin: auto;
 }
