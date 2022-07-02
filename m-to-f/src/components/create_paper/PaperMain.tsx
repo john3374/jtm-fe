@@ -3,6 +3,7 @@ import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
 import './paperMain.scss';
 import { Link } from 'react-router-dom';
+import { useAuthState } from '../../context';
 
 const GreyBox = styled.div`
   width: 100%;
@@ -28,10 +29,19 @@ const Option = styled.div`
 `;
 
 const PaperMain = () => {
+  // const userDetails = useAuthState();
+  // console.log(userDetails);
+  const user = localStorage.getItem('currentUser');
+  const username = user ? JSON.parse(user).userName : null;
+
   return (
     <main className="paper-main-wrap">
       <h2 className="paper-title">
-        마라님, <br /> 안녕하세요!
+        {username && (
+          <p>
+            {username}님, <br /> 안녕하세요!
+          </p>
+        )}
       </h2>
       <GreyBox>
         <p>
