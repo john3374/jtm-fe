@@ -1,42 +1,67 @@
-import React from 'react';
-import styled from 'styled-components';
-import { MoveBtn } from '../common/MoveBtn';
-import { TextInput } from '../common/TextInput';
+import { loginUser, useAuthDispatch, useAuthState } from '../../context';
+import React, { useState } from 'react';
+
 import CustomBottomButton from '../common/BottomBtn';
 import Header from '../layout/Header';
+import LoginForm from './LoginForm';
+import { isEmail } from './Validation';
+import { useNavigate } from 'react-router-dom';
 
 const LoginEmail = () => {
+  // 왜 두번씩 렌더링이 되지...?
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = inputs;
+  const [isValidated, setValidation] = useState<boolean>(false);
+
+  const { loading } = useAuthState(); // initialState 안의 것을 구조 분해 할당
+  const dispatch = useAuthDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (isValidated) {
+      try {
+        const responseData = await loginUser(dispatch, inputs);
+
+        if (!responseData.userId) return;
+        // 로그인 완료 시 메인으로 이동
+        // navigate('../createPaper', { replace: true });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setValidation(isEmail(email));
+    setInputs(inputs => ({
+      ...inputs,
+      [name]: value,
+    }));
+  };
+
   return (
     <>
       <Header pageNm="로그인" to="/login" />
-      <StyledFormWrapper>
-        <TextInput
-          htmlFor="email"
-          // value={email}
-          title="이메일"
-          // onChange={(e : any)=> setEmail(e.target.value)}
-          // disabled={loading}
-        />
-        <TextInput
-          htmlFor="password"
-          isPassword={true}
-          // value={password}
-          title="비밀번호"
-          // onChange={(e : any)=> setPassword(e.target.value)}
-          // disabled={loading}
-        />
-        <MoveBtn text="아직 회원이 아니신가요?" link="signUp" />
-      </StyledFormWrapper>
-      <CustomBottomButton text="로그인하기" />
+      <LoginForm
+        onChange={onChange}
+        email={email}
+        password={password}
+        disabled={loading}
+      />
+      <CustomBottomButton
+        text="로그인하기"
+        onclick={handleLogin}
+        disabled={!isValidated}
+      />
     </>
   );
 };
 
-const StyledFormWrapper = styled.section`
-  display: flex;
-  flex-flow: column nowrap;
-  align-self: stretch;
-  margin: auto 1rem;
-`;
-
+// 메모!
 export default LoginEmail;

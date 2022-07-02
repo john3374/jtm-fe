@@ -12,6 +12,7 @@ import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
 import { Loading } from './components/Loading';
+import { AuthProvider } from './context';
 
 const Router = () => {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -37,26 +38,28 @@ const Router = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      {REST_API && CLIENT_SECRET ? (
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<GoToLogin api={REST_API} />} />
-            <Route path="/login" element={<LoginEmail />} />
-            <Route path="/login/signUp" element={<SignUp />} />
-            <Route
-              path="/oauth/kakao/callback"
-              element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
-            />
-            <Route path="/createPaper" element={<PaperMain />} />
-            <Route path="/createPaper/decideName" element={<NamePaper />} />
-            <Route path="/createPaper/selectTheme" element={<Theme />} />
-          </Route>
-        </Routes>
-      ) : (
-        <Loading />
-      )}
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        {REST_API && CLIENT_SECRET ? (
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<GoToLogin api={REST_API} />} />
+              <Route path="/login" element={<LoginEmail />} />
+              <Route path="/login/signUp" element={<SignUp />} />
+              <Route
+                path="/oauth/kakao/callback"
+                element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
+              />
+              <Route path="/createPaper" element={<PaperMain />} />
+              <Route path="/createPaper/decideName" element={<NamePaper />} />
+              <Route path="/createPaper/selectTheme" element={<Theme />} />
+            </Route>
+          </Routes>
+        ) : (
+          <Loading />
+        )}
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 
