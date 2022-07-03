@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/jtm-fe/static/css/main.48e0ecd0.css",
+    "main.js": "/jtm-fe/static/js/main.c5facfa0.js",
+    "index.html": "/jtm-fe/index.html",
+    "main.48e0ecd0.css.map": "/jtm-fe/static/css/main.48e0ecd0.css.map",
+    "main.c5facfa0.js.map": "/jtm-fe/static/js/main.c5facfa0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48e0ecd0.css",
+    "static/js/main.c5facfa0.js"
+  ]
+}
