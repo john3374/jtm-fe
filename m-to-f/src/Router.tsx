@@ -39,7 +39,7 @@ const Router = () => {
 
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         {REST_API && CLIENT_SECRET ? (
           <Routes>
             <Route element={<AppLayout />}>
