@@ -13,7 +13,7 @@ const AppLayout = () => {
 
 const StyledContainer = styled.div`
   max-width: 375px;
-  /* height: 100vh; */
+  height: 100vh;
   margin: auto;
   border: 1px solid lightgrey; // 경계 구분용
   display: flex;

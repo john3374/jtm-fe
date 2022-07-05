@@ -87,7 +87,7 @@ export const passVerify = async (
     try {
       await axios({
         method: 'post',
-        url: 'http://3.39.162.248:80/join',
+        url: EnvConfig.USER_DATA,
         data: {
           email: emailState,
           password: passwordState,
