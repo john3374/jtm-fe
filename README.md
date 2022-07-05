@@ -9,11 +9,11 @@
 
 1. `git clone https://github.com/pullingoff/jtm-fe.git` : 깃허브 저장소 클론
 2. `npm install` : package.json 기반으로 파일 의존성 설치
-  - node version : 16
+   - node version : 16
 3. `npm start`: tsc-watch가 .ts를 .js로 컴파일한 후 변환에 모두 성공하면 `react-script start`
 4. 추후 repo 에 내용이 업데이트 되면
-  - `git pull`
-  - `npm run start`
+   - `git pull`
+   - `npm run start`
 
 <br>
 
