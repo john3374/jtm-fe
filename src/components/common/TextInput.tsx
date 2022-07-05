@@ -1,8 +1,6 @@
-import React, { ChangeEvent, ChangeEventHandler } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { IBtnStyle } from '../interface/IStyled';
-
-interface ITextInput {
+export interface ITextInput {
   title: string;
   placeholder?: string;
   htmlFor: string;
@@ -12,20 +10,31 @@ interface ITextInput {
   background?: string;
   border?: string;
   isPassword?: boolean;
+  ref?: any;
+  autocomplete?: string;
+  name?: string;
 }
 
 /*
 공통 텍스트 인풋 (로그인 등)
 */
 const TextInput = (props: ITextInput) => {
+  // console.log(ref);
+  const inputProps = {
+    id: props.htmlFor,
+    type: props?.isPassword ? 'password' : 'text',
+    placeholder: props?.placeholder,
+    ...props,
+  };
   return (
     <Wrapper>
       <StyledLabel htmlFor={props.htmlFor}>{props.title}</StyledLabel>
       <StyledTextInput
-        id={props.htmlFor}
-        type={props?.isPassword ? 'password' : 'text'}
-        placeholder={props.placeholder ? props.placeholder : ''}
-        {...props}
+        // id={props.htmlFor}
+        // type={props?.isPassword ? 'password' : 'text'}
+        // placeholder={props.placeholder ? props.placeholder : ''}
+        // {...props}
+        {...inputProps}
       />
     </Wrapper>
   );
@@ -45,7 +54,11 @@ const StyledTextInput = styled.input<ITextInput>`
   background: ${props => props.background || 'lightgrey'};
   border-radius: 12px;
   &:focus {
-    border: 1px solid rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(0, 0, 0, 0.6);
+  }
+  &::placeholder {
+    color: #b2b8bf;
+    line-height: inherit !important;
   }
 `;
 
