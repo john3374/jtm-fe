@@ -24,77 +24,29 @@ const SignUpEmail = ({
   verifyState,
   dispatch,
 }: SignUpEmailInter) => {
-  const emailVerify = async (event: any): Promise<void> => {
-    event.preventDefault();
-    try {
-      const getDouble: AxiosResponse<object[]> = await axios({
-        url: EnvConfig.DOUBLE_CHECK,
-        method: 'get',
-        params: {
-          email: emailState,
-        },
-      });
-      if (getDouble) {
-        dispatch(double(true));
-      }
-    } catch (e) {
-      dispatch(double(false));
-      alert('이미 가입되어 있는 메일입니다.');
-    }
-  };
-
-  const mailSend = async (): Promise<void> => {
-    try {
-      if (clickNumState <= 0) {
-        return alert('인증 한도를 초과했습니다');
-      } else {
-        dispatch(clickNum());
-        alert(
-          `인증 번호가 메일로 발송되었습니다. 메일 발송 가능 횟수 : ${clickNumState}`
-        );
-        const codeSend = await axios({
-          url: EnvConfig.VERIFY_MAIL,
-          params: {
-            email: emailState,
-          },
-        });
-        dispatch(veriftNum(codeSend.data));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    if (doubleState) {
-      mailSend();
-    }
-  }, [doubleState]);
-
   return (
     <>
       <div className="emailWrap">
         <TextInput
-          title={'이메일'}
+          title={'이메일을 입력해주세요'}
           htmlFor={'email'}
-          placeholder={'이메일을 입력해주세요'}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(email(e.target.value))
           }
         />
       </div>
-      <div className={doubleState ? '' : 'hidden'}>
+      <div>
         <TextInput
-          title={'인증번호'}
+          title={'인증번호를 입력해주세요'}
           htmlFor={'email'}
-          placeholder={'인증번호를 입력해주세요'}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             dispatch(enterVerifyNum(e.target.value))
           }
         />
       </div>
-      <BottomBtn
-        text={doubleState ? '회원가입 하기' : '인증번호 받기'}
+
+      {/* <BottomBtn
+        text={doubleState ? '회원가입 하기' : '인증메일 받기'}
         onclick={
           doubleState
             ? (e: any) =>
@@ -109,7 +61,7 @@ const SignUpEmail = ({
                 })
             : emailVerify
         }
-      />
+      /> */}
     </>
   );
 };

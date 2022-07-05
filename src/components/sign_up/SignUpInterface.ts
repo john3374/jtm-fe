@@ -1,3 +1,5 @@
+import { NavigateFunction } from 'react-router-dom';
+
 export interface Base {
   email: string;
   password: string;
@@ -20,21 +22,26 @@ export interface State {
   passwordState: string;
   enterVerifyState: string;
   verifyState: string;
-  next: boolean;
+  nicknamePass: boolean;
 }
 
 export interface FirstVerify {
   nickNameTest: RegExp;
   nicknameState: string;
+  nicknamePass: boolean;
   passwordTest: RegExp;
   passwordState: string;
-  repassword: string;
-  dispatch: React.Dispatch<any>;
-}
-export type SecondVerify = Omit<State, 'clickNumState' | 'next'> & {
+  rePassword: string;
   emailTest: RegExp;
-};
+  emailState: string;
+  enterVerifyState: string;
+  verifyState: string;
+  doubleState: boolean;
+}
+export interface SecondVerify extends FirstVerify {
+  nav: NavigateFunction;
+}
 
-export type SignUpEmailInter = Omit<State, 'next'> & {
+export type SignUpEmailInter = Omit<State, 'nicknamePass'> & {
   dispatch: React.Dispatch<any>;
 };

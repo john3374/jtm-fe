@@ -21,10 +21,10 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
     if (response.status === 200) {
       // 프론트측에서 저장할 user 정보
       const userData = {
-        email : response.data.email,
-        userIdx : response.data.userId,
-        userName : response.data.userName
-      }
+        email: response.data.email,
+        userIdx: response.data.userId,
+        userName: response.data.userName,
+      };
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
       localStorage.setItem('currentUser', JSON.stringify(userData));
       return userData;
