@@ -21,7 +21,6 @@ const LoginForm = ({
   //   emailInputRef.current?.focus();
   // }, []);
 
-  console.log('렌더링');
   return (
     <StyledFormWrapper>
       <SearchInput

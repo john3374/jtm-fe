@@ -19,10 +19,15 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
     });
 
     if (response.status === 200) {
-      // console.log(response.data);
-      dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
-      localStorage.setItem('currentUser', JSON.stringify(response.data));
-      return response.data;
+      // 프론트측에서 저장할 user 정보
+      const userData = {
+        email : response.data.email,
+        userIdx : response.data.userId,
+        userName : response.data.userName
+      }
+      dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      return userData;
     } else {
       dispatch({ type: 'LOGIN_ERROR', error: response.data.error[0] });
     }

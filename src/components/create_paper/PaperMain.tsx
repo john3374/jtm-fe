@@ -43,16 +43,27 @@ const PaperMain = () => {
           </p>
         )}
       </h2>
-      <GreyBox>
-        <p>
-          아직 페이퍼가 없네요, <br /> 새로 만들어보시겠어요?
-        </p>
-        <StyledMoveBtn
-          link="/createPaper/decideName"
-          text="새 롤링페이퍼 만들기"
-        />
-      </GreyBox>
-      <Link to="/">
+      <CreateNew />
+      <SettingButton />
+    </main>
+  );
+};
+
+const CreateNew = () => {
+  return (<GreyBox>
+    <p>
+      아직 페이퍼가 없네요, <br /> 새로 만들어보시겠어요?
+    </p>
+    <StyledMoveBtn
+      link="/createPaper/decideName"
+      text="새 롤링페이퍼 만들기"
+    />
+  </GreyBox>)
+}
+
+const SettingButton = () => {
+  return (
+<Link to="/">
         <Option>
           <svg
             width="24"
@@ -78,9 +89,8 @@ const PaperMain = () => {
           </svg>
         </Option>
       </Link>
-    </main>
-  );
-};
+  )
+}
 
 const StyledMoveBtn = styled(MoveBtn)`
   margin-top: 2rem;

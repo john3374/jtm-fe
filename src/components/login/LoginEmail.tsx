@@ -27,9 +27,9 @@ const LoginEmail = () => {
       try {
         const responseData = await loginUser(dispatch, inputs);
 
-        if (!responseData.userId) return;
+        if (!responseData?.userIdx) return;
         // 로그인 완료 시 메인으로 이동
-        // navigate('../createPaper', { replace: true });
+        navigate('../createPaper', { replace: true });
       } catch (e) {
         console.error(e);
       }
