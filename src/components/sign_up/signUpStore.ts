@@ -1,4 +1,4 @@
-import { State } from './SignUpInterface';
+import { ISignUpState } from '@src/interfaces/ISignUp';
 
 const EMAIL = 'signUpStore/EMAIL';
 const VERIFYSTATE = 'signUpStore/VERIFYSTATE';
@@ -41,7 +41,7 @@ export const initialState = {
   nicknamePass: false,
 };
 
-export const reducer = (state: State = initialState, action: any) => {
+export const reducer = (state: ISignUpState = initialState, action: any) => {
   switch (action.type) {
     case EMAIL:
       return {

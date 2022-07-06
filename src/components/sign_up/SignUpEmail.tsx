@@ -1,29 +1,9 @@
-import axios, { AxiosResponse } from 'axios';
-import React, { useEffect } from 'react';
-import BottomBtn from '../common/BottomBtn';
+import { SignUpEmailInter } from '@src/interfaces/ISignUp';
+import React from 'react';
 import { TextInput } from '../common/TextInput';
-import EnvConfig from '../config/EnvConfig';
-import { emailTest } from '../config/RegExp';
-import { passVerify } from './SignUpFunction';
-import { SignUpEmailInter } from './SignUpInterface';
-import {
-  clickNum,
-  double,
-  email,
-  enterVerifyNum,
-  veriftNum,
-} from './signUpStore';
+import { email, enterVerifyNum } from './signUpStore';
 
-const SignUpEmail = ({
-  doubleState,
-  clickNumState,
-  emailState,
-  nicknameState,
-  passwordState,
-  enterVerifyState,
-  verifyState,
-  dispatch,
-}: SignUpEmailInter) => {
+const SignUpEmail = ({ dispatch }: SignUpEmailInter) => {
   return (
     <>
       <div className="emailWrap">
