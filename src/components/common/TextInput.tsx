@@ -28,7 +28,7 @@ const TextInput = (props: ITextInput) => {
   };
   return (
     <Wrapper>
-      <StyledLabel {...props.htmlFor}>{props.title}</StyledLabel>
+      <StyledLabel htmlFor={props.htmlFor}>{props.title}</StyledLabel>
       <StyledTextInput
         // id={props.htmlFor}
         // type={props?.isPassword ? 'password' : 'text'}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IBtnStyle } from '../interface/IStyled';
@@ -10,6 +10,12 @@ export interface IBtn {
   color?: string;
   background?: string;
   logo?: string;
+  width?: string;
+  height?: string;
+  padding?: string;
+  imgSize?: string;
+  center?: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 /*
 공통 버튼 컴포넌트
@@ -31,10 +37,19 @@ const HrefBtn = ({ ...props }: IBtn) => {
       href={props.href}
       color={props.color}
       background={props.background}
+      width={props.width}
+      height={props.height}
+      padding={props.padding}
+      center={props.center}
+      onClick={props.onClick}
     >
       {props.text}
       {props.logo && (
-        <img src={`${process.env.PUBLIC_URL}/icons/${props.logo}`} alt="" />
+        <Img
+          width={props.imgSize}
+          src={`${process.env.PUBLIC_URL}/icons/${props.logo}`}
+          alt=""
+        />
       )}
     </StyledBtn>
   );
@@ -43,7 +58,14 @@ const HrefBtn = ({ ...props }: IBtn) => {
 const LinkBtn = ({ ...props }: IBtn) => {
   const link = props.link ? props.link : '';
   return (
-    <StyledLink to={link} color={props.color} background={props.background}>
+    <StyledLink
+      to={link}
+      color={props.color}
+      background={props.background}
+      width={props.width}
+      height={props.height}
+      padding={props.padding}
+    >
       {props.text}
       {props.logo && (
         <img src={`${process.env.PUBLIC_URL}/icons/${props.logo}`} alt="" />
@@ -65,13 +87,18 @@ const StyledLink = styled(Link)<IBtnStyle>`
 
 const StyledBtn = styled.a<IBtnStyle>`
   display: flex;
-  width: 15rem;
+  width: ${props => props.width || `15rem`};
+  height: ${props => props.height || ''};
   margin: 1rem 1rem 0;
-  padding: 1rem 1.5rem;
+  padding: ${props => props.padding || '1rem 1.5rem;'};
   border-radius: 60px;
-  justify-content: space-between;
+  justify-content: ${props => props.center || 'space-between'};
   background: ${props => props.background || 'initial'};
   color: ${props => props.color || 'initial'};
+`;
+
+const Img = styled.img`
+  width: ${props => props.width || 'unset'};
 `;
 
 export { Btn };

@@ -5,9 +5,9 @@ const VERIFYSTATE = 'signUpStore/VERIFYSTATE';
 const ENTERVERIFYSTATE = 'signUpStore/ENTERVERIFYSTATE';
 const NICKNAME = 'signUpStore/NICKNAME';
 const PASSWORD = 'signUpStore/PASSWORD';
-const NEXT = 'signUpStore/NEXT';
 const DOUBLE = 'signUpStore/DOUBLE';
 const CLICKNUM = 'signUpStore/CLICKNUM';
+const NICKNAMEPASS = 'signUpStore/NICKNAMEPASS';
 
 export const email = (email: string) => ({ type: EMAIL, email });
 export const veriftNum = (veriftState: string) => ({
@@ -26,9 +26,9 @@ export const password = (passwordState: string) => ({
   type: PASSWORD,
   passwordState,
 });
-export const next = (next: boolean) => ({ type: NEXT, next });
 export const double = (doubleState: boolean) => ({ type: DOUBLE, doubleState });
 export const clickNum = () => ({ type: CLICKNUM });
+export const nicknamePass = (pass: boolean) => ({ type: NICKNAMEPASS, pass });
 
 export const initialState = {
   emailState: '',
@@ -36,9 +36,9 @@ export const initialState = {
   enterVerifyState: '',
   nicknameState: '',
   passwordState: '',
-  next: false,
   doubleState: false,
   clickNumState: 3,
+  nicknamePass: false,
 };
 
 export const reducer = (state: State = initialState, action: any) => {
@@ -68,11 +68,6 @@ export const reducer = (state: State = initialState, action: any) => {
         ...state,
         passwordState: action.passwordState,
       };
-    case NEXT:
-      return {
-        ...state,
-        next: true,
-      };
     case DOUBLE:
       return {
         ...state,
@@ -82,6 +77,11 @@ export const reducer = (state: State = initialState, action: any) => {
       return {
         ...state,
         clickNumState: state.clickNumState - 1,
+      };
+    case NICKNAMEPASS:
+      return {
+        ...state,
+        nicknamePass: true,
       };
     default:
       return state;
