@@ -1,4 +1,3 @@
-// import { DispatchType } from "@src/interfaces/IDispatch";
 import { IState } from '@src/interfaces/ILogin';
 import React, { ReactNode } from 'react';
 import { createContext, useReducer } from 'react';
