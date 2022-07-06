@@ -40,6 +40,6 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
 
 export async function logout(dispatch: any) {
   dispatch({ type: 'LOGOUT' });
-  // localStorage.removeItem('currentUser');
+  localStorage.removeItem('currentUser');
   // localStorage.removeItem('token');
 }
