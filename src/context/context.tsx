@@ -4,11 +4,14 @@ import React, { ReactNode } from 'react';
 import { createContext, useReducer } from 'react';
 import { AuthReducer, LoginDispatch } from './reducer';
 
-// 디스패치를 위한 타입 (Dispatch 를 리액트에서 불러올 수 있음), 액션들의 타입을 Dispatch 의 Generics로 설정
+// localStorage에는 id(token)과 유저 닉네임만 저장함
+const currentUser = localStorage.getItem('currentUser');
+const id = currentUser ? JSON.parse(currentUser).id : null;
+const userName = currentUser ? JSON.parse(currentUser).userName : null;
 
 const initialState: IState = {
-  user: null,
-  token: null,
+  user: null || userName,
+  token: null || id,
   loading: false,
   errorMsg: null,
 };
@@ -19,25 +22,24 @@ const AuthDispatchContext = createContext<LoginDispatch | null>(null);
 // 토큰, 사용자 인증 정보를 저장
 export function useAuthState() {
   const context = React.useContext(AuthStateContext);
-  console.log(context.user);
+
   if (context === undefined)
     throw new Error('useAuthState는 AuthProvider 안에서만 사용 가능합니다.');
   return context;
 }
 
-// 나중에 생성할 dispatch를 전달
+// dispatch를 전달
 export function useAuthDispatch() {
   const context = React.useContext(AuthDispatchContext);
-  // console.log(context);
-  if (context === undefined)
+
+  if (!context)
     throw new Error('useAuthDispatch는 AuthProvider 안에서만 사용 가능합니다.');
   return context;
 }
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, dispatch] = useReducer(AuthReducer, initialState);
-  // console.log(`user:`);
-  console.dir(user.user);
+
   return (
     <AuthStateContext.Provider value={user}>
       <AuthDispatchContext.Provider value={dispatch}>

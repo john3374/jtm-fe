@@ -8,7 +8,6 @@ import { isEmail } from './Validation';
 import { useNavigate } from 'react-router-dom';
 
 const LoginEmail = () => {
-  // 왜 두번씩 렌더링이 되지...?
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -27,7 +26,8 @@ const LoginEmail = () => {
       try {
         const responseData = await loginUser(dispatch, inputs);
 
-        if (!responseData?.userIdx) return;
+        // 이거 userName 나중에 token으로 바꿔야함
+        if (!responseData?.userName) return;
         // 로그인 완료 시 메인으로 이동
         navigate('../createPaper', { replace: true });
       } catch (e) {
