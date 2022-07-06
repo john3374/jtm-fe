@@ -21,8 +21,8 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
     if (response.status === 200) {
       // 프론트측에서 저장할 user 정보
       const userData = {
-        email: response.data.email,
-        userIdx: response.data.userId,
+        // email: response.data.email,
+        id: response.data.idToken,
         userName: response.data.userName,
       };
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
@@ -41,5 +41,5 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
 export async function logout(dispatch: any) {
   dispatch({ type: 'LOGOUT' });
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
+  // localStorage.removeItem('token');
 }
