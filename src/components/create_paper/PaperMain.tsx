@@ -30,9 +30,9 @@ const Option = styled.div`
 
 const PaperMain = () => {
   const navigate = useNavigate();
-  const { user } = useAuthState();
+  const { user, token } = useAuthState(); // id 토큰, user 닉네임
 
-  if (user?.userIdx) navigate('/login');
+  if (!user) navigate('/login');
 
   return (
     <main className="paper-main-wrap">

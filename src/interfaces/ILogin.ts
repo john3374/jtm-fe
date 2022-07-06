@@ -1,8 +1,6 @@
 export interface IUser {
-  userIdx: number;
   userName: string;
   email: string;
-  password: string;
 }
 
 // 로그인 상태 인터페이스

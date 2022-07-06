@@ -1,23 +1,11 @@
-import { IState as IState, IUser } from '@src/interfaces/ILogin';
+import { IState } from '@src/interfaces/ILogin';
 import { Dispatch } from 'react';
-
-// localStorage 저장해둔게 있나 확인
-// const currentUser: any = localStorage.getItem('currentUser');
-// console.log(currentUser);
-
-// const user = currentUser ? JSON.parse(currentUser).user : null;
-// const token = currentUser ? JSON.parse(currentUser).token : null;
-
-// console.log(user, token);
 
 export type LoginAction =
   | { type: 'REQUEST_LOGIN'; loading: boolean }
   | {
       type: 'LOGIN_SUCCESS';
       payload: any;
-      // username: string;
-      // user: string;
-      // loading: boolean;
     }
   | { type: 'LOGOUT'; user: string }
   | { type: 'LOGIN_ERROR'; loading: boolean; error: any };
@@ -26,7 +14,6 @@ export type LoginAction =
 export type LoginDispatch = Dispatch<LoginAction>;
 
 export const AuthReducer = (initialState: IState, action: LoginAction) => {
-  console.log(action);
   switch (action.type) {
     case 'REQUEST_LOGIN':
       return {
@@ -37,8 +24,8 @@ export const AuthReducer = (initialState: IState, action: LoginAction) => {
       // 일부러 서버 측과 key 이름 다르게
       return {
         ...initialState,
-        user: action.payload,
-        token: action.payload.idToken, // authNum?
+        user: action.payload.userName,
+        token: action.payload.id,
         loading: false,
       };
     case 'LOGOUT':
