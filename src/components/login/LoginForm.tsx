@@ -9,11 +9,13 @@ const LoginForm = ({
   password,
   onChange,
   disabled,
+  autocomplete,
 }: {
   email: string;
   password: string;
   onChange: any;
   disabled?: boolean;
+  autocomplete?: string;
 }) => {
   // const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,6 +33,7 @@ const LoginForm = ({
         name="email"
         onChange={onChange}
         disabled={disabled}
+        autocomplete={autocomplete}
       />
       <TextInput
         isPassword
