@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
 import './paperMain.scss';
@@ -31,7 +31,6 @@ const Option = styled.div`
 const PaperMain = () => {
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
-
   if (!user) navigate('/login');
 
   return (
@@ -40,7 +39,7 @@ const PaperMain = () => {
         {user && (
           <p>
             <>
-              {user}님, <br /> 안녕하세요!
+              {user.userName}님, <br /> 안녕하세요!
             </>
           </p>
         )}

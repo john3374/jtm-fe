@@ -3,14 +3,18 @@ import React, { ReactNode } from 'react';
 import { createContext, useReducer } from 'react';
 import { AuthReducer, LoginDispatch } from './reducer';
 
-// localStorage에는 id(token)과 유저 닉네임만 저장함
+// localStorage에는 id(token)과 유저 닉네임, 이메일만 저장함
 const currentUser = localStorage.getItem('currentUser');
 const id = currentUser ? JSON.parse(currentUser).id : null;
 const userName = currentUser ? JSON.parse(currentUser).userName : null;
+const email = currentUser ? JSON.parse(currentUser).email : null;
 
 const initialState: IState = {
-  user: null || userName,
-  token: null || id,
+  user: {
+    userName: userName,
+    email: email,
+  },
+  token: id,
   loading: false,
   errorMsg: null,
 };

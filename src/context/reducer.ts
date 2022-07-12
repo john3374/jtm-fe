@@ -21,10 +21,13 @@ export const AuthReducer = (initialState: IState, action: LoginAction) => {
         loading: true,
       };
     case 'LOGIN_SUCCESS':
-      // 일부러 서버 측과 key 이름 다르게
+      // context InitialState와 같은 구조
       return {
         ...initialState,
-        user: action.payload.userName,
+        user: {
+          userName: action.payload.userName,
+          email: action.payload.email,
+        },
         token: action.payload.id,
         loading: false,
       };

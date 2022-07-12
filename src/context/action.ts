@@ -16,8 +16,8 @@ export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
         'Content-Type': 'application/json',
       },
       data: {
-        email: 'star_horse_write@gmail.com',
-        password: '12345678',
+        email: loginPayload.email,
+        password: loginPayload.password,
       },
     });
 
@@ -27,6 +27,7 @@ export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
       const userData = {
         id: response.data.idToken,
         userName: response.data.userName,
+        email: response.data.email,
       };
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
       localStorage.setItem('currentUser', JSON.stringify(userData));
