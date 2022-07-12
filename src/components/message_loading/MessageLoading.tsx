@@ -1,41 +1,42 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 // import { Btn } from '../common/Btn';
 import './messageLoading.scss';
 import Header from '../layout/Header';
 import { Btn } from '../common/Btn';
 import MessageInput from './MessageInput';
+import { initialState, message, messageReducer } from './messageStore';
+import StickerPop from './StickerPop';
 
 const MessageLoading = () => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
+  const [stickerPop, setStickerPop] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(messageReducer, initialState);
+
+  const messageList = state.message;
+
+  const messageGet = async () => {
+    try {
+      // 메세지 목록 확인도 에러나는 중
+      const a = await axios.get('http://3.39.162.248:80/message', {
+        headers: {
+          ['User-Email']: `jam@gmail.com`,
+        },
+      });
+      dispatch(message(a.data.messages));
+      console.log(a);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    messageGet();
+  }, []);
+
   const loading = async (content: any, font: any, color: any) => {
     try {
-      //     // 메세지 목록 확인도 에러나는 중
-      //     const a = await axios.get('http://3.39.162.248:80/message', {
-      //       data: {
-      //         user: {
-      //           email: 'jam@gmail.com',
-      //         },
-      //       },
-      //     });
-      //     console.log(a);
-      //   } catch (e) {
-      //     console.log(e);
-      //   }
-      // };
-
-      // loading();
-
-      // 메세지 삭제 패스 변수 사용 에러 나는 중
-      // const a = await axios.delete(`http://3.39.162.248:80/message/1`, {
-      //   params: {
-      //     message: {
-      //       id: 1,
-      //     },
-      //   },
-      // });
-
       // 메세지 수정 패스 변수 사용
       // const a = await axios({
       //   method: 'put',
@@ -72,22 +73,31 @@ const MessageLoading = () => {
           },
         },
       });
+      messageGet();
       console.log(a);
     } catch (e) {
       console.log(e);
     }
   };
-  const c = async () => {
-    const q = await axios.get('http://3.39.162.248:80/message', {
-      data: {
-        user: {
-          email: 'jam@gmail.com',
+  const messageDelete = async (e: React.FormEvent, messageId: any) => {
+    try {
+      // 메세지 삭제 패스 변수 사용 에러 수정 완
+      const a = await axios({
+        url: `http://3.39.162.248:80/message/${messageId}`,
+        method: 'delete',
+        data: {
+          user: {
+            email: 'jam@gmail.com',
+          },
         },
-      },
-    });
-    console.log(q);
+      });
+      messageGet();
+      console.log(a);
+    } catch (e) {
+      console.log(e);
+    }
   };
-  c();
+
   const paperName = '숨니의 생일을 축하해요!';
   // 페이퍼 제목을 가져와야 함
 
@@ -108,7 +118,7 @@ const MessageLoading = () => {
     <div className="message-loading">
       <Header to="/" pageNm={paperName} />
       <div className="message-wrap">
-        <Message>
+        {/* <Message>
           <p>
             수민 안뇽 ! 생일 축하해 :D 우리가 올해 같은 동아리가 되면서 함께
             보내는 시간이 많아져서 정말 좋아 우리가 올해 같은 동아리가 되면서
@@ -123,7 +133,19 @@ const MessageLoading = () => {
             함께 보내는 시간이 많아져서 정말 좋아 우리가 올해 같은 동아리가
             되면서 함께 보내는 시간이 많아져서 정말 ...
           </p>
-        </Message>
+        </Message> */}
+        {messageList[0] ? (
+          messageList.map((item: any) => (
+            <Message>
+              <p>{item.content}</p>
+              <button onClick={e => messageDelete(e, item.messageId)}>
+                메세지 삭제하기
+              </button>
+            </Message>
+          ))
+        ) : (
+          <p>앗 아직 메세지가 없어요!</p>
+        )}
       </div>
       <div className="message-btns">
         <Btn
@@ -148,11 +170,13 @@ const MessageLoading = () => {
           logo="star.svg"
           imgSize="20px"
           center="center"
+          onClick={() => setStickerPop(true)}
         />
       </div>
       {messagePop && (
         <MessageInput send={loading} setMessagePop={setMessagePop} />
       )}
+      {stickerPop && <StickerPop setStickerPop={setStickerPop} />}
     </div>
   );
 };

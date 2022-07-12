@@ -34,21 +34,6 @@ const SignUp = () => {
   const verifyState = state.verifyState;
   const nicknamePass = state.nicknamePass;
 
-  // 회원가입
-  // const q = async (e: any) => {
-  //   e.preventDefault();
-  //   const w = await axios({
-  //     method: 'POST',
-  //     url: 'http://3.39.162.248:80/join',
-  //     data: {
-  //       email: 'wltnsis7563@naver.com',
-  //       password: '123456789',
-  //       nickname: 'sadasdsad',
-  //     },
-  //   });
-  //   console.log(w);
-  // };
-
   // 페이퍼 개설
   // const q2 = async (e: any) => {
   //   e.preventDefault();
@@ -62,29 +47,6 @@ const SignUp = () => {
   //       },
   //       user: {
   //         email: 'jam@gmail.com',
-  //       },
-  //     },
-  //   });
-  //   console.log(w);
-  // };
-
-  // 메세지 보내기
-  // const q3 = async (e: any) => {
-  //   e.preventDefault();
-  //   const w = await axios({
-  //     method: 'POST',
-  //     url: 'http://3.39.162.248:80/message',
-  //     data: {
-  //       user: {
-  //         email: 'jam@gmail.com',
-  //       },
-  //       paper: {
-  //         paperId: 2,
-  //       },
-  //       message: {
-  //         content: '안녕하ㅔㅅ요....',
-  //         font: '굴림',
-  //         color: 'red',
   //       },
   //     },
   //   });

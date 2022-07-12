@@ -12,7 +12,7 @@ const GreyBox = styled.div`
   background-color: #f5f7f7;
   text-align: center !important;
   margin-top: 224px;
-  padding: 15px 45px;
+  padding: 35px 45px;
   box-sizing: border-box;
 `;
 

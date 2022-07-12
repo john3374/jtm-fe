@@ -13,6 +13,8 @@ import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
 import { Loading } from './components/Loading';
 import { AuthProvider } from './context';
+import Setting from './components/setting/Setting';
+import MessageLoading from './components/message_loading/MessageLoading';
 
 const Router = () => {
   const [REST_API, set_REST_API] = useState<string>('');
@@ -53,6 +55,8 @@ const Router = () => {
               <Route path="/createPaper" element={<PaperMain />} />
               <Route path="/createPaper/decideName" element={<NamePaper />} />
               <Route path="/createPaper/selectTheme" element={<Theme />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/message" element={<MessageLoading />} />
             </Route>
           </Routes>
         ) : (
