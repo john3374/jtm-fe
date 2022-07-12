@@ -40,14 +40,15 @@ const ItemStyle = styled.div`
 const ImgStyle = styled.div`
   overflow: hidden;
   position: relative;
-  border: 2px solid black;
+  border: 1px solid lightgrey;
+  border-radius: 1rem;
   width: 100%;
   height: 90%;
 `;
 
 const TextStyle = styled.div`
   text-align: center;
-  margin-top: 0.1rem;
+  margin-top: 0.5rem;
 `;
 
 export default ThemeList;

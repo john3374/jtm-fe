@@ -48,6 +48,7 @@ const ComponentStyle = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   height: 100%;
+  gap: 0.5rem;
 `;
 
 export default Theme;
