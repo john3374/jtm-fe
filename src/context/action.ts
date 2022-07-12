@@ -1,9 +1,12 @@
 import axios from 'axios';
-import { LoginDispatch } from './reducer';
 
 const ROOT_URL = 'http://49.50.160.59:8833';
 
-export const loginUser = async (dispatch: any, loginPayload: any) => {
+type LoginInfoType = {
+  email: string;
+  password: string;
+};
+export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
   try {
     // console.log(loginPayload); // data 하드코딩 수정해야함
     const response = await axios({
@@ -20,9 +23,9 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
 
     if (response.status === 200) {
       // 프론트측에서 저장할 user 정보
+
       const userData = {
-        email: response.data.email,
-        userIdx: response.data.userId,
+        id: response.data.idToken,
         userName: response.data.userName,
       };
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
@@ -33,7 +36,6 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
     }
     return;
   } catch (e) {
-    // console.log(e);
     dispatch({ type: 'LOGIN_ERROR', error: e });
   }
 };
@@ -41,5 +43,5 @@ export const loginUser = async (dispatch: any, loginPayload: any) => {
 export async function logout(dispatch: any) {
   dispatch({ type: 'LOGOUT' });
   localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
+  // localStorage.removeItem('token');
 }

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
 import './paperMain.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../context';
 
 const GreyBox = styled.div`
@@ -29,17 +29,19 @@ const Option = styled.div`
 `;
 
 const PaperMain = () => {
-  // const userDetails = useAuthState();
-  // console.log(userDetails);
-  const user = localStorage.getItem('currentUser');
-  const username = user ? JSON.parse(user).userName : null;
+  const navigate = useNavigate();
+  const { user, token } = useAuthState(); // id 토큰, user 닉네임
+
+  if (!user) navigate('/login');
 
   return (
     <main className="paper-main-wrap">
       <h2 className="paper-title">
-        {username && (
+        {user && (
           <p>
-            {username}님, <br /> 안녕하세요!
+            <>
+              {user}님, <br /> 안녕하세요!
+            </>
           </p>
         )}
       </h2>
