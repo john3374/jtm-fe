@@ -24,3 +24,27 @@
 - `styled-component`: CSS in JS, 재사용하기 편한 styled 컴포넌트를 만듦
 
 - `npm i -D typescript @babel/core @babel/preset-env @babel/preset-typescript @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint prettier eslint-plugin-prettier`: eslint를 사용할 때 install 해줘야 하는 목록들 
+
+### 로그인 저장 정보
+
+email: 'star_horse_write@gmail.com',
+password: '12345678',
+
+로그인 성공 시 저장하는 정보
+
+1. localStorage
+```js
+currentUser {
+   id(idToken), 
+   userName(닉네임),
+   email
+}
+```
+2. authContext (useContext로 사용가능)
+```js
+user {
+   userName,
+   email
+}, 
+token
+```
