@@ -27,9 +27,9 @@ const StyledLink = styled(Link)`
   &:after {
     content: '→';
     font-size: 1.2rem;
-    display: relative;
 
-    margin-left: 1rem;
+    position: relative;
+    margin-left: 0.5rem;
   }
 `;
 

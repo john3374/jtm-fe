@@ -16,16 +16,20 @@ const BottomBtn = ({ text, onclick, disabled }: IBottomBtn) => {
 };
 
 const StyledBtn = styled.button`
+  width: 85%;
+  bottom: 0;
+
   border: none;
-  width: 100%;
-  background: ${props => (props.disabled ? 'darkgray' : 'black')};
+  border-radius: 12px;
+
+  margin: 1.25rem;
   padding: 1rem 0;
-  margin-top: 0.5rem;
-  text-align: center;
+
+  background: ${props => (props.disabled ? 'darkgray' : 'black')};
   color: white;
   font-size: 1.2rem;
-  // position: fixed;
-  bottom: 0;
+  text-align: center;
+
   // validation 통과한 경우에만 hover
   ${props => (props.disabled ? '' : '&:hover { background: red }')}
 `;

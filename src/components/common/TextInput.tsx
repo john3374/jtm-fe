@@ -49,9 +49,9 @@ const StyledLabel = styled.label`
 
 const StyledTextInput = styled.input<ITextInput>`
   padding: 0.8rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   border: ${props => props.border || 'none'};
-  background: ${props => props.background || 'lightgrey'};
+  background: ${props => props.background || '#f2f2f2'};
   border-radius: 12px;
   &:focus {
     border: 2px solid rgba(0, 0, 0, 0.6);
@@ -66,7 +66,7 @@ const Wrapper = styled.section`
   margin-bottom: 1rem;
   display: flex;
   flex-flow: column nowrap;
-  padding: 0 10%;
+  padding: 0 5%;
 `;
 
 export { TextInput };
