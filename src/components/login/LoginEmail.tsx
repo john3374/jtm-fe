@@ -50,7 +50,7 @@ const LoginEmail = () => {
 
   return (
     <>
-      <Header pageNm="로그인" to="/login" />
+      <Header pageNm="로그인" to="/" />
       <LoginForm
         onChange={onChange}
         email={email}
