@@ -1,31 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface PropsType {
   path: string;
   name: string;
+  set: any;
 }
 
 function ThemeList(props: PropsType) {
-  const test = () => {
+  const [select, setSelect] = useState<number>();
+
+  const choice = () => {
     const selecting = props.name;
     switch (selecting) {
       case '기본/Simple':
-        console.log(1);
+        props.set(1);
+        setSelect(1);
         break;
       case '생일/Birthday':
-        console.log(2);
+        props.set(2);
+        setSelect(2);
         break;
       case '축하/Congratulations':
-        console.log(3);
+        props.set(3);
+        setSelect(3);
         break;
     }
-    // console.log('test', props.name);
+    console.log(select);
   };
+
   return (
     <ItemStyle>
       <ImgStyle>
-        <button onClick={test}>
+        <button onClick={choice}>
           <img
             style={{
               position: 'absolute',
@@ -38,7 +45,7 @@ function ThemeList(props: PropsType) {
             src={props.path}
             alt={props.name}
           />
-       </button>
+        </button>
       </ImgStyle>
       <TextStyle> {props.name} </TextStyle>
     </ItemStyle>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../layout/Header';
 import BottomBtn from '../common/BottomBtn';
 import ThemeList from './ThemeList';
@@ -8,6 +8,12 @@ import birthday from '../../static/theme/birthday.png';
 import congratulations from '../../static/theme/congratulations.png';
 
 function Theme() {
+  const [selectTheme, setSelectTheme] = useState<number>(0);
+
+  const inputSelectTheme = (x: number) => {
+    setSelectTheme(x);
+  };
+
   const theme = [
     {
       id: 1,
@@ -32,7 +38,12 @@ function Theme() {
       <main>
         <ComponentStyle>
           {theme.map(value => (
-            <ThemeList path={value.path} name={value.name} key={value.id} />
+            <ThemeList
+              set={inputSelectTheme}
+              path={value.path}
+              name={value.name}
+              key={value.id}
+            />
           ))}
         </ComponentStyle>
       </main>
