@@ -5,6 +5,7 @@ type EnvType = {
   VERIFY_MAIL: string;
   DOUBLE_CHECK: string;
   NICK_CHECK: string;
+  CREATE_PAPER: string;
 };
 
 const EnvConfig: EnvType = {
@@ -14,6 +15,7 @@ const EnvConfig: EnvType = {
   VERIFY_MAIL: process.env.REACT_APP_VERIFY_MAIL || '',
   DOUBLE_CHECK: process.env.REACT_APP_DOUBLE_CHECK || '',
   NICK_CHECK: process.env.REACT_APP_NICKNAME_CHECK || '',
+  CREATE_PAPER: process.env.REACT_APP_CREATE_PAPER || '',
 };
 
 export default EnvConfig;
