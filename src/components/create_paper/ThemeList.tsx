@@ -7,25 +7,28 @@ interface PropsType {
 }
 
 function ThemeList(props: PropsType) {
+  const test = () => {
+    console.log("click")
+  }
   return (
     <ItemStyle>
       <ImgStyle>
-        <img
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-          src={props.path}
-          alt={props.name}
-        />
+        <button onClick={test}>
+          <img
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+            src={props.path}
+            alt={props.name}
+          />
+       </button>
       </ImgStyle>
-      <TextStyle>
-        <span> {props.name} </span>
-      </TextStyle>
+      <TextStyle> {props.name} </TextStyle>
     </ItemStyle>
   );
 }
