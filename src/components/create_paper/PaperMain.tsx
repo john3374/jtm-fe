@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
 import './paperMain.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../context';
+import { IUser } from '@src/interfaces/ILogin';
+import FeedHeader from '../common/FeedHeader';
+import BottomBtn from '../common/BottomBtn';
 
 const GreyBox = styled.div`
   width: 100%;
@@ -31,39 +34,78 @@ const Option = styled.div`
 const PaperMain = () => {
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
-
   if (!user) navigate('/login');
+  const userPaperNum = 0;
+  return (
+    <>
+      <FeedHeader checkPoint={false} sideBar={undefined} />
+      {user && userPaperNum > 0 ? (
+        <ViewPapers {...user} />
+      ) : (
+        <SuggestCreation />
+      )}
+    </>
+  );
+};
 
+const ViewPapers = (user: IUser) => {
+  const userPaperNum = 1;
   return (
     <main className="paper-main-wrap">
-      <h2 className="paper-title">
+      <h1 style={{ fontSize: '18px', lineHeight: '1.5rem' }}>
         {user && (
-          <p>
-            <>
-              {user}님, <br /> 안녕하세요!
-            </>
-          </p>
+          <>
+            <p>
+              {user.userName}님, <br /> 롤링페이퍼의 묘미는
+              <br />
+              따뜻한 진심이 아닐까요?
+            </p>
+            <span style={{ color: '#BBBBBB' }}>
+              {userPaperNum}개의 롤링페이퍼가 있습니다!
+            </span>
+          </>
         )}
-      </h2>
-      <CreateNew />
+      </h1>
+      {/* <CreateNew /> */}
       <SettingButton />
     </main>
   );
 };
 
-const CreateNew = () => {
+const SuggestCreation = () => {
   return (
-    <GreyBox>
-      <p>
-        아직 페이퍼가 없네요, <br /> 새로 만들어보시겠어요?
-      </p>
-      <StyledMoveBtn
-        link="/createPaper/decideName"
-        text="새 롤링페이퍼 만들기"
-      />
-    </GreyBox>
+    <>
+      <StyledSuggestCreation>
+        <p style={{ color: '#CCCCCC' }}>
+          마라님,
+          <br />
+          안녕하세요!
+        </p>
+        <p style={{ color: '#999999' }}>
+          아직 롤링페이퍼가
+          <br />
+          없으시군요,
+        </p>
+        <p style={{ color: '#666666' }}>
+          한 번 새롭게
+          <br />
+          만들어보시겠어요?
+        </p>
+      </StyledSuggestCreation>
+      <BottomBtn text={'새 롤링페이퍼 만들기'} />
+    </>
   );
 };
+
+const StyledSuggestCreation = styled.main`
+  width: 90%;
+  margin-left: 2rem; // feed header와 맞춤
+
+  text-align: left;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: normal;
+`;
 
 const SettingButton = () => {
   return (
