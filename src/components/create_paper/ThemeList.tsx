@@ -8,8 +8,20 @@ interface PropsType {
 
 function ThemeList(props: PropsType) {
   const test = () => {
-    console.log("click")
-  }
+    const selecting = props.name;
+    switch (selecting) {
+      case '기본/Simple':
+        console.log(1);
+        break;
+      case '생일/Birthday':
+        console.log(2);
+        break;
+      case '축하/Congratulations':
+        console.log(3);
+        break;
+    }
+    // console.log('test', props.name);
+  };
   return (
     <ItemStyle>
       <ImgStyle>
