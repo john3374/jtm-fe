@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import simple from '../../static/theme/simple.png';
 import birthday from '../../static/theme/birthday.png';
 import congratulations from '../../static/theme/congratulations.png';
+import axios from 'axios';
+import EnvConfig from '../config/EnvConfig';
 
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
@@ -14,21 +16,42 @@ function Theme() {
     setSelectTheme(x);
   };
 
+  const sendInfo = async () => {
+    try {
+      await axios({
+        method: 'post',
+        url: EnvConfig.CREATE_PAPER,
+        data: {
+          user: {
+            paperTitle: '',
+            skin: selectTheme,
+            email: '',
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const theme = [
     {
       id: 1,
       path: simple,
       name: '기본/Simple',
+      isChecked: false,
     },
     {
       id: 2,
       path: birthday,
       name: '생일/Birthday',
+      isChecked: false,
     },
     {
       id: 3,
       path: congratulations,
       name: '축하/Congratulations',
+      isChecked: false,
     },
   ];
 
@@ -42,6 +65,8 @@ function Theme() {
               set={inputSelectTheme}
               path={value.path}
               name={value.name}
+              checked={value.isChecked}
+              idx={value.id}
               key={value.id}
             />
           ))}
