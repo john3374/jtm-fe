@@ -16,7 +16,6 @@ export interface User extends Base {
 
 export interface ISignUpState {
   doubleState: boolean;
-  clickNumState: number;
   emailState: string;
   nicknameState: string;
   passwordState: string;
@@ -28,7 +27,6 @@ export interface ISignUpState {
 export interface FirstVerify {
   nickNameTest: RegExp;
   nicknameState: string;
-  nicknamePass: boolean;
   passwordTest: RegExp;
   passwordState: string;
   rePassword: string;
@@ -42,6 +40,6 @@ export interface SecondVerify extends FirstVerify {
   nav: NavigateFunction;
 }
 
-export type SignUpEmailInter = Omit<ISignUpState, 'nicknamePass'> & {
+export type SignUpEmailInter = Pick<ISignUpState, 'emailState'> & {
   dispatch: React.Dispatch<any>;
 };

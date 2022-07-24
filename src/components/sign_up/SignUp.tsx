@@ -1,5 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useState, useReducer, useEffect, ChangeEvent } from 'react';
+import React, {
+  useState,
+  useReducer,
+  useEffect,
+  ChangeEvent,
+  useRef,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
@@ -8,9 +14,8 @@ import { nickNameTest, passwordTest, emailTest } from '../config/RegExp';
 import './signUp.scss';
 import SignUpEmail from './SignUpEmail';
 
-import { nicknameVerify, passVerify } from './SignUpFunction';
+import { emailVerify, gauge, passVerify } from './SignUpFunction';
 import {
-  clickNum,
   double,
   initialState,
   nickname,
@@ -20,19 +25,18 @@ import {
 } from './signUpStore';
 
 const SignUp = () => {
+  // 인증번호 받고 나서 회원가입 버튼 누르기 전에 이메일이 바뀌었을 때도 감지해야 함
   const [state, dispatch] = useReducer(reducer, initialState);
   const [rePassword, setRePassword] = useState<string>('');
-  // 닉네임 중복 체크를 했는지 확인해야 함
+  const scrollRef = useRef<any>();
   const nav = useNavigate();
 
   const doubleState = state.doubleState;
-  const clickNumState = state.clickNumState;
   const emailState = state.emailState;
   const nicknameState = state.nicknameState;
   const passwordState = state.passwordState;
   const enterVerifyState = state.enterVerifyState;
   const verifyState = state.verifyState;
-  const nicknamePass = state.nicknamePass;
 
   // 페이퍼 개설
   // const q2 = async (e: any) => {
@@ -53,54 +57,6 @@ const SignUp = () => {
   //   console.log(w);
   // };
 
-  const emailVerify = async (event: any): Promise<void> => {
-    event.preventDefault();
-    try {
-      const getDouble: AxiosResponse<object[]> = await axios({
-        url: EnvConfig.DOUBLE_CHECK,
-        method: 'get',
-        params: {
-          email: emailState,
-        },
-      });
-      if (getDouble) {
-        dispatch(double(true));
-        alert('인증번호가 발송됐습니다');
-      }
-    } catch (e) {
-      dispatch(double(false));
-      alert('이미 가입되어 있는 메일입니다.');
-    }
-  };
-
-  const mailSend = async (): Promise<void> => {
-    try {
-      if (clickNumState <= 0) {
-        return alert('인증 한도를 초과했습니다');
-      } else {
-        dispatch(clickNum());
-        alert(
-          `인증 번호가 메일로 발송되었습니다. 메일 발송 가능 횟수 : ${clickNumState}`
-        );
-        const codeSend = await axios({
-          url: EnvConfig.VERIFY_MAIL,
-          params: {
-            email: emailState,
-          },
-        });
-        dispatch(veriftNum(codeSend.data));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    if (doubleState && !verifyState) {
-      mailSend();
-    }
-  }, [doubleState]);
-
   // const q3 = async (e: any) => {
   //   e.preventDefault();
   //   const w = await axios({
@@ -115,23 +71,19 @@ const SignUp = () => {
   //   console.log(w);
   // };
 
+  useEffect(() => {
+    gauge(scrollRef.current);
+  }, []);
+
   return (
     <>
       <div className="signWrap">
         <div className="top">
           <p>회원가입</p>
+          <div className="bar" ref={scrollRef}></div>
         </div>
         <form id="signUp">
-          <SignUpEmail
-            doubleState={doubleState}
-            clickNumState={clickNumState}
-            emailState={emailState}
-            nicknameState={nicknameState}
-            passwordState={passwordState}
-            enterVerifyState={enterVerifyState}
-            verifyState={verifyState}
-            dispatch={dispatch}
-          />
+          <SignUpEmail emailState={emailState} dispatch={dispatch} />
           <div className="nickNameWrap">
             <TextInput
               title={'닉네임'}
@@ -140,11 +92,6 @@ const SignUp = () => {
                 dispatch(nickname(e.target.value))
               }
             />
-            <button
-              onClick={(e: any) => nicknameVerify(e, nicknameState, dispatch)}
-            >
-              닉네임 중복 체크
-            </button>
           </div>
           <div className="passwordWrap">
             <TextInput
@@ -165,6 +112,7 @@ const SignUp = () => {
             />
           </div>
           <BottomBtn
+            fixed={'fixed'}
             text={doubleState ? '다음' : '인증메일 받기'}
             onclick={(e: any) =>
               doubleState
@@ -179,31 +127,11 @@ const SignUp = () => {
                     passwordTest,
                     passwordState,
                     rePassword,
-                    nicknamePass,
                     nav,
                   })
-                : emailVerify(e)
+                : emailVerify(e, emailState, dispatch, double, veriftNum)
             }
           />
-          {/* {next ? (
-            <SignUpEmail
-              doubleState={doubleState}
-              clickNumState={clickNumState}
-              emailState={emailState}
-              nicknameState={nicknameState}
-              passwordState={passwordState}
-              enterVerifyState={enterVerifyState}
-              verifyState={verifyState}
-              dispatch={dispatch}
-            />
-          ) : (
-            <>
-              
-            </>
-          )} */}
-          {/* <button onClick={(e: any) => q(e)}>asd</button> */}
-          {/* <button onClick={(e: any) => q3(e)}>asd</button> */}
-          {/* <button onClick={() => nav('/')}>asd</button> */}
         </form>
       </div>
     </>

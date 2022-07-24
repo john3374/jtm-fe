@@ -1,18 +1,21 @@
 import { SignUpEmailInter } from '@src/interfaces/ISignUp';
 import React from 'react';
+import { MoveBtn } from '../common/MoveBtn';
 import { TextInput } from '../common/TextInput';
-import { email, enterVerifyNum } from './signUpStore';
+import { emailVerify } from './SignUpFunction';
+import { double, email, enterVerifyNum, veriftNum } from './signUpStore';
 
-const SignUpEmail = ({ dispatch }: SignUpEmailInter) => {
+const SignUpEmail = ({ dispatch, emailState }: SignUpEmailInter) => {
   return (
     <>
       <div className="emailWrap">
         <TextInput
           title={'이메일을 입력해주세요'}
           htmlFor={'email'}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            dispatch(email(e.target.value))
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(email(e.target.value));
+            dispatch(veriftNum('새 메일을 받아주세요'));
+          }}
         />
       </div>
       <div>
@@ -23,25 +26,11 @@ const SignUpEmail = ({ dispatch }: SignUpEmailInter) => {
             dispatch(enterVerifyNum(e.target.value))
           }
         />
+        <MoveBtn
+          onClick={e => emailVerify(e, emailState, dispatch, double, veriftNum)}
+          text="인증메일 재발송하기"
+        />
       </div>
-
-      {/* <BottomBtn
-        text={doubleState ? '회원가입 하기' : '인증메일 받기'}
-        onclick={
-          doubleState
-            ? (e: any) =>
-                passVerify(e, {
-                  nicknameState,
-                  passwordState,
-                  emailTest,
-                  emailState,
-                  enterVerifyState,
-                  verifyState,
-                  doubleState,
-                })
-            : emailVerify
-        }
-      /> */}
     </>
   );
 };
