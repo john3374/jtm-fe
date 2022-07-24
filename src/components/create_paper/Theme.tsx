@@ -65,8 +65,6 @@ function Theme() {
               set={inputSelectTheme}
               path={value.path}
               name={value.name}
-              checked={value.isChecked}
-              idx={value.id}
               key={value.id}
             />
           ))}

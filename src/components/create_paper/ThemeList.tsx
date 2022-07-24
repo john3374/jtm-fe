@@ -48,7 +48,8 @@ function ThemeList(props: PropsType) {
           <FontAwesomeIcon
             className={choose ? `select-img` : `not-select-img`}
             onClick={choice}
-            icon={faCircleDot} />
+            icon={faCircleDot}
+          />
         </FontAwesomeStyle>
       </ImgComponent>
       <TextStyle> {props.name} </TextStyle>
