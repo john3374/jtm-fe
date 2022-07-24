@@ -5,17 +5,23 @@ interface IBottomBtn {
   text: string;
   disabled?: boolean;
   onclick?: any;
+  fixed?: string;
 }
 
-const BottomBtn = ({ text, onclick, disabled }: IBottomBtn) => {
+interface IBtnStyle {
+  fixed?: string;
+  disabled?: boolean;
+}
+
+const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
   return (
-    <StyledBtn onClick={onclick} disabled={disabled}>
+    <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
       {text}
     </StyledBtn>
   );
 };
 
-const StyledBtn = styled.button`
+const StyledBtn = styled.button<IBtnStyle>`
   border: none;
   width: 100%;
   background: ${props => (props.disabled ? 'darkgray' : 'black')};
@@ -24,10 +30,14 @@ const StyledBtn = styled.button`
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  // position: fixed;
-  bottom: 0;
+  position: ${props => (props.fixed ? 'fixed' : 'unset')};
+  ${props => (props.fixed ? 'width : 343px' : '')};
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   // validation 통과한 경우에만 hover
   ${props => (props.disabled ? '' : '&:hover { background: red }')}
+  border-radius: 12px;
 `;
 
 export default BottomBtn;

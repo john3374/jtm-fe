@@ -7,7 +7,7 @@ const MoveBtn = ({ ...props }: IBtn) => {
   const link = props.link ? props.link : '';
   return (
     <StyledWrapper>
-      <StyledLink to={link} color={props.color}>
+      <StyledLink to={link} color={props.color} onClick={props.onClick}>
         {props.text}
       </StyledLink>
     </StyledWrapper>
@@ -21,16 +21,10 @@ const StyledWrapper = styled.section`
 `;
 
 const StyledLink = styled(Link)`
+  font-size: 0.93rem;
   font-weight: bold;
-  border-bottom: 2px solid black;
-  padding-bottom: 0.75rem;
-  &:after {
-    content: '→';
-    font-size: 1.2rem;
-    display: relative;
-
-    margin-left: 1rem;
-  }
+  color: #666;
+  border-bottom: 1px solid black;
 `;
 
 export { MoveBtn };

@@ -8,20 +8,47 @@ import { Btn } from '../common/Btn';
 import MessageInput from './MessageInput';
 import { initialState, message, messageReducer } from './messageStore';
 import StickerPop from './StickerPop';
+import MoreBtn from '../common/MoreBtn';
 
 const MessageLoading = () => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
   const [stickerPop, setStickerPop] = useState<boolean>(false);
+  const [fixPop, setFixPop] = useState<boolean>(false);
   const [state, dispatch] = useReducer(messageReducer, initialState);
+  const [sq, setSq] = useState<string>();
 
   const messageList = state.message;
 
+  const ass = {
+    user: {
+      email: 'jam@gmail.com',
+    },
+  };
+
+  const fiiix = async (text: string) => {
+    const a = await axios({
+      method: 'put',
+      url: 'http://3.39.162.248:80/message/9004',
+      data: {
+        user: {
+          email: 'jam@gmail.com',
+        },
+        message: {
+          content: text,
+          font: '굴림',
+          color: '#333',
+        },
+      },
+    });
+    console.log(a);
+  };
+
   const messageGet = async () => {
     try {
-      // 메세지 목록 확인도 에러나는 중
-      const a = await axios.get('http://3.39.162.248:80/message', {
+      const a = await axios('http://3.39.162.248:80/message', {
+        method: 'get',
         headers: {
-          ['User-Email']: `jam@gmail.com`,
+          ['User-Email']: 'jam@gmail.com',
         },
       });
       dispatch(message(a.data.messages));
@@ -29,6 +56,16 @@ const MessageLoading = () => {
     } catch (e) {
       console.log(e);
     }
+    //   const a = await axios.get('http://3.39.162.248:80/message', {
+    //     headers: {
+    //       ['User-Email']: `jam@gmail.com`,
+    //     },
+    //   });
+    //   dispatch(message(a.data.messages));
+    //   console.log(a);
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   useEffect(() => {
@@ -118,6 +155,7 @@ const MessageLoading = () => {
     <div className="message-loading">
       <Header to="/" pageNm={paperName} />
       <div className="message-wrap">
+        <MoreBtn />
         {/* <Message>
           <p>
             수민 안뇽 ! 생일 축하해 :D 우리가 올해 같은 동아리가 되면서 함께
@@ -141,6 +179,7 @@ const MessageLoading = () => {
               <button onClick={e => messageDelete(e, item.messageId)}>
                 메세지 삭제하기
               </button>
+              <button onClick={e => setFixPop(true)}>메세지 수정하기</button>
             </Message>
           ))
         ) : (
@@ -177,6 +216,12 @@ const MessageLoading = () => {
         <MessageInput send={loading} setMessagePop={setMessagePop} />
       )}
       {stickerPop && <StickerPop setStickerPop={setStickerPop} />}
+      {fixPop && (
+        <>
+          <input onChange={e => setSq(e.target.value)} />
+          <button onClick={e => fiiix(sq!)}>메세지 수정할기다</button>
+        </>
+      )}
     </div>
   );
 };
