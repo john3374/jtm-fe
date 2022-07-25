@@ -23,8 +23,9 @@ const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
 
 const StyledBtn = styled.button<IBtnStyle>`
   border: none;
+  bottom: 0;
   border-radius: 12px;
-
+  text-align: center;
   margin: 1.25rem;
   padding: 1rem 0;
 
@@ -37,7 +38,7 @@ const StyledBtn = styled.button<IBtnStyle>`
   left: 50%;
   transform: translateX(-50%);
   // validation 통과한 경우에만 hover
-  ${props => (props.disabled ? '' : '&:hover { background: red }')}
+  ${props => (props.disabled ? '' : '&:hover { background: #666666 }')}
   border-radius: 12px;
 `;
 
