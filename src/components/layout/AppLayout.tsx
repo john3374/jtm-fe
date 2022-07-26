@@ -20,6 +20,12 @@ const StyledContainer = styled.div`
   flex-flow: column nowrap;
   align-items: center;
   align-content: stretch;
+  @media screen and (max-width: 900px) {
+    height: 900px;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export default AppLayout;
