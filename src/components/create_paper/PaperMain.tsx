@@ -92,7 +92,9 @@ const SuggestCreation = () => {
           만들어보시겠어요?
         </p>
       </StyledSuggestCreation>
-      <BottomBtn text={'새 롤링페이퍼 만들기'} />
+      <Link to="/createPaper/decideName">
+        <BottomBtn text={'새 롤링페이퍼 만들기'} />
+      </Link>
     </>
   );
 };
