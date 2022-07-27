@@ -1,10 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
 import Header from '../layout/Header';
 
 export const NamePaper = () => {
+  const [title, setTitle] = useState();
   const navigate = useNavigate();
   const onClick = () => {
     navigate('/createPaper/selectTheme');
@@ -18,9 +19,12 @@ export const NamePaper = () => {
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
+          onChange={(e: any) => setTitle(e.target.value)}
         />
       </main>
-      <BottomBtn onclick={onClick} text="다음" />
+      <Link to={`/createPaper/selectTheme${title}`}>
+        <BottomBtn onclick={onClick} text="다음" />
+      </Link>
     </>
   );
 };

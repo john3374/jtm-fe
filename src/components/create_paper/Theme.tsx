@@ -8,9 +8,12 @@ import birthday from '../../static/theme/birthday.png';
 import congratulations from '../../static/theme/congratulations.png';
 import axios from 'axios';
 import EnvConfig from '../config/EnvConfig';
+import { useParams } from 'react-router-dom';
 
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
+  const { paperTitle } = useParams();
+  console.log(paperTitle);
 
   const inputSelectTheme = (x: number) => {
     setSelectTheme(x);

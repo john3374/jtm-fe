@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://49.50.160.59:8833';
+const ROOT_URL = 'http://3.39.162.248:80';
 
 type LoginInfoType = {
   email: string;
