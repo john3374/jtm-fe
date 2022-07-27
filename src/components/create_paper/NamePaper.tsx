@@ -22,7 +22,7 @@ export const NamePaper = () => {
           onChange={(e: any) => setTitle(e.target.value)}
         />
       </main>
-      <Link to={`/createPaper/selectTheme${title}`}>
+      <Link to={`/createPaper/selectTheme${title}`} style={{ width: '96%' }}>
         <BottomBtn onclick={onClick} text="다음" />
       </Link>
     </>

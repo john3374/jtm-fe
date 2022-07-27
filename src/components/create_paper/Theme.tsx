@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Header from '../layout/Header';
 import BottomBtn from '../common/BottomBtn';
 import ThemeList from './ThemeList';
@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
   const { paperTitle } = useParams();
+  // const { userEmail } = useContext(email);
   console.log(paperTitle);
 
   const inputSelectTheme = (x: number) => {
@@ -26,7 +27,7 @@ function Theme() {
         url: EnvConfig.CREATE_PAPER,
         data: {
           user: {
-            paperTitle: '',
+            paperTitle: paperTitle,
             skin: selectTheme,
             email: '',
           },
