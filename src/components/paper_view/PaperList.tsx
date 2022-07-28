@@ -31,7 +31,10 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     <StyledPaperList>
       {paperAndMsgs?.map((p: IPaper) => (
         <PaperItem key={p.paperId}>
-          <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
+          <TitleDiv>
+            <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
+            <p>․․․</p>
+          </TitleDiv>
           <ul>
             {p.messageCount > 0 ? (
               p.messages.map((msg, idx) => <MessageItem key={idx} {...msg} />)
@@ -45,8 +48,19 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
   );
 };
 
+const TitleDiv = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  p {
+    font-weight: bold;
+    font-size: 20px;
+    padding-right: 2rem;
+  }
+`;
+
 const StyledPaperList = styled.section`
-  margin: 4rem 0 2rem 0;
+  margin: 4rem 0 2rem 2rem;
 `;
 
 const PaperItem = styled.div`
@@ -55,7 +69,6 @@ const PaperItem = styled.div`
     display: flex;
     flex-flow: row nowrap;
     overflow-x: scroll;
-    gap: 0.5rem;
   }
 `;
 

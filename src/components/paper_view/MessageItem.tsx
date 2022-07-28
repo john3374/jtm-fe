@@ -26,6 +26,7 @@ const StyledMessageli = styled.li`
   min-height: 8vh;
   padding: 1.5rem 1rem;
   word-break: break-all;
+  margin-right: 1.25rem;
   background: ${props => (props.color ? props.color : 'lightyellow')};
 `;
 

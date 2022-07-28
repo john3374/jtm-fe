@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import './paperMain.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../context';
 import { IUser } from '@src/interfaces/ILogin';
@@ -42,9 +41,14 @@ const ViewPapers = (user: IUser) => {
   let userEmail = '';
   if (user.email) userEmail = user.email;
   return (
-    <main className="paper-main-wrap">
+    <main>
       <h1
-        style={{ fontSize: '20px', fontWeight: '900', lineHeight: '1.75rem' }}
+        style={{
+          fontSize: '20px',
+          fontWeight: '900',
+          lineHeight: '1.75rem',
+          paddingLeft: '2rem',
+        }}
       >
         {user && (
           <>
