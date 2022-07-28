@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 import EnvConfig from './components/config/EnvConfig';
-
 import GoToLogin from './components/login/GoToLogin';
 import SignUp from './components/sign_up/SignUp';
 import KakaoLogin from './components/kakao/KakaoLogin';
@@ -12,7 +11,7 @@ import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
 import { Loading } from './components/Loading';
-import { AuthProvider } from './context';
+import { AuthProvider, useAuthState } from './context';
 import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
 
