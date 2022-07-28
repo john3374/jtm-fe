@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Header from '../layout/Header';
 import BottomBtn from '../common/BottomBtn';
 import ThemeList from './ThemeList';
@@ -8,17 +8,21 @@ import birthday from '../../static/theme/birthday.png';
 import congratulations from '../../static/theme/congratulations.png';
 import axios from 'axios';
 import EnvConfig from '../config/EnvConfig';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuthState } from '../../../src/context';
 
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
   const { paperTitle } = useParams();
-  // const { userEmail } = useContext(email);
-  console.log(paperTitle);
+  const { user, token } = useAuthState();
+  const userEmail = user?.email;
+  const nv: any = useNavigate();
 
   const inputSelectTheme = (x: number) => {
     setSelectTheme(x);
   };
+
+  console.log('user', userEmail);
 
   const sendInfo = async () => {
     try {
@@ -26,13 +30,16 @@ function Theme() {
         method: 'post',
         url: EnvConfig.CREATE_PAPER,
         data: {
-          user: {
+          paper: {
             paperTitle: paperTitle,
             skin: selectTheme,
-            email: '',
+          },
+          user: {
+            email: userEmail,
           },
         },
       });
+      nv('/createPaper');
     } catch (err) {
       console.log(err);
     }
@@ -74,7 +81,7 @@ function Theme() {
           ))}
         </ComponentStyle>
       </main>
-      <BottomBtn text="다음" />
+      <BottomBtn text="다음" onclick={sendInfo} />
     </>
   );
 }
