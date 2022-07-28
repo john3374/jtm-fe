@@ -30,7 +30,10 @@ const LoginEmail = () => {
       try {
         const responseData = await loginUser(dispatch, inputs);
         // 이거 userName 나중에 token으로 바꿔야함
-        if (!responseData?.userName) return;
+        if (!responseData?.userName) {
+          alert('아이디 또는 비밀번호를 다시 확인해주세요.');
+          return;
+        }
       } catch (e) {
         console.error(e);
       }
