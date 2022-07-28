@@ -41,7 +41,7 @@ const ViewPapers = (user: IUser) => {
   let userEmail = '';
   if (user.email) userEmail = user.email;
   return (
-    <main>
+    <main style={{ overflow: 'scroll' }}>
       <h1
         style={{
           fontSize: '20px',

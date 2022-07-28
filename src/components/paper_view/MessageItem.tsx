@@ -28,6 +28,16 @@ const StyledMessageli = styled.li`
   word-break: break-all;
   margin-right: 1.25rem;
   background: ${props => (props.color ? props.color : 'lightyellow')};
+  span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    height: 72px; // line-height * line-clamp
+    line-height: 18px;
+  }
 `;
 
 export { MessageItem, NoMessageItem };

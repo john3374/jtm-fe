@@ -61,6 +61,8 @@ const TitleDiv = styled.div`
 
 const StyledPaperList = styled.section`
   margin: 4rem 0 2rem 2rem;
+  overflow: scroll;
+  max-height: 65vh;
 `;
 
 const PaperItem = styled.div`
