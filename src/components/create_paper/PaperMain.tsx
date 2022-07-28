@@ -60,7 +60,7 @@ const ViewPapers = (user: IUser) => {
         )}
       </h1>
       <PaperList userEmail={userEmail} />
-      <SettingButton />
+      {/* <SettingButton /> */}
     </main>
   );
 };
