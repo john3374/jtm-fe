@@ -1,5 +1,4 @@
 import React from 'react';
-import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
 import './paperMain.scss';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,17 +6,7 @@ import { useAuthState } from '../../context';
 import { IUser } from '@src/interfaces/ILogin';
 import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
-
-const GreyBox = styled.div`
-  width: 100%;
-  height: 164px;
-  border-radius: 12px;
-  background-color: #f5f7f7;
-  text-align: center !important;
-  margin-top: 224px;
-  padding: 35px 45px;
-  box-sizing: border-box;
-`;
+import PaperList from '../paper_view/PaperList';
 
 const Option = styled.div`
   width: 48px;
@@ -35,7 +24,7 @@ const PaperMain = () => {
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
   if (!user) navigate('/login');
-  const userPaperNum = 0;
+  const userPaperNum = 1;
   return (
     <>
       <FeedHeader checkPoint={false} sideBar={undefined} />
@@ -50,9 +39,13 @@ const PaperMain = () => {
 
 const ViewPapers = (user: IUser) => {
   const userPaperNum = 1;
+  let userEmail = '';
+  if (user.email) userEmail = user.email;
   return (
     <main className="paper-main-wrap">
-      <h1 style={{ fontSize: '18px', lineHeight: '1.5rem' }}>
+      <h1
+        style={{ fontSize: '20px', fontWeight: '900', lineHeight: '1.75rem' }}
+      >
         {user && (
           <>
             <p>
@@ -66,13 +59,17 @@ const ViewPapers = (user: IUser) => {
           </>
         )}
       </h1>
-      {/* <CreateNew /> */}
+      <PaperList userEmail={userEmail} />
       <SettingButton />
     </main>
   );
 };
 
 const SuggestCreation = () => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate('/createPaper');
+  };
   return (
     <>
       <StyledSuggestCreation>
@@ -139,9 +136,5 @@ const SettingButton = () => {
     </Link>
   );
 };
-
-const StyledMoveBtn = styled(MoveBtn)`
-  margin-top: 2rem;
-`;
 
 export default PaperMain;
