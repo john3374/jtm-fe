@@ -86,7 +86,7 @@ const SuggestCreation = () => {
           <br />
           없으시군요,
         </p>
-        <p style={{ color: '#666666' }}>
+        <p style={{ color: 'gray' }}>
           한 번 새롭게
           <br />
           만들어보시겠어요?
