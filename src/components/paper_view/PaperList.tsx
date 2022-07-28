@@ -2,17 +2,18 @@ import { IMessage, IPaper } from '@src/interfaces/IPaper';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { MessageItem, NoMessageItem } from './MessageItem';
 
 interface IPaperAndMsg {
   paper: IPaper[];
-  message: {
-    count: number;
-    paperId: string;
-  }[];
+  // message: {
+  //   count: number;
+  //   paperId: string;
+  // }[];
 }
 
 const PaperList = ({ userEmail }: { userEmail: string }) => {
-  const [paperAndMsgs, setPaperAndMsgs] = useState<IPaperAndMsg>();
+  const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
 
   // const papers = await getPaperMsgList(userEmail);
   // const data = await getPaperMsgList('lanto@gmail.com');
@@ -21,18 +22,22 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     async function fetchAndSetPapers() {
       const allData = await getPaperList('lanto@gmail.com');
       setPaperAndMsgs(allData);
-      console.dir(allData);
     }
     fetchAndSetPapers();
+    console.log(paperAndMsgs);
   }, [userEmail]);
 
   return (
     <StyledPaperList>
-      {paperAndMsgs?.paper.map((p: IPaper) => (
+      {paperAndMsgs?.map((p: IPaper) => (
         <PaperItem key={p.paperId}>
-          <h2>{p.paperTitle}</h2>
+          <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
           <ul>
-            <li></li>
+            {p.messageCount > 0 ? (
+              p.messages.map((msg, idx) => <MessageItem key={idx} {...msg} />)
+            ) : (
+              <NoMessageItem />
+            )}
           </ul>
         </PaperItem>
       ))}
@@ -41,15 +46,26 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
 };
 
 const StyledPaperList = styled.section`
-  margin: 1rem 0;
+  margin: 4rem 0 2rem 0;
 `;
 
 const PaperItem = styled.div`
+  margin: 1rem 0 2rem;
+  ul {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: scroll;
+    gap: 0.5rem;
+  }
+`;
+
+const StyledPaperTitle = styled.p`
   font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
 `;
 
 const getPaperList = async (email: string) => {
-  // console.log(email);
   try {
     const response = await axios({
       method: 'get',
@@ -60,34 +76,7 @@ const getPaperList = async (email: string) => {
     });
     if (response.status == 200) {
       const paperMsgData: IPaperAndMsg = response.data;
-      const paperDetailList: any[] = [];
-      for (const p of paperMsgData.paper) {
-        // paperMsgData.paper.forEach((val, idx) => {
-        const temp = await getMsgList(p.paperId, email);
-        console.log(temp);
-        paperDetailList.push(temp);
-      }
-      // console.log(paperDetailList);
-      return { ...paperMsgData, paperDetailList };
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const getMsgList = async (pId: string, email: string) => {
-  try {
-    const response = await axios({
-      method: 'post',
-      url: `http://3.39.162.248:80/paper/${pId}`,
-      data: {
-        user: email,
-      },
-    });
-    if (response.status == 200) {
-      const msgData = response.data;
-      console.log(msgData);
-      return msgData;
+      return paperMsgData.paper;
     }
   } catch (e) {
     console.log(e);

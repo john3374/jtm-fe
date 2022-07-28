@@ -4,9 +4,12 @@ export interface IPaper {
   paperId: string;
   paperTitle: string;
   skin: number;
+  messageCount: number;
+  messages: IMessage[];
 }
 
 export interface IMessage {
-  paperId: string;
-  count: number;
+  messageId: string;
+  content: string;
+  userName: string;
 }
