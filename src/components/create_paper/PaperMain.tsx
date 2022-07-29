@@ -27,15 +27,13 @@ const PaperMain = () => {
   return (
     <>
       <FeedHeader checkPoint={false} sideBar={undefined} />
-      {user && userPaperNum > 0 ? (
-        <ViewPapers {...user} />
-      ) : (
-        <SuggestCreation />
-      )}
+      {user && userPaperNum > 0 && <ViewPapers {...user} />}
+      {user && userPaperNum === 0 && <SuggestCreation {...user} />}
     </>
   );
 };
 
+// 유저의 페이퍼가 있는 경우
 const ViewPapers = (user: IUser) => {
   const userPaperNum = 1;
   let userEmail = '';
@@ -69,31 +67,38 @@ const ViewPapers = (user: IUser) => {
   );
 };
 
-const SuggestCreation = () => {
+// 유저의 페이퍼가 없는 경우
+const SuggestCreation = (user: IUser) => {
   const navigate = useNavigate();
+
   return (
     <>
-      <StyledSuggestCreation>
-        <p style={{ color: '#CCCCCC' }}>
-          마라님,
-          <br />
-          안녕하세요!
-        </p>
-        <p style={{ color: '#999999' }}>
-          아직 롤링페이퍼가
-          <br />
-          없으시군요,
-        </p>
-        <p style={{ color: 'gray' }}>
-          한 번 새롭게
-          <br />
-          만들어보시겠어요?
-        </p>
-      </StyledSuggestCreation>
-      <BottomBtn
-        text={'새 롤링페이퍼 만들기'}
-        onclick={() => navigate('/createPaper/decideName')}
-      />
+      {user && (
+        <>
+          {' '}
+          <StyledSuggestCreation>
+            <p style={{ color: '#CCCCCC' }}>
+              {user.userName}님,
+              <br />
+              안녕하세요!
+            </p>
+            <p style={{ color: '#999999' }}>
+              아직 롤링페이퍼가
+              <br />
+              없으시군요,
+            </p>
+            <p style={{ color: 'gray' }}>
+              한 번 새롭게
+              <br />
+              만들어보시겠어요?
+            </p>
+          </StyledSuggestCreation>
+          <BottomBtn
+            text={'새 롤링페이퍼 만들기'}
+            onclick={() => navigate('/createPaper/decideName')}
+          />
+        </>
+      )}
     </>
   );
 };
