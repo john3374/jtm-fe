@@ -1,6 +1,5 @@
 {
   "name": "m-to-f",
-  "homepage": "https://pullingoff.github.io/jtm-fe",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
