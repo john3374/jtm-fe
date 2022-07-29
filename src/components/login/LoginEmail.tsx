@@ -8,10 +8,6 @@ import { isEmail } from './Validation';
 import { useNavigate } from 'react-router-dom';
 
 const LoginEmail = () => {
-  useEffect(() => {
-    // 로그인하러 들어오면 기존에 저장돼있던 로컬스토리지 삭제
-    // localStorage.removeItem('currentUser');
-  }, []);
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -19,9 +15,16 @@ const LoginEmail = () => {
   const { email, password } = inputs;
   const [isValidated, setValidation] = useState<boolean>(false);
 
-  const { loading } = useAuthState(); // initialState 안의 것을 구조 분해 할당
+  const { user, loading } = useAuthState(); // initialState 안의 것을 구조 분해 할당
   const dispatch = useAuthDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // TODO: 로그인하러 들어오면 기존에 저장돼있던 로컬스토리지 삭제
+    // localStorage.removeItem('currentUser');
+    // 또는 설정으로 리디렉션
+    // if (user) navigate('/setting');
+  }, []);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
