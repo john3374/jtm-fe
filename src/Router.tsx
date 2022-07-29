@@ -16,14 +16,14 @@ import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
 
 const Router = () => {
-  const [REST_API, set_REST_API] = useState<string>('');
+  const [KAKAO_API, set_KAKAO_API] = useState<string>('');
   const [CLIENT_SECRET, set_CLIENT_SECRET] = useState<string>('');
 
   useEffect(() => {
     axios
-      .get(EnvConfig.REST_API)
+      .get(EnvConfig.KAKAO_API)
       .then(function (res) {
-        set_REST_API(res.data.result);
+        set_KAKAO_API(res.data.result);
       })
       .catch(function (err) {
         console.log(err);
@@ -41,15 +41,15 @@ const Router = () => {
   return (
     <AuthProvider>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {REST_API && CLIENT_SECRET ? (
+        {KAKAO_API && CLIENT_SECRET ? (
           <Routes>
             <Route element={<AppLayout />}>
-              <Route path="/" element={<GoToLogin api={REST_API} />} />
+              <Route path="/" element={<GoToLogin api={KAKAO_API} />} />
               <Route path="/login" element={<LoginEmail />} />
               <Route path="/login/signUp" element={<SignUp />} />
               <Route
                 path="/oauth/kakao/callback"
-                element={<KakaoLogin api={REST_API} client={CLIENT_SECRET} />}
+                element={<KakaoLogin api={KAKAO_API} client={CLIENT_SECRET} />}
               />
               <Route path="/createPaper" element={<PaperMain />} />
               <Route path="/createPaper/decideName" element={<NamePaper />} />

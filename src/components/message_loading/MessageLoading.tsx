@@ -9,6 +9,7 @@ import MessageInput from './MessageInput';
 import { initialState, message, messageReducer } from './messageStore';
 import StickerPop from './StickerPop';
 import MoreBtn from '../common/MoreBtn';
+import EnvConfig from '../config/EnvConfig';
 
 const MessageLoading = ({ messageData }: any) => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const MessageLoading = ({ messageData }: any) => {
   const messageFix = async (text: string) => {
     const a = await axios({
       method: 'put',
-      url: 'http://3.39.162.248:80/message/9004',
+      url: `${EnvConfig.LANTO_SERVER}/message/9004`,
       data: {
         user: {
           email: 'jam@gmail.com',
@@ -39,7 +40,7 @@ const MessageLoading = ({ messageData }: any) => {
 
   const messageGet = async () => {
     try {
-      const a = await axios('http://3.39.162.248:80/message', {
+      const a = await axios(`${EnvConfig.LANTO_SERVER}/message`, {
         method: 'get',
         headers: {
           ['User-Email']: 'jam@gmail.com',
@@ -60,7 +61,7 @@ const MessageLoading = ({ messageData }: any) => {
     try {
       const a = await axios({
         method: 'post',
-        url: 'http://3.39.162.248:80/message',
+        url: `${EnvConfig.LANTO_SERVER}/message`,
         data: {
           user: {
             email: 'jam@gmail.com',
@@ -84,7 +85,7 @@ const MessageLoading = ({ messageData }: any) => {
   const messageDelete = async (e: React.FormEvent, messageId: any) => {
     try {
       const a = await axios({
-        url: `http://3.39.162.248:80/message/${messageId}`,
+        url: `${EnvConfig.LANTO_SERVER}/message/${messageId}`,
         method: 'delete',
         data: {
           user: {

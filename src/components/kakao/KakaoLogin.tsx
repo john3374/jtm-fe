@@ -9,7 +9,7 @@ interface PropsType {
 }
 
 function KakaoLogin(props: PropsType): null {
-  const REST_API_KEY: string = props.api;
+  const KAKAO_API_KEY: string = props.api;
   const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
   const CLIENT_SECRET: string = props.client;
   const code: string =
@@ -20,7 +20,7 @@ function KakaoLogin(props: PropsType): null {
   async function getToken() {
     const payload: string = qs.stringify({
       grant_type: 'authorization_code',
-      client_id: REST_API_KEY,
+      client_id: KAKAO_API_KEY,
       redirect_uri: REDIRECT_URI,
       code: code,
       client_secret: CLIENT_SECRET,
@@ -30,7 +30,7 @@ function KakaoLogin(props: PropsType): null {
         'https://kauth.kakao.com/oauth/token',
         payload
       ); // res => object
-      Kakao.init(REST_API_KEY);
+      Kakao.init(KAKAO_API_KEY);
       Kakao.Auth.setAccessToken(res.data.access_token);
       nv('/inputEmail');
     } catch (err) {

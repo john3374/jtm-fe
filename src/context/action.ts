@@ -1,6 +1,7 @@
+import EnvConfig from '@src/components/config/EnvConfig';
 import axios from 'axios';
 
-const ROOT_URL = 'http://3.39.162.248:80';
+const ROOT_URL = EnvConfig.LANTO_SERVER;
 
 type LoginInfoType = {
   email: string;
