@@ -24,6 +24,7 @@ const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
 const StyledBtn = styled.button<IBtnStyle>`
   border-radius: 12px;
   border: none;
+  cursor: pointer;
   min-width: 90%;
   background: ${props => (props.disabled ? `gray` : 'black')};
   padding: 1rem 0;

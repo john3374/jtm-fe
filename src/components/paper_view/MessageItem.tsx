@@ -7,8 +7,8 @@ const NoMessageItem = () => {
 };
 
 const MessageItem = (msg: IMessage) => {
-  const randomInt = parseInt((Math.random() * 24).toString(), 10);
-  const randomColor = `hsl(${randomInt * 15}, 45%, 80%)`;
+  const randomInt = parseInt((Math.random() * 100).toString(), 10);
+  const randomColor = `hsl(${randomInt * 8}, 85%, 90%)`;
 
   return (
     <StyledMessageli color={randomColor}>
