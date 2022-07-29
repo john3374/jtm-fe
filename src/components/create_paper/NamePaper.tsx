@@ -20,12 +20,10 @@ export const NamePaper = () => {
           onChange={(e: any) => setTitle(e.target.value)}
         />
       </main>
-      <Link to={`/createPaper/selectTheme${title}`} style={{ width: '96%' }}>
-        <BottomBtn
-          onclick={() => navigate('/createPaper/selectTheme${title}')}
-          text="다음"
-        />
-      </Link>
+      <BottomBtn
+        onclick={() => navigate(`/createPaper/selectTheme/${title}`)}
+        text="다음"
+      />
     </>
   );
 };
