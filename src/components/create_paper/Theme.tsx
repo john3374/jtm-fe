@@ -7,7 +7,7 @@ import simple from '../../static/theme/simple.png';
 import birthday from '../../static/theme/birthday.png';
 import congratulations from '../../static/theme/congratulations.png';
 import axios from 'axios';
-import EnvConfig from '../config/EnvConfig';
+import EnvConfig from '../../config/EnvConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthState } from '../../../src/context';
 

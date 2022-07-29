@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
-import EnvConfig from './components/config/EnvConfig';
+import EnvConfig from './config/EnvConfig';
 import GoToLogin from './components/login/GoToLogin';
 import SignUp from './components/sign_up/SignUp';
 import KakaoLogin from './components/kakao/KakaoLogin';

@@ -9,8 +9,8 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
-import EnvConfig from '../config/EnvConfig';
-import { nickNameTest, passwordTest, emailTest } from '../config/RegExp';
+import EnvConfig from '../../config/EnvConfig';
+import { nickNameTest, passwordTest, emailTest } from '../../config/RegExp';
 import './signUp.scss';
 import SignUpEmail from './SignUpEmail';
 

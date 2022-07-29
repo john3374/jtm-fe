@@ -1,4 +1,4 @@
-import EnvConfig from '@src/components/config/EnvConfig';
+import EnvConfig from '../config/EnvConfig';
 import axios from 'axios';
 
 const ROOT_URL = EnvConfig.LANTO_SERVER;

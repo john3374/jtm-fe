@@ -9,7 +9,7 @@ import MessageInput from './MessageInput';
 import { initialState, message, messageReducer } from './messageStore';
 import StickerPop from './StickerPop';
 import MoreBtn from '../common/MoreBtn';
-import EnvConfig from '../config/EnvConfig';
+import EnvConfig from '../../config/EnvConfig';
 
 const MessageLoading = ({ messageData }: any) => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
