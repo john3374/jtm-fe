@@ -7,9 +7,7 @@ import Header from '../layout/Header';
 export const NamePaper = () => {
   const [title, setTitle] = useState();
   const navigate = useNavigate();
-  const onClick = () => {
-    navigate('/createPaper/selectTheme');
-  };
+
   return (
     <>
       <Header pageNm="롤링페이퍼 만들기" to="/createPaper" />
@@ -23,7 +21,10 @@ export const NamePaper = () => {
         />
       </main>
       <Link to={`/createPaper/selectTheme${title}`} style={{ width: '96%' }}>
-        <BottomBtn onclick={onClick} text="다음" />
+        <BottomBtn
+          onclick={() => navigate('/createPaper/selectTheme${title}')}
+          text="다음"
+        />
       </Link>
     </>
   );

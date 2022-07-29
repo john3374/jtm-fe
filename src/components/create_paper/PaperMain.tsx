@@ -23,7 +23,7 @@ const PaperMain = () => {
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
   if (!user) navigate('/login');
-  const userPaperNum = 1;
+  const userPaperNum = 0;
   return (
     <>
       <FeedHeader checkPoint={false} sideBar={undefined} />
@@ -71,9 +71,6 @@ const ViewPapers = (user: IUser) => {
 
 const SuggestCreation = () => {
   const navigate = useNavigate();
-  const onClick = () => {
-    navigate('/createPaper');
-  };
   return (
     <>
       <StyledSuggestCreation>
@@ -93,9 +90,10 @@ const SuggestCreation = () => {
           만들어보시겠어요?
         </p>
       </StyledSuggestCreation>
-      <Link to="/createPaper/decideName" style={{ width: '96%' }}>
-        <BottomBtn text={'새 롤링페이퍼 만들기'} />
-      </Link>
+      <BottomBtn
+        text={'새 롤링페이퍼 만들기'}
+        onclick={() => navigate('/createPaper/decideName')}
+      />
     </>
   );
 };

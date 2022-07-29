@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface IBottomBtn {
   text: string;
   disabled?: boolean;
-  onclick?: any;
+  onclick?: any; // state로도 사용 가능하고 navigate 목적도 가능
   fixed?: string;
 }
 
@@ -14,6 +14,7 @@ interface IBtnStyle {
 }
 
 const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
+  //
   return (
     <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
       {text}
