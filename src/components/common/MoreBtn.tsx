@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import MoreBottom from './MoreBottom';
 
 const More = styled.div`
   width: 16px;
   height: 16px;
   display: flex;
   justify-content: space-between;
+  align-self: flex-end;
+  cursor: pointer;
 `;
 
 const Dot = styled.div`
@@ -16,12 +19,16 @@ const Dot = styled.div`
 `;
 
 const MoreBtn = () => {
+  const [more, setMore] = useState<boolean>(false);
   return (
-    <More>
-      <Dot />
-      <Dot />
-      <Dot />
-    </More>
+    <>
+      <More onClick={() => setMore(prev => !prev)}>
+        <Dot />
+        <Dot />
+        <Dot />
+      </More>
+      {more && <MoreBottom setMore={setMore} text={['수정하기', '삭제하기']} />}
+    </>
   );
 };
 
