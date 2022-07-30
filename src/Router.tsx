@@ -41,29 +41,25 @@ const Router = () => {
   return (
     <AuthProvider>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {KAKAO_API && CLIENT_SECRET ? (
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route path="/" element={<GoToLogin api={KAKAO_API} />} />
-              <Route path="/login" element={<LoginEmail />} />
-              <Route path="/login/signUp" element={<SignUp />} />
-              <Route
-                path="/oauth/kakao/callback"
-                element={<KakaoLogin api={KAKAO_API} client={CLIENT_SECRET} />}
-              />
-              <Route path="/createPaper" element={<PaperMain />} />
-              <Route path="/createPaper/decideName" element={<NamePaper />} />
-              <Route
-                path="/createPaper/selectTheme:paperTitle"
-                element={<Theme />}
-              />
-              <Route path="/setting" element={<Setting />} />
-              <Route path="/message" element={<MessageLoading />} />
-            </Route>
-          </Routes>
-        ) : (
-          <Loading />
-        )}
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<GoToLogin api={KAKAO_API} />} />
+            <Route path="/login" element={<LoginEmail />} />
+            <Route path="/login/signUp" element={<SignUp />} />
+            { KAKAO_API && CLIENT_SECRET ? (
+            <Route
+              path="/oauth/kakao/callback"
+              element={<KakaoLogin api={KAKAO_API} client={CLIENT_SECRET} />} />) : null }
+            <Route path="/createPaper" element={<PaperMain />} />
+            <Route path="/createPaper/decideName" element={<NamePaper />} />
+            <Route
+              path="/createPaper/selectTheme:paperTitle"
+              element={<Theme />}
+            />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/message" element={<MessageLoading />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
