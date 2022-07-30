@@ -10,7 +10,6 @@ import { NamePaper } from './components/create_paper/NamePaper';
 import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
-import { Loading } from './components/Loading';
 import { AuthProvider, useAuthState } from './context';
 import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
