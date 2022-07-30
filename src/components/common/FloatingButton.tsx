@@ -23,16 +23,20 @@ function FloatingButton() {
 
   return (
     <SpeedDial
-      ariaLabel="SpeedDial example"
+      ariaLabel="button"
+      direction="up"
       icon={<SpeedDialIcon />}
       onClose={onClose}
       onOpen={onOpen}
       open={click}
-      direction="up"
+      FabProps={{
+        color: 'default',
+        size: 'small',
+      }}
       style={{
         position: 'fixed',
-        bottom: '0',
-        margin: '0.3rem',
+        marginBottom: '0.9rem',
+        bottom: 0,
       }}
     >
       {items.map(item => (
