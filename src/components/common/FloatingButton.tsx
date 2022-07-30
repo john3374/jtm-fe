@@ -4,12 +4,19 @@ import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import DescriptionIcon from '@mui/icons-material/Description';
+import { useNavigate } from 'react-router-dom';
 
 function FloatingButton() {
   const items = [
-    { icon: <RedeemIcon />, name: 'gift' },
-    { icon: <DescriptionIcon />, name: 'paper' },
+    { icon: <RedeemIcon />, name: 'gift', path: '/' },
+    {
+      icon: <DescriptionIcon />,
+      name: 'paper',
+      path: '/createPaper/decideName',
+    },
   ];
+
+  const nv: any = useNavigate();
 
   const [click, setClick] = useState<boolean>(false);
 
@@ -44,7 +51,10 @@ function FloatingButton() {
           key={item.name}
           icon={item.icon}
           tooltipTitle={item.name}
-          onClick={onClose}
+          id={item.name}
+          onClick={() => {
+            nv(item.path);
+          }}
         />
       ))}
     </SpeedDial>
