@@ -1,30 +1,50 @@
-import React from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import RedeemIcon from '@mui/icons-material/Redeem';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 function FloatingButton() {
+  const items = [
+    { icon: <RedeemIcon />, name: 'gift' },
+    { icon: <DescriptionIcon />, name: 'paper' },
+  ];
+
+  const [click, setClick] = useState<boolean>(false);
+
+  const onClose = () => {
+    setClick(false);
+  };
+
+  const onOpen = () => {
+    setClick(true);
+  };
+
   return (
-    <FloatingBtn>
-      <FontAwesomeIcon icon={faPlus} />
-    </FloatingBtn>
+    <SpeedDial
+      ariaLabel="SpeedDial example"
+      icon={<SpeedDialIcon />}
+      onClose={onClose}
+      onOpen={onOpen}
+      open={click}
+      direction="up"
+      style={{
+        position: 'fixed',
+        bottom: '0',
+        margin: '0.3rem',
+      }}
+    >
+      {items.map(item => (
+        <SpeedDialAction
+          key={item.name}
+          icon={item.icon}
+          tooltipTitle={item.name}
+          onClick={onClose}
+        />
+      ))}
+    </SpeedDial>
   );
 }
-
-const FloatingBtn = styled.div`
-  position: fixed; //포인트!
-  line-height: 0.3rem;
-  bottom: 0.5rem;
-  right: 30%;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #111111;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
 
 export default FloatingButton;
