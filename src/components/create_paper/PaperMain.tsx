@@ -6,7 +6,7 @@ import { IUser } from '@src/interfaces/ILogin';
 import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
 import PaperList from '../paper_view/PaperList';
-import FloatingButton from '../common/FloatingButton';
+// import FloatingButton from '../common/FloatingButton';
 
 const Option = styled.div`
   width: 48px;
