@@ -6,7 +6,6 @@ import { IUser } from '@src/interfaces/ILogin';
 import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
 import PaperList from '../paper_view/PaperList';
-// import FloatingButton from '../common/FloatingButton';
 
 const Option = styled.div`
   width: 48px;
@@ -41,7 +40,6 @@ const ViewPapers = (user: IUser) => {
   if (user.email) userEmail = user.email;
   return (
     <main style={{ overflow: 'scroll' }}>
-      <FloatingButton />
       <h1
         style={{
           fontSize: '20px',
