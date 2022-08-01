@@ -26,7 +26,7 @@ const PaperMain = () => {
   const userPaperNum = 0;
   return (
     <>
-      <FeedHeader checkPoint={false} sideBar={undefined} />
+      <FeedHeader />
       {user && userPaperNum > 0 && <ViewPapers {...user} />}
       {user && userPaperNum === 0 && <SuggestCreation {...user} />}
     </>
