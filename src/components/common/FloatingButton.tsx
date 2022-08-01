@@ -8,7 +8,7 @@
 //
 // function FloatingButton() {
 //   const items = [
-//     { icon: <RedeemIcon />, name: 'gift', path: '/' },
+//     { icon: <RedeemIcon />, name: 'gift', path: '/paperGift' },
 //     {
 //       icon: <DescriptionIcon />,
 //       name: 'paper',
