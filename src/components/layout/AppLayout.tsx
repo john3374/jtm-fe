@@ -20,9 +20,18 @@ const StyledContainer = styled.div`
   flex-flow: column nowrap;
   align-items: center;
   align-content: stretch;
-  //@media screen and (min-height: 901px) {
-  //  height: 900px;
-  //}
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @media screen and (min-height: 901px) {
+    height: 900px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: unset;
+    position: fixed;
+    width: 100%;
+  }
 `;
 
 export default AppLayout;

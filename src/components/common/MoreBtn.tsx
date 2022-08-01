@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { More1 } from '../message_loading/messageInterface';
+import MoreBottom from './MoreBottom';
 
 const More = styled.div`
   width: 16px;
   height: 16px;
   display: flex;
   justify-content: space-between;
+  align-self: flex-end;
+  cursor: pointer;
 `;
 
 const Dot = styled.div`
@@ -15,13 +19,24 @@ const Dot = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const MoreBtn = () => {
+const MoreBtn = ({ text, messageId, fixText }: More1) => {
+  const [more, setMore] = useState<boolean>(false);
   return (
-    <More>
-      <Dot />
-      <Dot />
-      <Dot />
-    </More>
+    <>
+      <More onClick={() => setMore(prev => !prev)}>
+        <Dot />
+        <Dot />
+        <Dot />
+      </More>
+      {more && (
+        <MoreBottom
+          setMore={setMore}
+          text={text}
+          messageId={messageId}
+          fixText={fixText}
+        />
+      )}
+    </>
   );
 };
 

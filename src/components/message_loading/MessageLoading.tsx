@@ -10,6 +10,10 @@ import { initialState, message, messageReducer } from './messageStore';
 import StickerPop from './StickerPop';
 import MoreBtn from '../common/MoreBtn';
 import EnvConfig from '../../config/EnvConfig';
+import { Loading, Message } from './messageInterface';
+import { messageDelete, messageFix, messageGet } from './messageFunction';
+
+// 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 
 const MessageLoading = ({ messageData }: any) => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
@@ -20,95 +24,33 @@ const MessageLoading = ({ messageData }: any) => {
 
   const messageList = state.message;
 
-  const messageFix = async (text: string) => {
+  useEffect(() => {
+    messageGet(dispatch, message);
+  }, []);
+
+  const reactionAmount = async () => {
     const a = await axios({
-      method: 'put',
-      url: `${EnvConfig.LANTO_SERVER}/message/9004`,
-      data: {
-        user: {
-          email: 'jam@gmail.com',
-        },
-        message: {
-          content: text,
-          font: '굴림',
-          color: '#333',
-        },
-      },
+      url: `http://3.39.162.248:80/reaction/${1}`,
+      method: 'get',
     });
     console.log(a);
   };
 
-  const messageGet = async () => {
-    try {
-      const a = await axios(`${EnvConfig.LANTO_SERVER}/message`, {
-        method: 'get',
-        headers: {
-          ['User-Email']: 'jam@gmail.com',
-        },
-      });
-      dispatch(message(a.data.messages));
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    messageGet();
-  }, []);
-
-  const messagePost = async (content: any, font: any, color: any) => {
-    try {
-      const a = await axios({
-        method: 'post',
-        url: `${EnvConfig.LANTO_SERVER}/message`,
-        data: {
-          user: {
-            email: 'jam@gmail.com',
-          },
-          paper: {
-            paperId: 1,
-          },
-          message: {
-            content: content,
-            font: font,
-            color: color,
-          },
-        },
-      });
-      messageGet();
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const messageDelete = async (e: React.FormEvent, messageId: any) => {
-    try {
-      const a = await axios({
-        url: `${EnvConfig.LANTO_SERVER}/message/${messageId}`,
-        method: 'delete',
-        data: {
-          user: {
-            email: 'jam@gmail.com',
-          },
-        },
-      });
-      messageGet();
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const paperName = '숨니의 생일을 축하해요!';
-
-  const Message = styled.div`
+  // ${props =>
+  // props.backColor ? props.backColor : '#ffbba6'};
+  const Message = styled.div<Loading>`
     width: 327px;
-    background-color: #ffbba6;
+    /* background-color: #ffbba6; */
+    background-color: ${props =>
+      props.backColor ? props.backColor : '#ffbba6'};
+    font-family: ${props => (props.font ? props.font : 'sans-serif')};
     border-radius: 12px;
     padding: 20px 24px;
     box-sizing: border-box;
     margin-top: 34px;
+    display: flex;
+    flex-direction: column;
     & p {
       font-size: 14px;
       font-weight: 600;
@@ -116,21 +58,24 @@ const MessageLoading = ({ messageData }: any) => {
     }
   `;
 
-  console.log(messageList);
   return (
     <div className="message-loading">
       <Header to="/" pageNm={paperName} />
       <div className="message-wrap">
         {messageList[0] ? (
-          messageList.map((item: any) => (
-            <Message>
+          messageList.map((item: Message) => (
+            <Message backColor={item.color} font={item.font}>
               <p>{item.userName}</p>
               <p>{item.content}</p>
               {/* <button onClick={e => messageDelete(e, item.messageId)}>
                 메세지 삭제하기
               </button>
               <button onClick={e => setFixPop(true)}>메세지 수정하기</button> */}
-              <MoreBtn />
+              <MoreBtn
+                text={['수정하기', '삭제하기']}
+                messageId={'9004'}
+                fixText={'수정했습니당 알겠죠이이이?'}
+              />
             </Message>
           ))
         ) : (
@@ -163,16 +108,10 @@ const MessageLoading = ({ messageData }: any) => {
           onClick={() => setStickerPop(true)}
         />
       </div>
-      {messagePop && (
+      {/* {messagePop && (
         <MessageInput send={messagePost} setMessagePop={setMessagePop} />
-      )}
+      )} */}
       {stickerPop && <StickerPop setStickerPop={setStickerPop} />}
-      {fixPop && (
-        <>
-          <input onChange={e => setSq(e.target.value)} />
-          <button onClick={e => messageFix(sq!)}>메세지 수정할기다</button>
-        </>
-      )}
     </div>
   );
 };

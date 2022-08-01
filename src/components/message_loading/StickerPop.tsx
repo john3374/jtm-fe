@@ -38,7 +38,7 @@ const StickerPop = ({ setStickerPop }: any) => {
   //       url: 'http://3.39.162.248:80/sticker',
   //       data: {
   //         user: {
-  //           email: 'lanto@gmail.com',
+  //           email: 'haeun@gmail.com',
   //         },
   //         paper: {
   //           paperId: 6005,
@@ -87,7 +87,7 @@ const StickerPop = ({ setStickerPop }: any) => {
       }}
       onMouseMove={(e: React.MouseEvent) => {
         if (e.clientX > leftLimit && e.clientX < rightLimit) {
-          // console.log(e.clientX);
+          console.log(e.clientX);
           setX(e.clientX);
         }
         // if(e.clientY)

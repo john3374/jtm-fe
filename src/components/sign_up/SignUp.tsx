@@ -95,6 +95,7 @@ const SignUp = () => {
           </div>
           <div className="passwordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호'}
               htmlFor={'password'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,6 +105,7 @@ const SignUp = () => {
           </div>
           <div className="rePasswordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호 확인'}
               htmlFor={'rePassword'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
