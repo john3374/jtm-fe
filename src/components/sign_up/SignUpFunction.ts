@@ -1,6 +1,6 @@
 import { FirstVerify, SecondVerify } from '@src/interfaces/ISignUp';
 import axios, { AxiosResponse } from 'axios';
-import EnvConfig from '../config/EnvConfig';
+import EnvConfig from '../../config/EnvConfig';
 import { nicknamePass } from './signUpStore';
 
 const verify = ({

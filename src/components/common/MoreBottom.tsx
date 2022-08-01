@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { More } from '../message_loading/messageInterface';
+import {
+  messageFix,
+  messageFixOrDelete,
+} from '../message_loading/messageFunction';
+import { More2 } from '../message_loading/messageInterface';
 
 const BottomWrap = styled.div`
   width: 100%;
@@ -29,12 +33,21 @@ const Tap = styled.p`
   margin-bottom: 32px;
 `;
 
-const MoreBottom = ({ setMore, text }: More) => {
-  console.log(text);
+const MoreBottom = ({ setMore, text, messageId, fixText }: More2) => {
   return (
     <BottomWrap onClick={() => setMore(prev => !prev)}>
       <BottomTap>
-        {text && text.map((item: string) => <Tap>{item}</Tap>)}
+        {text &&
+          text.map((item: string, idx: number) => (
+            <Tap
+              onClick={async () =>
+                await messageFixOrDelete(item, messageId, fixText)
+              }
+              key={idx}
+            >
+              {item}
+            </Tap>
+          ))}
       </BottomTap>
     </BottomWrap>
   );

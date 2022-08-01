@@ -1,23 +1,11 @@
 import React from 'react';
-import { MoveBtn } from '../common/MoveBtn';
 import styled from 'styled-components';
-import './paperMain.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../context';
 import { IUser } from '@src/interfaces/ILogin';
 import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
-
-const GreyBox = styled.div`
-  width: 100%;
-  height: 164px;
-  border-radius: 12px;
-  background-color: #f5f7f7;
-  text-align: center !important;
-  margin-top: 224px;
-  padding: 35px 45px;
-  box-sizing: border-box;
-`;
+import PaperList from '../paper_view/PaperList';
 
 const Option = styled.div`
   width: 48px;
@@ -39,20 +27,27 @@ const PaperMain = () => {
   return (
     <>
       <FeedHeader checkPoint={false} sideBar={undefined} />
-      {user && userPaperNum > 0 ? (
-        <ViewPapers {...user} />
-      ) : (
-        <SuggestCreation />
-      )}
+      {user && userPaperNum > 0 && <ViewPapers {...user} />}
+      {user && userPaperNum === 0 && <SuggestCreation {...user} />}
     </>
   );
 };
 
+// 유저의 페이퍼가 있는 경우
 const ViewPapers = (user: IUser) => {
   const userPaperNum = 1;
+  let userEmail = '';
+  if (user.email) userEmail = user.email;
   return (
-    <main className="paper-main-wrap">
-      <h1 style={{ fontSize: '18px', lineHeight: '1.5rem' }}>
+    <main style={{ overflow: 'scroll' }}>
+      <h1
+        style={{
+          fontSize: '20px',
+          fontWeight: '900',
+          lineHeight: '1.75rem',
+          paddingLeft: '2rem',
+        }}
+      >
         {user && (
           <>
             <p>
@@ -66,35 +61,44 @@ const ViewPapers = (user: IUser) => {
           </>
         )}
       </h1>
-      {/* <CreateNew /> */}
-      <SettingButton />
+      <PaperList userEmail={userEmail} />
+      {/* <SettingButton /> */}
     </main>
   );
 };
 
-const SuggestCreation = () => {
+// 유저의 페이퍼가 없는 경우
+const SuggestCreation = (user: IUser) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <StyledSuggestCreation>
-        <p style={{ color: '#CCCCCC' }}>
-          마라님,
-          <br />
-          안녕하세요!
-        </p>
-        <p style={{ color: '#999999' }}>
-          아직 롤링페이퍼가
-          <br />
-          없으시군요,
-        </p>
-        <p style={{ color: '#666666' }}>
-          한 번 새롭게
-          <br />
-          만들어보시겠어요?
-        </p>
-      </StyledSuggestCreation>
-      <Link to="/createPaper/decideName">
-        <BottomBtn text={'새 롤링페이퍼 만들기'} />
-      </Link>
+      {user && (
+        <>
+          {' '}
+          <StyledSuggestCreation>
+            <p style={{ color: '#CCCCCC' }}>
+              {user.userName}님,
+              <br />
+              안녕하세요!
+            </p>
+            <p style={{ color: '#999999' }}>
+              아직 롤링페이퍼가
+              <br />
+              없으시군요,
+            </p>
+            <p style={{ color: 'gray' }}>
+              한 번 새롭게
+              <br />
+              만들어보시겠어요?
+            </p>
+          </StyledSuggestCreation>
+          <BottomBtn
+            text={'새 롤링페이퍼 만들기'}
+            onclick={() => navigate('/createPaper/decideName')}
+          />
+        </>
+      )}
     </>
   );
 };
@@ -139,9 +143,5 @@ const SettingButton = () => {
     </Link>
   );
 };
-
-const StyledMoveBtn = styled(MoveBtn)`
-  margin-top: 2rem;
-`;
 
 export default PaperMain;

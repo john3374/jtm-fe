@@ -1,6 +1,7 @@
+import EnvConfig from '../config/EnvConfig';
 import axios from 'axios';
 
-const ROOT_URL = 'http://3.39.162.248:80';
+const ROOT_URL = EnvConfig.LANTO_SERVER;
 
 type LoginInfoType = {
   email: string;
@@ -11,7 +12,7 @@ export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
     // console.log(loginPayload); // data 하드코딩 수정해야함
     const response = await axios({
       method: 'POST',
-      url: `${ROOT_URL}/login`,
+      url: `${ROOT_URL}login`,
       headers: {
         'Content-Type': 'application/json',
       },

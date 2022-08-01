@@ -13,19 +13,24 @@ const AppLayout = () => {
 
 const StyledContainer = styled.div`
   max-width: 375px;
-  height: 900px;
+  height: 100vh;
   margin: auto;
   border: 1px solid lightgrey; // 경계 구분용
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   align-content: stretch;
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
   @media screen and (min-height: 901px) {
-    //position: absolute;
-    margin: auto 0;
-    //left: 50%;
-    //top: 50%;
-    //transform: translate(-50%, -50%);
+    height: 900px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: unset;
+    position: fixed;
+    width: 100%;
   }
 `;
 

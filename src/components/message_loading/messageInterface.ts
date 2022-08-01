@@ -15,7 +15,12 @@ export interface Message {
   userName: string;
 }
 
-export interface More {
-  setMore: React.Dispatch<React.SetStateAction<boolean>>;
+export interface More1 {
   text: string[];
+  messageId: string;
+  fixText?: string;
+}
+
+export interface More2 extends More1 {
+  setMore: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -36,7 +36,6 @@ const Feed = styled.span`
   margin: 0.5rem 0 0 2rem;
   font-size: 1.5rem;
   font-weight: 900;
-  font-family: 'IBM Plex Mono';
 `;
 
 const Hamburger = styled.div`

@@ -9,8 +9,8 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import BottomBtn from '../common/BottomBtn';
 import { TextInput } from '../common/TextInput';
-import EnvConfig from '../config/EnvConfig';
-import { nickNameTest, passwordTest, emailTest } from '../config/RegExp';
+import EnvConfig from '../../config/EnvConfig';
+import { nickNameTest, passwordTest, emailTest } from '../../config/RegExp';
 import './signUp.scss';
 import SignUpEmail from './SignUpEmail';
 
@@ -95,6 +95,7 @@ const SignUp = () => {
           </div>
           <div className="passwordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호'}
               htmlFor={'password'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,6 +105,7 @@ const SignUp = () => {
           </div>
           <div className="rePasswordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호 확인'}
               htmlFor={'rePassword'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

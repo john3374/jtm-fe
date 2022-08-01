@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { More1 } from '../message_loading/messageInterface';
 import MoreBottom from './MoreBottom';
 
 const More = styled.div`
@@ -18,7 +19,7 @@ const Dot = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const MoreBtn = () => {
+const MoreBtn = ({ text, messageId, fixText }: More1) => {
   const [more, setMore] = useState<boolean>(false);
   return (
     <>
@@ -27,7 +28,14 @@ const MoreBtn = () => {
         <Dot />
         <Dot />
       </More>
-      {more && <MoreBottom setMore={setMore} text={['수정하기', '삭제하기']} />}
+      {more && (
+        <MoreBottom
+          setMore={setMore}
+          text={text}
+          messageId={messageId}
+          fixText={fixText}
+        />
+      )}
     </>
   );
 };
