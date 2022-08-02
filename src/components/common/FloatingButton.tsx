@@ -43,6 +43,7 @@ function FloatingButton() {
       style={{
         position: 'fixed',
         marginBottom: '2rem',
+        right: 0,
         bottom: 0,
       }}
     >
