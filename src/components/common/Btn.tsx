@@ -65,10 +65,15 @@ const LinkBtn = ({ ...props }: IBtn) => {
       width={props.width}
       height={props.height}
       padding={props.padding}
+      center={props.center}
     >
       {props.text}
       {props.logo && (
-        <img src={`${process.env.PUBLIC_URL}/icons/${props.logo}`} alt="" />
+        <Img
+          width={props.imgSize}
+          src={`${process.env.PUBLIC_URL}/icons/${props.logo}`}
+          alt=""
+        />
       )}
     </StyledLink>
   );
@@ -76,11 +81,12 @@ const LinkBtn = ({ ...props }: IBtn) => {
 
 const StyledLink = styled(Link)<IBtnStyle>`
   display: flex;
-  width: 15rem;
-  margin: 1rem;
-  padding: 1rem 1.5rem;
+  width: ${props => props.width || `15rem`};
+  height: ${props => props.height || ''};
+  margin: 1rem 1rem 0;
+  padding: ${props => props.padding || '1rem 1.5rem;'};
   border-radius: 60px;
-  justify-content: space-between;
+  justify-content: ${props => props.center || 'space-between'};
   background: ${props => props.background || 'initial'};
   color: ${props => props.color || 'initial'};
 `;

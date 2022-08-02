@@ -33,9 +33,11 @@ const StyledBtn = styled.button<IBtnStyle>`
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  position: ${props => (props.fixed ? 'fixed' : 'unset')};
-  ${props => (props.fixed ? 'width : 343px' : '')};
-  bottom: 0;
+  /* position: ${props => (props.fixed ? 'fixed' : 'unset')}; */
+  ${props => (props.fixed ? 'width : 343px' : '')}
+  position: sticky;
+  bottom: 34px;
+  transform: ${props => (props.fixed ? 'translateX(-50%)' : 'unset')};
   // validation 통과한 경우에만 hover
   ${props => (props.disabled ? '' : '&:hover { background: gray }')}
 `;
