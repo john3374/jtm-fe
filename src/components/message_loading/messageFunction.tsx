@@ -28,7 +28,7 @@ export const messagePost = async (
   try {
     const a = await axios({
       method: 'post',
-      url: `${EnvConfig.LANTO_SERVER}/message`,
+      url: `${EnvConfig.LANTO_SERVER}message`,
       data: {
         user: {
           email: email,

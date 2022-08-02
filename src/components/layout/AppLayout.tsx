@@ -29,7 +29,7 @@ const StyledContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     margin: unset;
-    position: fixed;
+    position: absolute;
     width: 100%;
   }
 `;

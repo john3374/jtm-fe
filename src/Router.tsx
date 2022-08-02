@@ -13,6 +13,8 @@ import LoginEmail from './components/login/LoginEmail';
 import { AuthProvider, useAuthState } from './context';
 import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
+import MessageWrite from './components/message_loading/MessageWrite';
+import StickerWrite from './components/message_loading/StickerWrite';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -59,6 +61,8 @@ const Router = () => {
             />
             <Route path="/setting" element={<Setting />} />
             <Route path="/message" element={<MessageLoading />} />
+            <Route path="/message/write" element={<MessageWrite />} />
+            {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>
