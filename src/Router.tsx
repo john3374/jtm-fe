@@ -56,7 +56,7 @@ const Router = () => {
             <Route path="/createPaper" element={<PaperMain />} />
             <Route path="/createPaper/decideName" element={<NamePaper />} />
             <Route
-              path="/createPaper/selectTheme:paperTitle"
+              path="/createPaper/selectTheme/:paperTitle"
               element={<Theme />}
             />
             <Route path="/setting" element={<Setting />} />

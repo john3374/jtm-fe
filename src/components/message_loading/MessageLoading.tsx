@@ -6,15 +6,27 @@ import './messageLoading.scss';
 import Header from '../layout/Header';
 import { Btn } from '../common/Btn';
 import MessageInput from './MessageInput';
-import { message, messageInitialState, messageReducer } from './messageStore';
+import {
+  message,
+  messageInitialState,
+  messageReducer,
+  x,
+} from './messageStore';
 import StickerPop from './StickerWrite';
 import MoreBtn from '../common/MoreBtn';
 import EnvConfig from '../../config/EnvConfig';
 import { Loading, Message } from './messageInterface';
-import { messageDelete, messageFix, messageGet } from './messageFunction';
+import {
+  messageDelete,
+  messageFix,
+  messageGet,
+  paperDetail,
+  stickerPost,
+} from './messageFunction';
 import { useParams } from 'react-router-dom';
 import StickerWrite from './StickerWrite';
 import Sticker from './Sticker';
+import BottomBtn from '../common/BottomBtn';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 
@@ -25,12 +37,16 @@ const MessageLoading = ({ messageData }: any) => {
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
   const [sq, setSq] = useState<string>();
 
+  const [x, setX] = useState<number>();
+  const [y, setY] = useState<number>();
+  const [move, setMove] = useState<boolean>(false);
+
   const { on } = useParams();
   const messageList = state.message;
-  const stickerOn = state.sticker;
-
+  const stickerList = state.sticker;
   useEffect(() => {
-    messageGet(dispatch, message);
+    // messageGet(dispatch, message);
+    paperDetail(dispatch);
   }, []);
 
   const reactionAmount = async () => {
@@ -64,7 +80,13 @@ const MessageLoading = ({ messageData }: any) => {
   `;
 
   return (
-    <div className="message-loading">
+    <div
+      className="message-loading"
+      onMouseMove={e => {
+        move && setX(e.clientX);
+        move && setY(e.clientY);
+      }}
+    >
       {/* {stickerOn && <Sticker />} */}
       {/* {messagePop && (
         <MessageInput send={messagePost} setMessagePop={setMessagePop} />
@@ -73,7 +95,7 @@ const MessageLoading = ({ messageData }: any) => {
         <StickerWrite setStickerPop={setStickerPop} setSq={setSq} />
       ) : (
         <>
-          {sq && <Sticker />}
+          {sq && <Sticker setMove={setMove} x={x} y={y} />}
           <Header to="/" pageNm={paperName} />
           <div className="message-wrap">
             {messageList[0] ? (
@@ -95,6 +117,11 @@ const MessageLoading = ({ messageData }: any) => {
             ) : (
               <p>앗 아직 메세지가 없어요!</p>
             )}
+            {stickerList[0] &&
+              stickerList.map((item: any) => {
+                console.log(item);
+                return <Sticker x={item.poisitionX} y={item.poisitionY} />;
+              })}
           </div>
           <div className="message-btns">
             <Btn
@@ -122,6 +149,12 @@ const MessageLoading = ({ messageData }: any) => {
               onClick={() => setStickerPop(true)}
             />
           </div>
+          {sq && (
+            <BottomBtn
+              onclick={() => stickerPost('asd', x! - 25, y! - 25)}
+              text="스티커 붙이기"
+            />
+          )}
         </>
       )}
     </div>

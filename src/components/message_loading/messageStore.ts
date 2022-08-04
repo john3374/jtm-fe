@@ -1,12 +1,18 @@
 const MESSAGE = 'messageStore/MESSAGE';
-const STICKERON = 'messageStore/STICKERON';
+const STICKER = 'messageStore/STICKER';
+const X = 'messageStore/X';
+const MOVE = 'messageStore/MOVE';
 
 export const message = (message: any) => ({ type: MESSAGE, message });
-export const sticker = () => ({ type: STICKERON });
+export const sticker = (sticker: any) => ({ type: STICKER, sticker });
+export const x = (x: number) => ({ type: X, x });
+export const move = (move: boolean) => ({ type: MOVE, move });
 
 export const messageInitialState = {
   message: {},
-  sticker: false,
+  sticker: {},
+  x: 0,
+  move: false,
 };
 
 export const messageReducer = (state = messageInitialState, action: any) => {
@@ -16,10 +22,20 @@ export const messageReducer = (state = messageInitialState, action: any) => {
         ...state,
         message: action.message,
       };
-    case STICKERON:
+    case STICKER:
       return {
         ...state,
-        sticker: true,
+        sticker: action.sticker,
+      };
+    case X:
+      return {
+        ...state,
+        x: action.x,
+      };
+    case MOVE:
+      return {
+        ...state,
+        move: action.move,
       };
     default:
       return {
