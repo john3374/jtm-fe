@@ -14,6 +14,7 @@ import { useAuthState } from '../../../src/context';
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
   const { paperTitle } = useParams();
+  if (paperTitle === undefined) console.log(123);
   const { user, token } = useAuthState();
   const userEmail = user?.email;
   const nv: any = useNavigate();

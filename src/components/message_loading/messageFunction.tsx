@@ -1,5 +1,25 @@
 import EnvConfig from 'src/config/EnvConfig';
 import axios from 'axios';
+import { message, sticker } from './messageStore';
+
+export const paperDetail = async (dispatch: any) => {
+  try {
+    const a = await axios({
+      method: 'post',
+      url: `${EnvConfig.LANTO_SERVER}paper/6005`,
+      data: {
+        user: {
+          email: 'jam@gmail.com',
+        },
+      },
+    });
+    dispatch(message(a.data.messages));
+    dispatch(sticker(a.data.stickers));
+    console.log(a.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const messageGet = async (
   dispatch: React.Dispatch<any>,
@@ -96,5 +116,30 @@ export const messageFixOrDelete = async (
   } else if (text === '삭제하기') {
     console.log('삭제하기 기능');
     messageDelete(messageId);
+  }
+};
+
+export const stickerPost = async (email: string, x: number, y: number) => {
+  try {
+    const q = await axios({
+      method: 'post',
+      url: `${EnvConfig.LANTO_SERVER}sticker`,
+      data: {
+        user: {
+          email: 'jam@gmail.com',
+        },
+        paper: {
+          paperId: 6005,
+        },
+        sticker: {
+          positionX: x.toString(),
+          positionY: y.toString(),
+          kind: 3,
+        },
+      },
+    });
+    console.log(q);
+  } catch (e) {
+    console.log(e);
   }
 };

@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 import { Btn } from '../common/Btn';
-import { messageInitialState, messageReducer, sticker } from './messageStore';
+import { messageInitialState, messageReducer } from './messageStore';
 
 const StickerWrite = ({ setStickerPop, setSq }: any) => {
   //   const mouseMove = (e: any) => {
@@ -99,7 +99,6 @@ const StickerWrite = ({ setStickerPop, setSq }: any) => {
       <div className="message-wrap">
         <div className="sticker-wrap">
           <div
-            onClick={(e: any) => dispatch(sticker())}
             style={{ backgroundColor: 'aqua', width: '50px', height: '50px' }}
           ></div>
           <Btn
@@ -117,24 +116,9 @@ const StickerWrite = ({ setStickerPop, setSq }: any) => {
             background="aqua"
             onClick={(e: any) => setStickerPop(false)}
           ></Btn>
-          <Btn
-            link="/message"
-            text=""
-            background="aqua"
-            onClick={(e: any) => dispatch(sticker())}
-          ></Btn>
-          <Btn
-            link="/message"
-            text=""
-            background="aqua"
-            onClick={(e: any) => dispatch(sticker())}
-          ></Btn>
-          <Btn
-            link="/message"
-            text=""
-            background="aqua"
-            onClick={(e: any) => dispatch(sticker())}
-          ></Btn>
+          <Btn link="/message" text=""></Btn>
+          <Btn link="/message" text="" background="aqua"></Btn>
+          <Btn link="/message" text="" background="aqua"></Btn>
         </div>
       </div>
     </div>
