@@ -6,109 +6,72 @@ import './messageLoading.scss';
 import Header from '../layout/Header';
 import { Btn } from '../common/Btn';
 import MessageInput from './MessageInput';
-import { initialState, message, messageReducer } from './messageStore';
-import StickerPop from './StickerPop';
+import {
+  message,
+  messageInitialState,
+  messageReducer,
+  x,
+} from './messageStore';
+import StickerPop from './StickerWrite';
 import MoreBtn from '../common/MoreBtn';
 import EnvConfig from '../../config/EnvConfig';
+import { Loading, Message } from './messageInterface';
+import {
+  messageDelete,
+  messageFix,
+  messageGet,
+  paperDetail,
+  stickerPost,
+} from './messageFunction';
+import { useParams } from 'react-router-dom';
+import StickerWrite from './StickerWrite';
+import Sticker from './Sticker';
+import BottomBtn from '../common/BottomBtn';
+
+// 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 
 const MessageLoading = ({ messageData }: any) => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
   const [stickerPop, setStickerPop] = useState<boolean>(false);
   const [fixPop, setFixPop] = useState<boolean>(false);
-  const [state, dispatch] = useReducer(messageReducer, initialState);
+  const [state, dispatch] = useReducer(messageReducer, messageInitialState);
   const [sq, setSq] = useState<string>();
 
-  const messageList = state.message;
+  const [x, setX] = useState<number>();
+  const [y, setY] = useState<number>();
+  const [move, setMove] = useState<boolean>(false);
 
-  const messageFix = async (text: string) => {
+  const { on } = useParams();
+  const messageList = state.message;
+  const stickerList = state.sticker;
+  useEffect(() => {
+    // messageGet(dispatch, message);
+    paperDetail(dispatch);
+  }, []);
+
+  const reactionAmount = async () => {
     const a = await axios({
-      method: 'put',
-      url: `${EnvConfig.LANTO_SERVER}/message/9004`,
-      data: {
-        user: {
-          email: 'jam@gmail.com',
-        },
-        message: {
-          content: text,
-          font: '굴림',
-          color: '#333',
-        },
-      },
+      url: `${EnvConfig.LANTO_SERVER}reaction/${1}`,
+      method: 'get',
     });
     console.log(a);
   };
 
-  const messageGet = async () => {
-    try {
-      const a = await axios(`${EnvConfig.LANTO_SERVER}/message`, {
-        method: 'get',
-        headers: {
-          ['User-Email']: 'jam@gmail.com',
-        },
-      });
-      dispatch(message(a.data.messages));
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    messageGet();
-  }, []);
-
-  const messagePost = async (content: any, font: any, color: any) => {
-    try {
-      const a = await axios({
-        method: 'post',
-        url: `${EnvConfig.LANTO_SERVER}/message`,
-        data: {
-          user: {
-            email: 'jam@gmail.com',
-          },
-          paper: {
-            paperId: 1,
-          },
-          message: {
-            content: content,
-            font: font,
-            color: color,
-          },
-        },
-      });
-      messageGet();
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const messageDelete = async (e: React.FormEvent, messageId: any) => {
-    try {
-      const a = await axios({
-        url: `${EnvConfig.LANTO_SERVER}/message/${messageId}`,
-        method: 'delete',
-        data: {
-          user: {
-            email: 'jam@gmail.com',
-          },
-        },
-      });
-      messageGet();
-      console.log(a);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const paperName = '숨니의 생일을 축하해요!';
-
-  const Message = styled.div`
+  // ${props =>
+  // props.backColor ? props.backColor : '#ffbba6'};
+  const Message = styled.div<Loading>`
     width: 327px;
-    background-color: #ffbba6;
+    /* background-color: #ffbba6; */
+    background-color: ${props =>
+      props.backColor ? props.backColor : '#ffbba6'};
+    font-family: ${props => (props.font ? props.font : 'sans-serif')};
     border-radius: 12px;
     padding: 20px 24px;
     box-sizing: border-box;
     margin-top: 34px;
+    display: flex;
+    flex-direction: column;
     & p {
       font-size: 14px;
       font-weight: 600;
@@ -116,61 +79,82 @@ const MessageLoading = ({ messageData }: any) => {
     }
   `;
 
-  console.log(messageList);
   return (
-    <div className="message-loading">
-      <Header to="/" pageNm={paperName} />
-      <div className="message-wrap">
-        {messageList[0] ? (
-          messageList.map((item: any) => (
-            <Message>
-              <p>{item.userName}</p>
-              <p>{item.content}</p>
-              {/* <button onClick={e => messageDelete(e, item.messageId)}>
+    <div
+      className="message-loading"
+      onMouseMove={e => {
+        move && setX(e.clientX);
+        move && setY(e.clientY);
+      }}
+    >
+      {/* {stickerOn && <Sticker />} */}
+      {/* {messagePop && (
+        <MessageInput send={messagePost} setMessagePop={setMessagePop} />
+      )} */}
+      {stickerPop ? (
+        <StickerWrite setStickerPop={setStickerPop} setSq={setSq} />
+      ) : (
+        <>
+          {sq && <Sticker setMove={setMove} x={x} y={y} />}
+          <Header to="/" pageNm={paperName} />
+          <div className="message-wrap">
+            {messageList[0] ? (
+              messageList.map((item: Message, idx: number) => (
+                <Message key={idx} backColor={item.color} font={item.font}>
+                  <p>{item.userName}</p>
+                  <p>{item.content}</p>
+                  {/* <button onClick={e => messageDelete(e, item.messageId)}>
                 메세지 삭제하기
               </button>
               <button onClick={e => setFixPop(true)}>메세지 수정하기</button> */}
-              <MoreBtn />
-            </Message>
-          ))
-        ) : (
-          <p>앗 아직 메세지가 없어요!</p>
-        )}
-      </div>
-      <div className="message-btns">
-        <Btn
-          href="#"
-          width="48px"
-          height="48px"
-          text=""
-          padding="0"
-          background="#111"
-          logo="message.svg"
-          imgSize="20px"
-          center="center"
-          onClick={() => setMessagePop(true)}
-        />
-        <Btn
-          href="#"
-          width="48px"
-          height="48px"
-          text=""
-          padding="0"
-          background="#FED700"
-          logo="star.svg"
-          imgSize="20px"
-          center="center"
-          onClick={() => setStickerPop(true)}
-        />
-      </div>
-      {messagePop && (
-        <MessageInput send={messagePost} setMessagePop={setMessagePop} />
-      )}
-      {stickerPop && <StickerPop setStickerPop={setStickerPop} />}
-      {fixPop && (
-        <>
-          <input onChange={e => setSq(e.target.value)} />
-          <button onClick={e => messageFix(sq!)}>메세지 수정할기다</button>
+                  <MoreBtn
+                    text={['수정하기', '삭제하기']}
+                    messageId={'9004'}
+                    fixText={'수정했습니당 알겠죠이이이?'}
+                  />
+                </Message>
+              ))
+            ) : (
+              <p>앗 아직 메세지가 없어요!</p>
+            )}
+            {stickerList[0] &&
+              stickerList.map((item: any) => {
+                console.log(item);
+                return <Sticker x={item.poisitionX} y={item.poisitionY} />;
+              })}
+          </div>
+          <div className="message-btns">
+            <Btn
+              link="/message/write"
+              width="48px"
+              height="48px"
+              text=""
+              padding="0"
+              background="#111"
+              logo="message.svg"
+              imgSize="20px"
+              center="center"
+              onClick={() => setMessagePop(true)}
+            />
+            <Btn
+              href="#"
+              width="48px"
+              height="48px"
+              text=""
+              padding="0"
+              background="#FED700"
+              logo="star.svg"
+              imgSize="20px"
+              center="center"
+              onClick={() => setStickerPop(true)}
+            />
+          </div>
+          {sq && (
+            <BottomBtn
+              onclick={() => stickerPost('asd', x! - 25, y! - 25)}
+              text="스티커 붙이기"
+            />
+          )}
         </>
       )}
     </div>

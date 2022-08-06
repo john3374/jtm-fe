@@ -13,7 +13,7 @@ export const NamePaper = () => {
       <Header pageNm="롤링페이퍼 만들기" to="/createPaper" />
       <main>
         <TextInput
-          title="롤링페이퍼의 제목을 정해주세요"
+          title="롤링페이퍼의 제목을 정해주세요."
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
@@ -21,7 +21,7 @@ export const NamePaper = () => {
         />
       </main>
       <BottomBtn
-        onclick={() => navigate(`/createPaper/selectTheme/${title}`)}
+        onclick={() => navigate(`/createPaper/selectTheme${title}`)}
         text="다음"
       />
     </>

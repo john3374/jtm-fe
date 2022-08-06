@@ -43,7 +43,7 @@ const SignUp = () => {
   //   e.preventDefault();
   //   const w = await axios({
   //     method: 'POST',
-  //     url: 'http://3.39.162.248:80/paper',
+  //     url: '',
   //     data: {
   //       paper: {
   //         paperTitle: 'sadasjasfja',
@@ -61,7 +61,7 @@ const SignUp = () => {
   //   e.preventDefault();
   //   const w = await axios({
   //     method: 'post',
-  //     url: 'http://3.39.162.248:80/user/v1',
+  //     url: '',
   //     data: {
   //       email: 'jjs327020@gmail.com',
   //       password: '546546asd6',
@@ -95,6 +95,7 @@ const SignUp = () => {
           </div>
           <div className="passwordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호'}
               htmlFor={'password'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -104,6 +105,7 @@ const SignUp = () => {
           </div>
           <div className="rePasswordWrap">
             <TextInput
+              isPassword={true}
               title={'비밀번호 확인'}
               htmlFor={'rePassword'}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -112,7 +114,6 @@ const SignUp = () => {
             />
           </div>
           <BottomBtn
-            fixed={'fixed'}
             text={doubleState ? '다음' : '인증메일 받기'}
             onclick={(e: any) =>
               doubleState

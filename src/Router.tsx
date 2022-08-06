@@ -14,6 +14,8 @@ import { AuthProvider, useAuthState } from './context';
 import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
 import PaperGift from './components/paper_view/PaperGift';
+import MessageWrite from './components/message_loading/MessageWrite';
+import StickerWrite from './components/message_loading/StickerWrite';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -55,12 +57,14 @@ const Router = () => {
             <Route path="/createPaper" element={<PaperMain />} />
             <Route path="/createPaper/decideName" element={<NamePaper />} />
             <Route
-              path="/createPaper/selectTheme:paperTitle"
+              path="/createPaper/selectTheme/:paperTitle"
               element={<Theme />}
             />
             <Route path="/setting" element={<Setting />} />
             <Route path="/message" element={<MessageLoading />} />
             <Route path="/paperGift" element={<PaperGift />} />
+            <Route path="/message/write" element={<MessageWrite />} />
+            {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

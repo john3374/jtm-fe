@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 const BtnComponent = styled.div`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   margin-left: 1.6rem;
   margin-bottom: 3rem;
