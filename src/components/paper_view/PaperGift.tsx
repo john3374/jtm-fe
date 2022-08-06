@@ -34,10 +34,10 @@ function PaperGift() {
   }, []);
 
   const handleDropBox = (e: any) => {
-    const { value } = e.target;
-    setSelectPaperId(value);
-    console.log(selectPaperId);
+    setSelectPaperId(e.target.value);
   };
+
+  // console.log('id', selectPaperId);
 
   return (
     <>
