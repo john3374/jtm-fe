@@ -13,6 +13,7 @@ import LoginEmail from './components/login/LoginEmail';
 import { AuthProvider, useAuthState } from './context';
 import Setting from './components/setting/Setting';
 import MessageLoading from './components/message_loading/MessageLoading';
+import PaperGift from './components/paper_view/PaperGift';
 import MessageWrite from './components/message_loading/MessageWrite';
 import StickerWrite from './components/message_loading/StickerWrite';
 
@@ -61,6 +62,7 @@ const Router = () => {
             />
             <Route path="/setting" element={<Setting />} />
             <Route path="/message" element={<MessageLoading />} />
+            <Route path="/paperGift" element={<PaperGift />} />
             <Route path="/message/write" element={<MessageWrite />} />
             {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
           </Route>

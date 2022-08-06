@@ -23,8 +23,6 @@ function Theme() {
     setSelectTheme(x);
   };
 
-  console.log('user', userEmail);
-
   const sendInfo = async () => {
     try {
       await axios({
