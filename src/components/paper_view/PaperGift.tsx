@@ -8,17 +8,11 @@ import EnvConfig from '../../config/EnvConfig';
 import { useAuthState } from '../../../src/context';
 
 function PaperGift() {
-  const Temp = [
-    { id: '0', value: '페이퍼 제목' },
-    { id: '1', value: '숨니의 생일 축하' },
-    { id: '2', value: '숨니의 취업 축하' },
-  ];
-
   const { user, token } = useAuthState();
   const userEmail = user?.email;
 
-  const [selectPaper, setSelectPaper] = useState<string>('');
-  const [paperList, setPaperList] = useState({});
+  const [selectPaperId, setSelectPaperId] = useState<number>(0);
+  const [paperList, setPaperList] = useState<any>([]);
 
   const loadPaperList = async () => {
     try {
@@ -29,17 +23,20 @@ function PaperGift() {
         },
         url: `${EnvConfig.CREATE_PAPER}`,
       });
-      setPaperList(response);
+      setPaperList(response.data.paper);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(paperList);
+  useEffect(() => {
+    loadPaperList();
+  }, []);
 
   const handleDropBox = (e: any) => {
     const { value } = e.target;
-    console.log('value', value);
+    setSelectPaperId(value);
+    console.log(selectPaperId);
   };
 
   return (
@@ -49,8 +46,15 @@ function PaperGift() {
         <Wrapper>
           <StyledLabel> 롤링 페이퍼를 선택해주세요.</StyledLabel>
           <DropDown onChange={handleDropBox}>
-            {Temp.map(el => {
-              return <option key={el.id}> {el.value} </option>;
+            <option key="0" value={0}>
+              선택해주세요
+            </option>
+            {paperList.map((el: any) => {
+              return (
+                <option key={el.paperId} value={el.paperId}>
+                  {el.paperTitle}
+                </option>
+              );
             })}
           </DropDown>
         </Wrapper>
