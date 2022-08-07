@@ -26,7 +26,6 @@ function ThemeList(props: PropsType) {
         props.set(3);
         break;
     }
-    console.log('value', choose);
   };
 
   return (
@@ -61,8 +60,8 @@ const ItemStyle = styled.div`
   border-radius: 1rem;
   margin-bottom: 0.2rem;
   word-break: break-all;
-  width: 160px;
-  height: 35vh;
+  width: auto;
+  height: 220px;
   > .not-select-img {
     border: 1.5px solid lightgrey;
   }
@@ -76,9 +75,8 @@ const ImgComponent = styled.div`
   overflow: hidden;
   border-radius: 1rem;
   margin-bottom: 0.5rem;
-  word-break: break-all;
-  width: 160px;
-  height: 32vh;
+  width: 144px;
+  height: 144px;
   > .not-select-img {
     border: 3px solid lightgrey;
   }

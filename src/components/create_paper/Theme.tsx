@@ -3,21 +3,24 @@ import Header from '../layout/Header';
 import BottomBtn from '../common/BottomBtn';
 import ThemeList from './ThemeList';
 import styled from 'styled-components';
-import simple from '../../static/theme/simple.png';
-import birthday from '../../static/theme/birthday.png';
-import congratulations from '../../static/theme/congratulations.png';
+import monotone from '../../static/theme/monotone.jpg';
+import congratulations from '../../static/theme/congratulations.jpg';
+import love from '../../static/theme/love.jpg';
 import axios from 'axios';
 import EnvConfig from '../../config/EnvConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthState } from '../../../src/context';
+import Modal from '../common/Modal';
 
 function Theme() {
   const [selectTheme, setSelectTheme] = useState<number>(0);
+  const [onModal, setOnModal] = useState<boolean>(false);
+  const [onButton, setOnButton] = useState<boolean>(false);
+  const [onInfo, setOnInfo] = useState<string>('확인 중...');
+  const [onUrl, setOnUrl] = useState<string>('/');
   const { paperTitle } = useParams();
-  if (paperTitle === undefined) console.log(123);
   const { user, token } = useAuthState();
   const userEmail = user?.email;
-  const nv: any = useNavigate();
 
   const inputSelectTheme = (x: number) => {
     setSelectTheme(x);
@@ -38,29 +41,38 @@ function Theme() {
           },
         },
       });
-      nv('/createPaper');
+      setOnInfo('성공적으로 페이퍼가 개설 되었습니다.');
+      setOnUrl('/createPaper');
+      setOnButton(true);
+      setOnModal(true);
     } catch (err) {
+      setOnInfo('에러 발생 ');
+      setOnUrl('./createPaper');
+      setOnButton(false);
+      setOnModal(true);
       console.log(err);
     }
   };
 
+  console.log(userEmail, selectTheme);
+
   const theme = [
     {
       id: 1,
-      path: simple,
-      name: '기본/Simple',
+      path: monotone,
+      name: '기본/Monotone',
       isChecked: false,
     },
     {
       id: 2,
-      path: birthday,
-      name: '생일/Birthday',
+      path: congratulations,
+      name: '축하/Congratulations',
       isChecked: false,
     },
     {
       id: 3,
-      path: congratulations,
-      name: '축하/Congratulations',
+      path: love,
+      name: '사랑,우정/Love, Friendship',
       isChecked: false,
     },
   ];
@@ -68,7 +80,17 @@ function Theme() {
   return (
     <>
       <Header pageNm="롤링페이퍼 만들기" to="/createPaper/decideName" />
-      <main>
+      {onModal ? (
+        <Modal
+          info={onInfo}
+          confirm={onButton}
+          onModal={onModal}
+          setOnModal={setOnModal}
+          href={onUrl}
+        />
+      ) : null}
+      <WholeStyle>
+        <TextStyle>테마를 선택해주세요.</TextStyle>
         <ComponentStyle>
           {theme.map(value => (
             <ThemeList
@@ -79,19 +101,29 @@ function Theme() {
             />
           ))}
         </ComponentStyle>
-      </main>
+      </WholeStyle>
       <BottomBtn text="다음" onclick={sendInfo} />
     </>
   );
 }
 
+const WholeStyle = styled.main`
+  height: 100%;
+  margin: 5rem 1rem;
+`;
+
+const TextStyle = styled.label`
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-block;
+  margin: 20px 0;
+`;
+
 const ComponentStyle = styled.div`
-  margin-left: 1rem;
-  margin-right: 1rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  height: 100%;
+  height: auto;
   gap: 0.5rem;
 `;
 
