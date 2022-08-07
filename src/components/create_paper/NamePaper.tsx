@@ -21,7 +21,7 @@ export const NamePaper = () => {
         />
       </main>
       <BottomBtn
-        onclick={() => navigate(`/createPaper/selectTheme${title}`)}
+        onclick={() => navigate(`/createPaper/selectTheme/${title}`)}
         text="다음"
       />
     </>
