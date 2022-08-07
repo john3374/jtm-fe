@@ -59,6 +59,7 @@ const Container = styled.div`
   min-height: 70px;
   height: auto;
   white-space: pre-wrap;
+  z-index: 3;
 `;
 
 const ModalBody = styled.div`

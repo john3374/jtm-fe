@@ -93,7 +93,7 @@ function PaperGift() {
               선택해주세요
             </option>
             {paperList.map((el: any) => {
-              if (el.giftyn === 'N') {
+              if (el.giftyn === 'n') {
                 return (
                   <option key={el.paperId} value={el.paperId}>
                     {el.paperTitle}
@@ -145,7 +145,7 @@ const DropDown = styled.select`
   border-radius: 12px;
 
   &:focus {
-    border: 2px solid rgba(0, 0, 0, 0.6);
+    border: 2px solid black;
   }
 
   &::placeholder {
