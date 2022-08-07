@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 function FloatingButton() {
   const items = [
-    { icon: <RedeemIcon />, name: 'gift', path: '/paperGift' },
+    { icon: <RedeemIcon />, name: '페이퍼 선물하기', path: '/paperGift' },
     {
       icon: <DescriptionIcon />,
-      name: 'paper',
+      name: '페이퍼 만들기',
       path: '/createPaper/decideName',
     },
   ];
