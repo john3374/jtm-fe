@@ -23,56 +23,56 @@ const StickerWrite = ({ setStickerPop, setSt }: any) => {
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('1');
+              setSt(1);
             }}
             src={`${process.env.PUBLIC_URL}/img/1.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('2');
+              setSt(2);
             }}
             src={`${process.env.PUBLIC_URL}/img/2.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('3');
+              setSt(3);
             }}
             src={`${process.env.PUBLIC_URL}/img/3.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('4');
+              setSt(4);
             }}
             src={`${process.env.PUBLIC_URL}/img/4.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('5');
+              setSt(5);
             }}
             src={`${process.env.PUBLIC_URL}/img/5.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('6');
+              setSt(6);
             }}
             src={`${process.env.PUBLIC_URL}/img/6.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('7');
+              setSt(7);
             }}
             src={`${process.env.PUBLIC_URL}/img/7.png`}
           />
           <img
             onClick={() => {
               setStickerPop(false);
-              setSt('8');
+              setSt(8);
             }}
             src={`${process.env.PUBLIC_URL}/img/8.png`}
           />

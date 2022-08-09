@@ -36,7 +36,7 @@ const MessageLoading = ({ messageData }: any) => {
   const [stickerPop, setStickerPop] = useState<boolean>(false);
   const [fixPop, setFixPop] = useState<boolean>(false);
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
-  const [st, setSt] = useState<string>();
+  const [st, setSt] = useState<number>();
 
   const [x, setX] = useState<number>();
   const [y, setY] = useState<number>();
@@ -135,8 +135,8 @@ const MessageLoading = ({ messageData }: any) => {
                     <p>{item.content}</p>
                     <MoreBtn
                       text={['수정하기', '삭제하기']}
-                      messageId={'18002'}
-                      fixText={'수정했습니당 알겠죠이이이?'}
+                      messageId={'18003'}
+                      fixText={'수정했습니당~!'}
                     />
                   </Message>
                 );
@@ -183,7 +183,7 @@ const MessageLoading = ({ messageData }: any) => {
           </div>
           {st && (
             <BottomBtn
-              onclick={() => stickerPost('asd', x! - 25, y! - 25)}
+              onclick={() => stickerPost('asd', x! - 25, y! - 25, st)}
               text="스티커 붙이기"
             />
           )}
