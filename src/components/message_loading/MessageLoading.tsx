@@ -29,13 +29,14 @@ import Sticker from './Sticker';
 import BottomBtn from '../common/BottomBtn';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
+// 모바일 버전 스티커 가능하게 따로 만들어야 할 듯
 
 const MessageLoading = ({ messageData }: any) => {
   const [messagePop, setMessagePop] = useState<boolean>(false);
   const [stickerPop, setStickerPop] = useState<boolean>(false);
   const [fixPop, setFixPop] = useState<boolean>(false);
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
-  const [sq, setSq] = useState<string>();
+  const [st, setSt] = useState<string>();
 
   const [x, setX] = useState<number>();
   const [y, setY] = useState<number>();
@@ -61,21 +62,29 @@ const MessageLoading = ({ messageData }: any) => {
   // ${props =>
   // props.backColor ? props.backColor : '#ffbba6'};
   const Message = styled.div<Loading>`
-    width: 327px;
+    width: ${props => (props.width ? props.width : '327px')};
     /* background-color: #ffbba6; */
     background-color: ${props =>
       props.backColor ? props.backColor : '#ffbba6'};
     font-family: ${props => (props.font ? props.font : 'sans-serif')};
     border-radius: 12px;
-    padding: 20px 24px;
-    box-sizing: border-box;
+    padding: 16px 16px 20px 16px;
+    /* box-sizing: border-box; */
     margin-top: 34px;
     display: flex;
     flex-direction: column;
-    & p {
-      font-size: 14px;
-      font-weight: 600;
+    align-self: ${props => props.left && props.width && props.left};
+    p {
+      font-size: 13px;
       line-height: 24px;
+    }
+    p:first-child {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+    p:nth-child(2) {
+      margin-bottom: 13px;
     }
   `;
 
@@ -92,35 +101,58 @@ const MessageLoading = ({ messageData }: any) => {
         <MessageInput send={messagePost} setMessagePop={setMessagePop} />
       )} */}
       {stickerPop ? (
-        <StickerWrite setStickerPop={setStickerPop} setSq={setSq} />
+        <>
+          {/* <Header to="/message" pageNm={''} /> */}
+          <StickerWrite setStickerPop={setStickerPop} setSt={setSt} />
+        </>
       ) : (
         <>
-          {sq && <Sticker setMove={setMove} x={x} y={y} />}
+          {st && (
+            <Sticker
+              url={st}
+              setMove={setMove}
+              x={x}
+              y={y}
+              setX={setX}
+              setY={setY}
+            />
+          )}
           <Header to="/" pageNm={paperName} />
           <div className="message-wrap">
             {messageList[0] ? (
-              messageList.map((item: Message, idx: number) => (
-                <Message key={idx} backColor={item.color} font={item.font}>
-                  <p>{item.userName}</p>
-                  <p>{item.content}</p>
-                  {/* <button onClick={e => messageDelete(e, item.messageId)}>
-                메세지 삭제하기
-              </button>
-              <button onClick={e => setFixPop(true)}>메세지 수정하기</button> */}
-                  <MoreBtn
-                    text={['수정하기', '삭제하기']}
-                    messageId={'9004'}
-                    fixText={'수정했습니당 알겠죠이이이?'}
-                  />
-                </Message>
-              ))
+              messageList.map((item: Message, idx: number) => {
+                // console.log(item);
+                return (
+                  <Message
+                    key={idx}
+                    backColor={item.color}
+                    font={item.font}
+                    width={item.content.length <= 84 ? '234px' : ''}
+                    left={(idx + 1) % 2 !== 0 ? 'flex-start' : 'flex-end'}
+                  >
+                    {/* <p>{item.createDate}</p> */}
+                    <p>{item.userName}</p>
+                    <p>{item.content}</p>
+                    <MoreBtn
+                      text={['수정하기', '삭제하기']}
+                      messageId={'18002'}
+                      fixText={'수정했습니당 알겠죠이이이?'}
+                    />
+                  </Message>
+                );
+              })
             ) : (
               <p>앗 아직 메세지가 없어요!</p>
             )}
             {stickerList[0] &&
               stickerList.map((item: any) => {
-                console.log(item);
-                return <Sticker x={item.poisitionX} y={item.poisitionY} />;
+                return (
+                  <Sticker
+                    url={item.stickerType}
+                    x={item.poisitionX}
+                    y={item.poisitionY}
+                  />
+                );
               })}
           </div>
           <div className="message-btns">
@@ -149,7 +181,7 @@ const MessageLoading = ({ messageData }: any) => {
               onClick={() => setStickerPop(true)}
             />
           </div>
-          {sq && (
+          {st && (
             <BottomBtn
               onclick={() => stickerPost('asd', x! - 25, y! - 25)}
               text="스티커 붙이기"

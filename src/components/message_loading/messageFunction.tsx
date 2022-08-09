@@ -54,7 +54,7 @@ export const messagePost = async (
           email: email,
         },
         paper: {
-          paperId: 1,
+          paperId: 6005,
         },
         message: {
           content: content,
@@ -126,7 +126,7 @@ export const stickerPost = async (email: string, x: number, y: number) => {
       url: `${EnvConfig.LANTO_SERVER}sticker`,
       data: {
         user: {
-          email: 'jam@gmail.com',
+          email: 'merge@gmail.com',
         },
         paper: {
           paperId: 6005,

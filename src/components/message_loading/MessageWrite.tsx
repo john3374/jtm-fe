@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import BottomBtn from '../common/BottomBtn';
 import { messagePost } from './messageFunction';
+import { themeMessageColor } from './messageData';
 import './messageLoading.scss';
+import styled from 'styled-components';
+import { Color } from './messageInterface';
+
+const ColorBox = styled.div<Color>`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: ${props => (props.color ? `${props.color}` : 'unset')};
+`;
 
 const MessageWrite = () => {
   const [message, setMessage] = useState<string>();
@@ -28,9 +38,17 @@ const MessageWrite = () => {
         </div>
       </div>
       <div className="message-color">
-        <div className="one" onClick={e => setColor('#666')}></div>
-        <div className="two" onClick={e => setColor('#666')}></div>
-        <div className="thr" onClick={e => setColor('#666')}></div>
+        {
+          <>
+            {themeMessageColor.map((item: any) => {
+              if (item.congratulations) {
+                return item.congratulations.map((item: any) => (
+                  <ColorBox onClick={() => setColor(item)} color={item} />
+                ));
+              }
+            })}
+          </>
+        }
       </div>
       <BottomBtn
         onclick={(e: any) =>
