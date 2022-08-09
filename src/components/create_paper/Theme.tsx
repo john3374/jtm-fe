@@ -46,7 +46,7 @@ function Theme() {
       setOnButton(true);
       setOnModal(true);
     } catch (err) {
-      setOnInfo('에러 발생 ');
+      setOnInfo('페이퍼 개설에 실패했습니다.');
       setOnUrl('./createPaper');
       setOnButton(false);
       setOnModal(true);
@@ -54,25 +54,26 @@ function Theme() {
     }
   };
 
-  console.log(userEmail, selectTheme);
-
   const theme = [
     {
       id: 1,
       path: monotone,
-      name: '기본/Monotone',
+      name: '기본',
+      eng: 'Monotone',
       isChecked: false,
     },
     {
       id: 2,
       path: congratulations,
-      name: '축하/Congratulations',
+      name: '축하',
+      eng: 'Congratulations',
       isChecked: false,
     },
     {
       id: 3,
       path: love,
-      name: '사랑,우정/Love, Friendship',
+      name: '사랑,우정',
+      eng: 'Love, Friendship',
       isChecked: false,
     },
   ];
@@ -97,6 +98,7 @@ function Theme() {
               set={inputSelectTheme}
               path={value.path}
               name={value.name}
+              eng={value.eng}
               key={value.id}
             />
           ))}

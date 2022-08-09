@@ -6,6 +6,7 @@ import { faCircleDot } from '@fortawesome/free-solid-svg-icons';
 interface PropsType {
   path: string;
   name: string;
+  eng: string;
   set: any;
 }
 
@@ -16,13 +17,13 @@ function ThemeList(props: PropsType) {
     const selecting = props.name;
     setChoose(!choose);
     switch (selecting) {
-      case '기본/Simple':
+      case '기본':
         props.set(1);
         break;
-      case '생일/Birthday':
+      case '축하':
         props.set(2);
         break;
-      case '축하/Congratulations':
+      case '사랑,우정':
         props.set(3);
         break;
     }
@@ -51,7 +52,10 @@ function ThemeList(props: PropsType) {
           />
         </FontAwesomeStyle>
       </ImgComponent>
-      <TextStyle> {props.name} </TextStyle>
+      <TextStyle>
+        <MainName>{props.name}</MainName>
+        <SubName>{props.eng}</SubName>
+      </TextStyle>
     </ItemStyle>
   );
 }
@@ -100,7 +104,17 @@ const FontAwesomeStyle = styled.div`
 
 const TextStyle = styled.div`
   text-align: center;
+  margin-top: 0.8rem;
+`;
+
+const MainName = styled.div`
+  font-weight: bold;
+  color: #333333;
+`;
+
+const SubName = styled.div`
   margin-top: 0.5rem;
+  color: #999999;
 `;
 
 export default ThemeList;
