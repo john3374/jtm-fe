@@ -33,7 +33,7 @@ function FeedHeader() {
       <>
         <SideBarWrapper ref={sideBarRef}>
           {user ? (
-            <div onClick={() => navigate('/')}>
+            <div onClick={() => navigate('/user/nickname')}>
               {user.userName}님 <span>✎</span>
             </div>
           ) : (
