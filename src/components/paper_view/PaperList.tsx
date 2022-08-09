@@ -20,11 +20,12 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
   // if (data) setPaperAndMsgs(data);
   useEffect(() => {
     async function fetchAndSetPapers() {
-      const allData = await getPaperList('lanto@gmail.com');
+      const allData = await getPaperList(userEmail);
+
       setPaperAndMsgs(allData);
     }
     fetchAndSetPapers();
-    console.log(paperAndMsgs);
+    // console.log(paperAndMsgs);
   }, [userEmail]);
 
   return (

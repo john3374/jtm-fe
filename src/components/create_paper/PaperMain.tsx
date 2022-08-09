@@ -7,6 +7,7 @@ import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
 import PaperList from '../paper_view/PaperList';
 import FloatingButton from '../common/FloatingButton';
+import { getPaperList } from '@src/api/paper';
 
 const Option = styled.div`
   width: 48px;
@@ -24,12 +25,14 @@ const PaperMain = () => {
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
   if (!user) navigate('/login');
-  const userPaperNum = 0;
+  // userPaperList = await getPaperList(user?.email)
+  const userPaperNum = 1;
+  // const userPaperNum = 0;
   return (
     <>
       <FeedHeader />
       {user && userPaperNum > 0 && <ViewPapers {...user} />}
-      {user && userPaperNum === 0 && <SuggestCreation {...user} />}
+      {user && userPaperNum < 0 && <SuggestCreation {...user} />}
     </>
   );
 };
