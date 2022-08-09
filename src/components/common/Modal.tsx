@@ -32,10 +32,10 @@ function Modal(props: PropsType) {
         <Btn>
           {props.confirm ? (
             <BtnsItem>
-              <Link to={props.href!}>
-                <Button>확인</Button>
-              </Link>
               <Button onClick={closeModal}>취소</Button>
+              <Link to={props.href!}>
+                <Button style={{ fontWeight: 'bold' }}>확인</Button>
+              </Link>
             </BtnsItem>
           ) : (
             <BtnItem>
@@ -53,7 +53,7 @@ const Container = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #000000;
   border-radius: 10px;
   width: 250px;
   min-height: 70px;
@@ -70,19 +70,21 @@ const ModalBody = styled.div`
 const Text = styled.div`
   text-align: center;
   color: white;
+  font-size: 1rem;
   white-space: pre-line;
-  margin: 0.5rem 0.5rem 0 0.5rem;
+  margin: 0.8rem;
   padding: 0.3rem;
 `;
 
 const Btn = styled.div`
   margin: 0.3rem;
+  background-color: #000000;
 `;
 
 const BtnsItem = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
 `;
 
 const BtnItem = styled.div`
@@ -90,10 +92,12 @@ const BtnItem = styled.div`
 `;
 
 const Button = styled.button`
-  width: 50px;
+  width: auto;
   height: 30px;
-  padding: 0.2rem;
-  margin: 0.2rem;
+  padding: 0.2rem 2.6rem;
+  color: white;
+  background-color: #000000;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 `;
 
 export default Modal;
