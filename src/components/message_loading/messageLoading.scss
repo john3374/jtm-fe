@@ -1,0 +1,96 @@
+.message-loading{
+    width: 100%;
+    position: relative;
+    background-color: #FFEF9D;
+    padding: 0 24px;
+    box-sizing: border-box;
+    min-height: 100%;
+    & .message-wrap {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    & .message-btns{
+        position: sticky;
+        right: 24px;
+        bottom: 64px;
+    }
+    .title {
+        margin-top: 104px;
+        margin-left: 24px;
+        font-size: 24px;
+        font-weight: 700;
+        span{
+            color: rgba(17,17,17,0.4);
+        }
+    }
+    .write-box {
+        margin-top: 32px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        textarea {
+            width: 327px;
+            height: 300px;
+            border-radius: 12px;
+            border: none;
+            background-color: rgba(255, 251, 217, 1);
+            padding: 24px;
+            box-sizing: border-box;
+            resize: none;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: inherit;
+        }
+        span {
+            position: absolute;
+            bottom: 20px;
+            right: 24px;
+            color: rgba(17, 17, 17, 0.5);
+        }
+    }
+    .message-color{
+        width: 100%;
+        // padding: 36px;
+        // box-sizing: border-box;
+        margin: 36px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        row-gap: 20px;
+        column-gap: 25px;
+        .one {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            background-color: aqua;
+        }
+        .two {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            background-color:cadetblue ;
+        }
+        .thr {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            background-color:darkblue;
+        }
+    }
+    .sticker-wrap {
+        width: 93%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 32px;
+        .sticker{
+            width: 95px;
+            height: 95px;
+            background-color: aquamarine;
+            margin-top: 20px;
+        }
+    }
+    img{
+        -webkit-user-drag: none;
+    }
+}
