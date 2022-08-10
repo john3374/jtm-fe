@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
+  messageDelete,
   messageFix,
   messageFixOrDelete,
 } from '../message_loading/messageFunction';
@@ -33,16 +35,20 @@ const Tap = styled.p`
   margin-bottom: 32px;
 `;
 
-const MoreBottom = ({ setMore, text, messageId, fixText }: More2) => {
+const MoreBottom = ({ setMore, text, prev, messageId, fixText }: More2) => {
+  const nav = useNavigate();
   return (
     <BottomWrap onClick={() => setMore(prev => !prev)}>
       <BottomTap>
         {text &&
           text.map((item: string, idx: number) => (
             <Tap
-              onClick={async () =>
-                await messageFixOrDelete(item, messageId, fixText)
-              }
+              onClick={async () => {
+                if (item === '수정하기')
+                  nav(`/message/fix/${messageId}/${prev}`);
+                if (item === '삭제하기') messageDelete(1);
+                // await messageFixOrDelete(item, messageId, fixText);
+              }}
               key={idx}
             >
               {item}

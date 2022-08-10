@@ -136,6 +136,7 @@ const MessageLoading = ({ messageData }: any) => {
                     <MoreBtn
                       text={['수정하기', '삭제하기']}
                       messageId={'18003'}
+                      prev={item.content}
                       fixText={'수정했습니당~!'}
                     />
                   </Message>

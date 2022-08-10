@@ -87,22 +87,26 @@ export const messageDelete = async (messageId: any) => {
 };
 
 export const messageFix = async (text: string, messageId: string) => {
-  const a = await axios({
-    method: 'put',
-    url: `${EnvConfig.LANTO_SERVER}message/${messageId}`,
-    data: {
-      user: {
-        email: 'jam@gmail.com',
+  try {
+    const a = await axios({
+      method: 'put',
+      url: `${EnvConfig.LANTO_SERVER}message/${messageId}`,
+      data: {
+        user: {
+          email: 'jam@gmail.com',
+        },
+        message: {
+          content: text,
+          font: '굴림',
+          color: '#a72727',
+        },
       },
-      message: {
-        content: text,
-        font: '굴림',
-        color: '#a72727',
-      },
-    },
-  });
-  console.log(a);
-  console.log('수정완료요~');
+    });
+    console.log(a);
+    console.log('수정완료요~');
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const messageFixOrDelete = async (
@@ -131,7 +135,7 @@ export const stickerPost = async (
       url: `${EnvConfig.LANTO_SERVER}sticker`,
       data: {
         user: {
-          email: 'merge@gmail.com',
+          email: 'star_horse_write@gmail.com',
         },
         paper: {
           paperId: 6005,

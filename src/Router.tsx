@@ -17,6 +17,7 @@ import PaperGift from './components/paper_view/PaperGift';
 import MessageWrite from './components/message_loading/MessageWrite';
 import StickerWrite from './components/message_loading/StickerWrite';
 import ModifyNickName from './components/setting/ModifyNickName';
+import MessageFix from './components/message_loading/MessageFix';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -65,6 +66,10 @@ const Router = () => {
             <Route path="/message" element={<MessageLoading />} />
             <Route path="/paperGift" element={<PaperGift />} />
             <Route path="/message/write" element={<MessageWrite />} />
+            <Route
+              path="/message/fix/:messageId/:prev"
+              element={<MessageFix />}
+            />
             {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
             <Route path="/user/nickname" element={<ModifyNickName />}></Route>
           </Route>
