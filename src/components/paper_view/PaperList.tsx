@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { MessageItem, NoMessageItem } from './MessageItem';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface IPaperAndMsg {
   paper: IPaper[];
@@ -23,11 +24,16 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     fetchAndSetPapers();
   }, [userEmail]);
 
+  const viewPaperDetail = (pId: string) => {
+    const navigate = useNavigate();
+    if (parseInt(pId) >= 0) navigate(`/paper/${pId}`);
+  };
+
   return (
     <StyledPaperList>
       {paperAndMsgs?.map((p: IPaper) => (
         <PaperItem key={p.paperId}>
-          <TitleDiv>
+          <TitleDiv onClick={() => viewPaperDetail(p.paperId)}>
             <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
             <p style={{ cursor: 'pointer' }}>․․․</p>
           </TitleDiv>
@@ -56,7 +62,7 @@ const TitleDiv = styled.div`
 `;
 
 const StyledPaperList = styled.section`
-  margin: 4rem 0 2rem 2rem;
+  margin: 3rem 0 2rem 2rem;
   overflow: scroll;
   max-height: 65vh;
 `;
@@ -67,6 +73,11 @@ const PaperItem = styled.div`
     display: flex;
     flex-flow: row nowrap;
     overflow-x: scroll;
+    li {
+      &:hover {
+        filter: brightness(90%);
+      }
+    }
   }
 `;
 
@@ -74,6 +85,10 @@ const StyledPaperTitle = styled.p`
   font-weight: bold;
   font-size: 1.25rem;
   margin-bottom: 1rem;
+  cursor: pointer;
+  &:hover {
+    // color:
+  }
 `;
 
 const getPaperList = async (email: string) => {
