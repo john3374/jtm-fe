@@ -21,7 +21,7 @@ function ModifyNickName() {
     try {
       await axios({
         method: 'put',
-        url: `${EnvConfig.LANTO_SERVER}/update`,
+        url: `${EnvConfig.LANTO_SERVER}update`,
         data: {
           email: userEmail,
           userName: nickName,

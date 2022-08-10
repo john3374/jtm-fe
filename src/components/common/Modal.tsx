@@ -22,11 +22,11 @@ function Modal(props: PropsType) {
     <Container>
       <ModalBody>
         <Text>
-          {content.split('\\n').map(text => (
-            <>
+          {content.split('\\n').map((text, idx) => (
+            <span key={idx}>
               {text}
               <br />
-            </>
+            </span>
           ))}
         </Text>
         <Btn>
