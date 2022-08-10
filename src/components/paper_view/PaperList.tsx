@@ -16,6 +16,9 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     async function fetchAndSetPapers() {
       const allData = await getPaperList(userEmail);
       setPaperAndMsgs(allData);
+
+      const paperLength = allData?.length || 0;
+      localStorage.setItem('userPaperCnt', paperLength.toString());
     }
     fetchAndSetPapers();
   }, [userEmail]);
