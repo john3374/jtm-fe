@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { logout, useAuthDispatch, useAuthState } from '../../context';
+import { useAuthState } from '../../context';
 
 function FeedHeader() {
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
@@ -13,7 +13,6 @@ function FeedHeader() {
 
   const Sidebar = () => {
     const navigate = useNavigate();
-    const dispatch = useAuthDispatch();
     const { user } = useAuthState();
     const sideBarRef = useRef<any>(null);
 
@@ -30,10 +29,6 @@ function FeedHeader() {
       };
     }, [sideBarRef]);
 
-    const onClickLogout = async () => {
-      await logout(dispatch);
-    };
-
     return (
       <>
         <SideBarWrapper ref={sideBarRef}>
@@ -49,9 +44,23 @@ function FeedHeader() {
           <ul>
             <li>FAQ</li>
             <li>문의하기</li>
-            {user && <li onClick={onClickLogout}>로그아웃</li>}
-            <li>서비스 이용약관</li>
-            <li>개인정보 처리방침</li>
+            {user && <li>로그아웃</li>}
+            <li>
+              <a
+                href="https://docs.google.com/document/d/1Pju15M5Cm4m2WPDvxLs5gwo4lOXBZfr20D7rCFRKi0M/edit?usp=sharing"
+                target="_blank"
+              >
+                서비스 이용약관
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://docs.google.com/document/d/11sXimrdfeWhsTN1f6D0oqjpyZmVOuXBDqYUUvkibvag/edit?usp=sharing"
+                target="_blank"
+              >
+                개인정보 처리방침
+              </a>
+            </li>
             {user && <li>회원탈퇴</li>}
           </ul>
         </SideBarWrapper>
@@ -63,7 +72,7 @@ function FeedHeader() {
     <>
       <HeaderComponent>
         <Feed>Feed</Feed>
-        <Hamburger style={{ cursor: 'pointer' }}>
+        <Hamburger>
           <FontAwesomeIcon onClick={onClick} icon={faBars} />
         </Hamburger>
         {isSideBarOpen && (
