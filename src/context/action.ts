@@ -9,7 +9,6 @@ type LoginInfoType = {
 };
 export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
   try {
-    // console.log(loginPayload); // data 하드코딩 수정해야함
     const response = await axios({
       method: 'POST',
       url: `${ROOT_URL}login`,
