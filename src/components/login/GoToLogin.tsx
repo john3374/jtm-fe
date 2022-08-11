@@ -41,7 +41,7 @@ const GoToLogin = (props: PropsType) => {
         />
         <Btn
           text="이메일로 시작하기"
-          link="login"
+          link="/login"
           logo="mail.svg"
           background="black"
           color="white"

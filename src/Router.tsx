@@ -64,7 +64,7 @@ const Router = () => {
               element={<Theme />}
             />
             {/* <Route path="/setting" element={<Setting />} /> */}
-            <Route path="/message" element={<MessageLoading />} />
+            <Route path="/message/:paperId" element={<MessageLoading />} />
             <Route path="/paperGift" element={<PaperGift />} />
             <Route path="/message/write/:paperId" element={<MessageWrite />} />
             <Route
