@@ -1,12 +1,10 @@
-import React from 'react';
+import { useAuthState } from 'src/context';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  messageDelete,
-  messageFix,
-  messageFixOrDelete,
-} from '../message_loading/messageFunction';
+import { messageDelete, messageFix } from '../message_loading/messageFunction';
 import { More2 } from '../message_loading/messageInterface';
+import Modal from './Modal';
 
 const BottomWrap = styled.div`
   width: 100%;
@@ -33,21 +31,34 @@ const BottomTap = styled.div`
 const Tap = styled.p`
   width: 100%;
   margin-bottom: 32px;
+  font-weight: bold;
+  font-size: 14px !important;
 `;
 
-const MoreBottom = ({ setMore, text, prev, messageId, fixText }: More2) => {
+const MoreBottom = ({ setMore, text, prev, messageId }: More2) => {
   const nav = useNavigate();
+  const { user, token } = useAuthState();
+  const email = user?.email;
+
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
-    <BottomWrap onClick={() => setMore(prev => !prev)}>
+    <BottomWrap
+      onClick={(e: any) => {
+        if (e.target === e.currentTarget) setMore(prev => !prev);
+      }}
+    >
       <BottomTap>
         {text &&
           text.map((item: string, idx: number) => (
             <Tap
-              onClick={async () => {
+              // onClick={async () => {
+              onClick={() => {
                 if (item === '수정하기')
                   nav(`/message/fix/${messageId}/${prev}`);
-                if (item === '삭제하기') messageDelete(1);
-                // await messageFixOrDelete(item, messageId, fixText);
+                if (item === '삭제하기') {
+                  setOpen(true);
+                }
               }}
               key={idx}
             >
@@ -55,6 +66,15 @@ const MoreBottom = ({ setMore, text, prev, messageId, fixText }: More2) => {
             </Tap>
           ))}
       </BottomTap>
+      {open && (
+        <Modal
+          info="정말 삭제하시겠습니까?"
+          confirm={true}
+          onModal={open}
+          setOnModal={setOpen}
+          onClick={() => messageDelete(email!, messageId)}
+        />
+      )}
     </BottomWrap>
   );
 };

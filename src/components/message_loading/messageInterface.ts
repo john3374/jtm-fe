@@ -19,8 +19,7 @@ export interface Message {
 
 export interface More1 {
   text: string[];
-  messageId: string;
-  fixText?: string;
+  messageId: number;
   prev?: string;
 }
 

@@ -5,6 +5,8 @@ import { themeMessageColor } from './messageData';
 import './messageLoading.scss';
 import styled from 'styled-components';
 import { Color } from './messageInterface';
+import { useAuthState } from 'src/context';
+import { useParams } from 'react-router-dom';
 
 const ColorBox = styled.div<Color>`
   width: 40px;
@@ -17,9 +19,12 @@ const MessageWrite = () => {
   const [message, setMessage] = useState<string>();
   const [textLength, setTextLength] = useState<number>(0);
   const [color, setColor] = useState<string>();
+  const { user, token } = useAuthState();
+  const email = user?.email;
+  const { paperId } = useParams();
 
   return (
-    <div className="message-loading">
+    <div className="message-loading full">
       <div className="title">
         <p>마라님께</p>
         {/* 페이퍼쪽에서 유저네임 받아와야함 */}
@@ -52,7 +57,7 @@ const MessageWrite = () => {
       </div>
       <BottomBtn
         onclick={(e: any) =>
-          messagePost('jam@gmail.com', message, '굴림', color)
+          messagePost(email!, message, '굴림', color, paperId!)
         }
         text="작성 완료"
       />

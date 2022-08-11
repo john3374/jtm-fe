@@ -6,6 +6,7 @@ import './messageLoading.scss';
 import styled from 'styled-components';
 import { Color } from './messageInterface';
 import { useParams } from 'react-router-dom';
+import { useAuthState } from 'src/context';
 
 const ColorBox = styled.div<Color>`
   width: 40px;
@@ -20,9 +21,11 @@ const MessageWrite = () => {
   const [message, setMessage] = useState<string>(prev!);
   const [textLength, setTextLength] = useState<number>(0);
   const [color, setColor] = useState<string>();
+  const { user, token } = useAuthState();
+  const email = user?.email;
 
   return (
-    <div className="message-loading">
+    <div className="message-loading full">
       <div className="title">
         <p>마라님께</p>
         {/* 페이퍼쪽에서 유저네임 받아와야함 */}
@@ -55,7 +58,7 @@ const MessageWrite = () => {
         }
       </div>
       <BottomBtn
-        onclick={() => messageFix(message, messageId!)}
+        onclick={() => messageFix(email!, message, messageId!, color!)}
         text="수정 완료"
       />
     </div>

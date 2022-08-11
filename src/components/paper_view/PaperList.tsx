@@ -1,6 +1,8 @@
-import { IMessage, IPaper } from '@src/interfaces/IPaper';
+import EnvConfig from 'src/config/EnvConfig';
+import { IMessage, IPaper } from 'src/interfaces/IPaper';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MessageItem, NoMessageItem } from './MessageItem';
 
@@ -14,6 +16,8 @@ interface IPaperAndMsg {
 
 const PaperList = ({ userEmail }: { userEmail: string }) => {
   const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
+
+  const navigate = useNavigate();
 
   // const papers = await getPaperMsgList(userEmail);
   // const data = await getPaperMsgList('lanto@gmail.com');
@@ -38,7 +42,13 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
           </TitleDiv>
           <ul>
             {p.messageCount > 0 ? (
-              p.messages.map((msg, idx) => <MessageItem key={idx} {...msg} />)
+              p.messages.map((msg, idx) => (
+                <MessageItem
+                  key={idx}
+                  {...msg}
+                  onClick={() => navigate(`/message/${p.paperId}`)}
+                />
+              ))
             ) : (
               <NoMessageItem />
             )}
@@ -85,7 +95,7 @@ const getPaperList = async (email: string) => {
   try {
     const response = await axios({
       method: 'get',
-      url: 'http://3.39.162.248:80/paper',
+      url: `${EnvConfig.LANTO_SERVER}paper`,
       headers: {
         'User-Email': email,
       },
