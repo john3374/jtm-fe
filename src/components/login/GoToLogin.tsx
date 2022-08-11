@@ -34,9 +34,9 @@ const GoToLogin = (props: PropsType) => {
       </TextComponent>
       <BtnComponent>
         <Btn
-          text="카카오톡으로 시작하기"
+          text="카카오로 시작하기"
           href={KAKAO_AUTH_URL}
-          logo="kakao.svg"
+          logo="kakao.png"
           background="#FAE54D"
         />
         <Btn
