@@ -1,9 +1,9 @@
 import { IMessage, IPaper } from '@src/interfaces/IPaper';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MessageItem, NoMessageItem } from './MessageItem';
-import { Navigate } from 'react-router-dom';
 import EnvConfig from '@src/config/EnvConfig';
 
 interface IPaperAndMsg {
