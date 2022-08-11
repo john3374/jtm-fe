@@ -85,7 +85,7 @@ const getPaperList = async (email: string) => {
   try {
     const response = await axios({
       method: 'get',
-      url: 'http://3.39.162.248:80/paper',
+      url: `${EnvConfig.LANTO_SERVER}paper`,
       headers: {
         'User-Email': email,
       },
