@@ -4,7 +4,6 @@ import { reactionAdd, reactionAmount, reactionMinus } from './messageFunction';
 const Reaction = ({ messageId, user, reactionAll }: any) => {
   const [reactionAm, setReactionAm] = useState<any>(0);
   const [click, setClick] = useState<boolean>(false);
-
   useEffect(() => {
     (async () => {
       try {
@@ -15,6 +14,7 @@ const Reaction = ({ messageId, user, reactionAll }: any) => {
       }
     })();
     if (
+      reactionAll[0] &&
       reactionAll[0].userName === user.userName &&
       reactionAll[0].messageId === messageId
     )

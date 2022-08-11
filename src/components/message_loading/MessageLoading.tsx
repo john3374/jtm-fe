@@ -43,7 +43,6 @@ const MessageLoading = () => {
 
   useEffect(() => {
     paperDetail(email!, paperId!, dispatch);
-    console.log(user);
   }, []);
 
   const Message = styled.div<Loading>`
@@ -104,8 +103,6 @@ const MessageLoading = () => {
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
-                // console.log(item);
-                // const reaction = await reactionAmount(item.messageId);
                 return (
                   <Message
                     key={idx}
