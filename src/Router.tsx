@@ -10,8 +10,7 @@ import { NamePaper } from './components/create_paper/NamePaper';
 import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
-import { AuthProvider } from './context';
-import Setting from './components/setting/Setting';
+import { AuthProvider, useAuthState } from './context';
 import MessageLoading from './components/message_loading/MessageLoading';
 import PaperGift from './components/paper_view/PaperGift';
 import MessageWrite from './components/message_loading/MessageWrite';
@@ -64,8 +63,8 @@ const Router = () => {
               path="/createPaper/selectTheme/:paperTitle"
               element={<Theme />}
             />
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/message/:paperId" element={<MessageLoading />} />
+            {/* <Route path="/setting" element={<Setting />} /> */}
+            <Route path="/message" element={<MessageLoading />} />
             <Route path="/paperGift" element={<PaperGift />} />
             <Route path="/message/write/:paperId" element={<MessageWrite />} />
             <Route
