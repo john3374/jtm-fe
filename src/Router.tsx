@@ -15,6 +15,7 @@ import MessageLoading from './components/message_loading/MessageLoading';
 import PaperGift from './components/paper_view/PaperGift';
 import MessageWrite from './components/message_loading/MessageWrite';
 import ModifyNickName from './components/setting/ModifyNickName';
+import { Credit } from './components/Credit';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -45,6 +46,7 @@ const Router = () => {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<GoToLogin api={KAKAO_API} />} />
+            <Route path="/credit" element={<Credit />} />
             <Route path="/login" element={<LoginEmail />} />
             <Route path="/login/signUp" element={<SignUp />} />
             {KAKAO_API && CLIENT_SECRET ? (

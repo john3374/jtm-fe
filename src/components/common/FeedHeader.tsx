@@ -61,6 +61,7 @@ function FeedHeader() {
                 개인정보 처리방침
               </a>
             </li>
+            <li onClick={() => navigate('/credit')}>만든이 소개</li>
             {user && <li>회원탈퇴</li>}
           </ul>
         </SideBarWrapper>
