@@ -5,6 +5,8 @@
     padding: 0 24px;
     box-sizing: border-box;
     min-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
     & .message-wrap {
         display: flex;
         align-items: center;
@@ -14,7 +16,12 @@
         position: sticky;
         left: 335px;
         bottom: 35px;
-        width: 55px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .btn{
+          text-align: -webkit-right;
+        }
     }
     .title {
         margin-top: 104px;

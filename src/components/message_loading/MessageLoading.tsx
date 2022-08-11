@@ -76,7 +76,7 @@ const MessageLoading = () => {
       className={stickerPop ? `message-loading full` : 'message-loading'}
       onMouseMove={e => {
         move && setX(e.clientX);
-        move && setY(e.clientY);
+        move && setY(e.clientY + e.currentTarget.scrollTop);
       }}
     >
       {user?.email === null && (
@@ -150,39 +150,41 @@ const MessageLoading = () => {
                 );
               })}
           </div>
-          <div className="message-btns">
-            <Btn
-              link={`/message/write/${paperId!}`}
-              width="48px"
-              height="48px"
-              text=""
-              padding="0"
-              background="#111"
-              logo="message.svg"
-              imgSize="20px"
-              center="center"
-            />
-            <Btn
-              href="#"
-              width="48px"
-              height="48px"
-              text=""
-              padding="0"
-              background="#FED700"
-              logo="star.svg"
-              imgSize="20px"
-              center="center"
-              onClick={() => setStickerPop(true)}
-            />
-          </div>
-          {st && (
-            <BottomBtn
-              onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
-              text="스티커 붙이기"
-            />
-          )}
         </>
       )}
+      <div className="message-btns">
+        <div className="btn">
+          <Btn
+            link={`/message/write/${paperId!}`}
+            width="48px"
+            height="48px"
+            text=""
+            padding="0"
+            background="#111"
+            logo="message.svg"
+            imgSize="20px"
+            center="center"
+          />
+          <Btn
+            href="#"
+            width="48px"
+            height="48px"
+            text=""
+            padding="0"
+            background="#FED700"
+            logo="star.svg"
+            imgSize="20px"
+            center="center"
+            onClick={() => setStickerPop(true)}
+          />
+        </div>
+        {st && (
+          <BottomBtn
+            onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
+            text="스티커 붙이기"
+          />
+        )}
+      </div>
       {email === null && <button>비회원이신가요?</button>}
     </div>
   );

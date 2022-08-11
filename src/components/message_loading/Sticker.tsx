@@ -31,6 +31,7 @@ const Sticker = ({ setMove, x, y, url, setPostX, setPostY }: any) => {
         position: 'absolute',
         left: `${setPostX ? x - leftLimit - 95 / 2 : x}px`,
         top: `${setPostY ? y - topLimit - 95 / 2 : y}px`,
+        zIndex: 60,
       }}
       onMouseDown={() => setPostX && setMove(true)}
       onMouseUp={() => {
