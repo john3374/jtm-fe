@@ -7,7 +7,7 @@ import { messageInitialState, messageReducer } from './messageStore';
 import MoreBtn from '../common/MoreBtn';
 import { Loading, Message } from './messageInterface';
 import { paperDetail, stickerPost } from './messageFunction';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import StickerWrite from './StickerWrite';
 import Sticker from './Sticker';
 import BottomBtn from '../common/BottomBtn';
@@ -99,6 +99,7 @@ const MessageLoading = () => {
       {stickerPop ? (
         <>
           <StickerWrite setStickerPop={setStickerPop} setSt={setSt} />
+          {/* 스티커 팝의 boolean 값에 따라 스티커 작성 페이지가 나타날지 메세지 페이지가 나타날지 나뉩니다 */}
         </>
       ) : (
         <>
@@ -111,6 +112,7 @@ const MessageLoading = () => {
               setPostX={setPostX}
               setPostY={setPostY}
             />
+            // 스티커를 선택한 겂이 있을 때 그 스티커가 메세지 페이지에 나타납니다
           )}
           <Header to="/createPaper" pageNm={paperName} />
           <div className="message-wrap">
@@ -143,7 +145,6 @@ const MessageLoading = () => {
                       />
                     </div>
                   </Message>
-                  // <p>asas</p>
                 );
               })
             ) : (
@@ -162,40 +163,48 @@ const MessageLoading = () => {
           </div>
         </>
       )}
-      <div className="message-btns">
-        <div className="btn">
-          <Btn
-            link={`/message/write/${paperId!}`}
-            width="48px"
-            height="48px"
-            text=""
-            padding="0"
-            background="#111"
-            logo="message.svg"
-            imgSize="20px"
-            center="center"
-          />
-          <Btn
-            href="#"
-            width="48px"
-            height="48px"
-            text=""
-            padding="0"
-            background="#FED700"
-            logo="star.svg"
-            imgSize="20px"
-            center="center"
-            onClick={() => setStickerPop(true)}
-          />
+      {user?.email !== null && (
+        <div className="message-btns">
+          <div className="btn">
+            <Btn
+              link={`/message/write/${paperId!}`}
+              width="48px"
+              height="48px"
+              text=""
+              padding="0"
+              background="#111"
+              logo="message.svg"
+              imgSize="20px"
+              center="center"
+            />
+            <Btn
+              href="#"
+              width="48px"
+              height="48px"
+              text=""
+              padding="0"
+              background="#FED700"
+              logo="star.svg"
+              imgSize="20px"
+              center="center"
+              onClick={() => setStickerPop(true)}
+            />
+          </div>
+          {st && (
+            <BottomBtn
+              onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
+              text="스티커 붙이기"
+            />
+          )}
         </div>
-        {st && (
-          <BottomBtn
-            onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
-            text="스티커 붙이기"
-          />
-        )}
-      </div>
-      {email === null && <button>비회원이신가요?</button>}
+      )}
+      {email === null && (
+        <Link to="/login">
+          <div className="go-login">
+            <BottomBtn text="로그인하러 가기" />
+          </div>
+        </Link>
+      )}
     </div>
   );
 };

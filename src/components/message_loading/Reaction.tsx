@@ -20,6 +20,8 @@ const Reaction = ({ messageId, user, reactionAll }: any) => {
     )
       setClick(true);
     else setClick(false);
+    // console.log(reactionAll.filter((item: any) => item.userName));
+    // console.log(user.userName);
   }, []);
   //   const reactionAm = reactionAmount(messageId);
   return (

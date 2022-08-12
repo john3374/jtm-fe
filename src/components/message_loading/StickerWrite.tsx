@@ -14,6 +14,7 @@ import Sticker from './Sticker';
 const StickerWrite = ({ setStickerPop, setSt }: any) => {
   return (
     <>
+      {/* 스티커 클릭시 각 스티커 값이 setSt에 담기고 팝업을 닫습니다 */}
       <p className="title">
         스티커를 골라주세요! <br />{' '}
         <span>스티커는 딱 하나만 붙일 수 있어요 :)</span>

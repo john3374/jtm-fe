@@ -190,6 +190,7 @@ export const reactionMinus = async (
         },
       },
     });
+    console.log(reactionTouch);
   } catch (e) {
     alert('리액션 제거를 실패했습니다');
     throw new Error('리액션 제거를 실패했습니다');
