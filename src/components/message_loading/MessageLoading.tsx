@@ -20,20 +20,31 @@ import { MoveBtn } from '../common/MoveBtn';
 
 const MessageLoading = () => {
   // const [messagePop, setMessagePop] = useState<boolean>(false);
-  const [stickerPop, setStickerPop] = useState<boolean>(false);
   const [fixPop, setFixPop] = useState<boolean>(false);
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
-  const [st, setSt] = useState<number>();
 
+  // sticker state ===
+  const [stickerPop, setStickerPop] = useState<boolean>(false);
+  // 스티커 작성 페이지 띄우기 여부
+  const [st, setSt] = useState<number>();
+  // 현재 선택한 스티커의 이름
+  // const [x, setX] = useState<number>();
   const [x, setX] = useState<number>();
+  // 스티커의 x 좌표
   const [postX, setPostX] = useState<number>(0);
+  // api에 전송할 스티커의 x 좌표 (마우스의 커서를 스티커의 정중앙에 맞추기 위해 좌표 값을 두 개로 나눴습니다)
   const [y, setY] = useState<number>();
+  // 스티커의 y 좌표
   const [postY, setPostY] = useState<number>(0);
+  // api에 전송할 스티커의 y 좌표
   const [move, setMove] = useState<boolean>(false);
+  // 스티커를 움직이고 있는가에 대한 여부
+  const stickerList = state.sticker;
+  // api를 통해 불러온 페이퍼에 붙어있는 스티커 목록들
+  // ==================
 
   const { paperId } = useParams();
   const messageList = state.message;
-  const stickerList = state.sticker;
 
   const { user, token } = useAuthState();
   const email = user?.email;
@@ -43,6 +54,7 @@ const MessageLoading = () => {
 
   useEffect(() => {
     paperDetail(email!, paperId!, dispatch);
+    console.log(123);
   }, []);
 
   const Message = styled.div<Loading>`
@@ -77,6 +89,7 @@ const MessageLoading = () => {
         move && setX(e.clientX);
         move && setY(e.clientY + e.currentTarget.scrollTop);
       }}
+      // 페이퍼 페이지에서 마우스 위치에 따라 스티커의 위치를 잡아줌
     >
       {user?.email === null && (
         <>

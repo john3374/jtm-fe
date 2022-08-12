@@ -29,7 +29,7 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
   }, [userEmail]);
 
   const viewPaperDetail = (pId: string) => {
-    if (parseInt(pId) >= 0) navigate(`/message/${pId}`);
+    if (parseInt(pId) >= 0) navigate(`/paper/${pId}`);
   };
 
   return (
