@@ -190,6 +190,7 @@ const MessageLoading = () => {
               onClick={() => setStickerPop(true)}
             />
           </div>
+          {/* 임시로 만들어놓은 스티커 붙이기 버튼 */}
           {st && (
             <BottomBtn
               onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
