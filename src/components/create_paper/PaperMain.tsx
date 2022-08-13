@@ -31,7 +31,7 @@ const PaperMain = () => {
       {user && userPaperNum > 0 && (
         <ViewPapers user={user} paperCnt={userPaperNum} />
       )}
-      {user && userPaperNum < 0 && <SuggestCreation {...user} />}
+      {user && userPaperNum <= 0 && <SuggestCreation {...user} />}
     </>
   );
 };
@@ -101,6 +101,7 @@ const SuggestCreation = (user: IUser) => {
             text={'새 롤링페이퍼 만들기'}
             onclick={() => navigate('/createPaper/decideName')}
           />
+          <PaperList userEmail={user.email} />
         </>
       )}
     </>

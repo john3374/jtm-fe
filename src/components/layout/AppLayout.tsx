@@ -13,6 +13,7 @@ const AppLayout = () => {
 const StyledContainer = styled.div`
   max-width: 375px;
   height: 100vh;
+  min-height: 100vh;
   margin: auto;
   border: 1px solid lightgrey; // 경계 구분용
   display: flex;
@@ -20,10 +21,11 @@ const StyledContainer = styled.div`
   align-items: center;
   align-content: stretch;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   @media screen and (min-height: 901px) {
-    height: 900px;
+    min-height: unset;
+    max-height: 900px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

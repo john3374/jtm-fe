@@ -23,6 +23,7 @@ import {
   reducer,
   veriftNum,
 } from './signUpStore';
+import Header from '../layout/Header';
 
 const SignUp = () => {
   // 인증번호 받고 나서 회원가입 버튼 누르기 전에 이메일이 바뀌었을 때도 감지해야 함
@@ -38,39 +39,6 @@ const SignUp = () => {
   const enterVerifyState = state.enterVerifyState;
   const verifyState = state.verifyState;
 
-  // 페이퍼 개설
-  // const q2 = async (e: any) => {
-  //   e.preventDefault();
-  //   const w = await axios({
-  //     method: 'POST',
-  //     url: '',
-  //     data: {
-  //       paper: {
-  //         paperTitle: 'sadasjasfja',
-  //         skin: 3,
-  //       },
-  //       user: {
-  //         email: 'jam@gmail.com',
-  //       },
-  //     },
-  //   });
-  //   console.log(w);
-  // };
-
-  // const q3 = async (e: any) => {
-  //   e.preventDefault();
-  //   const w = await axios({
-  //     method: 'post',
-  //     url: '',
-  //     data: {
-  //       email: 'jjs327020@gmail.com',
-  //       password: '546546asd6',
-  //       userName: '김',
-  //     },
-  //   });
-  //   console.log(w);
-  // };
-
   useEffect(() => {
     gauge(scrollRef.current);
   }, []);
@@ -78,10 +46,11 @@ const SignUp = () => {
   return (
     <>
       <div className="signWrap">
-        <div className="top">
+        <Header pageNm="회원가입" to="/login" />
+        <div className="bar" ref={scrollRef}></div>
+        {/* <div className="top">
           <p>회원가입</p>
-          <div className="bar" ref={scrollRef}></div>
-        </div>
+        </div> */}
         <form id="signUp">
           <SignUpEmail emailState={emailState} dispatch={dispatch} />
           <div className="nickNameWrap">
@@ -116,6 +85,25 @@ const SignUp = () => {
             />
           </div>
           <BottomBtn
+            text={'다음'}
+            // text={doubleState ? '다음' : '인증메일 받기'}
+            onclick={(e: any) =>
+              passVerify(e, {
+                emailTest,
+                emailState,
+                enterVerifyState,
+                verifyState,
+                doubleState,
+                nickNameTest,
+                nicknameState,
+                passwordTest,
+                passwordState,
+                rePassword,
+                nav,
+              })
+            }
+          />
+          {/* <BottomBtn
             text={doubleState ? '다음' : '인증메일 받기'}
             onclick={(e: any) =>
               doubleState
@@ -134,7 +122,7 @@ const SignUp = () => {
                   })
                 : emailVerify(e, emailState, dispatch, double, veriftNum)
             }
-          />
+          /> */}
         </form>
       </div>
     </>
