@@ -11,9 +11,9 @@ interface PropsType {
 
 function KakaoLogin(props: PropsType): null {
   const KAKAO_API_KEY: string = props.api;
-  // localhost에서 사용시
-  // const REDIRECT_URI = 'http://localhost/oauth/kakao/callback'
-  const REDIRECT_URI = 'http://byeolmal.today/oauth/kakao/callback';
+  // local 사용시
+  // EnvConfig.KAKAO_REDIRECT_URI_LOCAL
+  const REDIRECT_URI = EnvConfig.KAKAO_REDIRECT_URI;
   const CLIENT_SECRET: string = props.client;
   const code: string =
     new URL(window.location.href).searchParams.get('code') || '';

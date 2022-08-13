@@ -4,14 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MessageItem, NoMessageItem } from './MessageItem';
+import { useNavigate } from 'react-router-dom';
 import EnvConfig from 'src/config/EnvConfig';
 
 interface IPaperAndMsg {
-  paper: IPaper[];
+  paper: IPaper[]
 }
 
 const PaperList = ({ userEmail }: { userEmail: string }) => {
   const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
+  const [onComponent, setOnComponent] = useState<boolean>(true);
   const navigate = useNavigate();
 
   // const papers = await getPaperMsgList(userEmail);
@@ -28,26 +30,51 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     fetchAndSetPapers();
   }, [userEmail]);
 
+  const navigate = useNavigate();
+
   const viewPaperDetail = (pId: string) => {
     if (parseInt(pId) >= 0) navigate(`/paper/${pId}`);
+  };
+
+  const modifyPaper = (pId: string) => {
+    console.log('modify', pId);
+    navigate(`/changePaperName/${pId}`);
+  };
+
+  const deletePaper = (pId: string) => {
+    console.log('deleted', pId);
   };
 
   return (
     <StyledPaperList>
       {paperAndMsgs?.map((p: IPaper) => (
-        <PaperItem key={p.paperId}>
-          <TitleDiv onClick={() => viewPaperDetail(p.paperId)}>
-            <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
-            <p style={{ cursor: 'pointer' }}>․․․</p>
-          </TitleDiv>
-          <ul>
-            {p.messageCount > 0 ? (
-              p.messages.map((msg, idx) => <MessageItem key={idx} {...msg} />)
-            ) : (
-              <NoMessageItem />
-            )}
-          </ul>
-        </PaperItem>
+        <>
+          {onComponent ? (
+            <ModifyDelete>
+              <Item onClick={() => modifyPaper(p.paperId)}>
+                {' '}
+                페이퍼 제목 수정하기{' '}
+              </Item>
+              <Item onClick={() => deletePaper(p.paperId)}>
+                {' '}
+                페이퍼 삭제하기{' '}
+              </Item>
+            </ModifyDelete>
+          ) : null}
+          <PaperItem key={p.paperId}>
+            <TitleDiv onClick={() => viewPaperDetail(p.paperId)}>
+              <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
+              <p style={{ cursor: 'pointer' }}>․․․</p>
+            </TitleDiv>
+            <ul>
+              {p.messageCount > 0 ? (
+                p.messages.map((msg, idx) => <MessageItem key={idx} {...msg} />)
+              ) : (
+                <NoMessageItem />
+              )}
+            </ul>
+          </PaperItem>
+        </>
       ))}
     </StyledPaperList>
   );
@@ -92,6 +119,16 @@ const StyledPaperTitle = styled.p`
   &:hover {
     // color:
   }
+`;
+
+const ModifyDelete = styled.div`
+  bottom: 0;
+  height: 60px;
+`;
+
+const Item = styled.button`
+  width: 100%;
+  font-size: 0.8rem;
 `;
 
 const getPaperList = async (email: string) => {
