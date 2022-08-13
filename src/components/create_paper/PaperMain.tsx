@@ -25,22 +25,25 @@ const PaperMain = () => {
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
   if (!user) navigate('/login');
   const userPaperNum = parseInt(localStorage.getItem('userPaperCnt') || '0');
+  console.log(userPaperNum);
+
   return (
     <>
       <FeedHeader />
-      {user && userPaperNum > 0 && (
+      {user && userPaperNum > 0 ? (
         <ViewPapers user={user} paperCnt={userPaperNum} />
+      ) : (
+        <SuggestCreation user={user} />
       )}
-      {user && userPaperNum < 0 && <SuggestCreation {...user} />}
     </>
   );
 };
 
 // 유저의 페이퍼가 있는 경우
 const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
-  // const userPaperNum = 1;
   let userEmail = '';
   if (user.email) userEmail = user.email;
+
   return (
     <main style={{ overflow: 'scroll' }}>
       <FloatingButton />
@@ -71,14 +74,13 @@ const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
 };
 
 // 유저의 페이퍼가 없는 경우
-const SuggestCreation = (user: IUser) => {
+const SuggestCreation = ({ user }: { user: IUser | null }) => {
   const navigate = useNavigate();
 
   return (
     <>
       {user && (
         <>
-          {' '}
           <FloatingButton />
           <StyledSuggestCreation>
             <p style={{ color: '#CCCCCC' }}>

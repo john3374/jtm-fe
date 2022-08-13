@@ -1,6 +1,8 @@
 export interface Loading {
   backColor: string;
   font: string;
+  width: string;
+  left: string;
 }
 
 export interface Message {
@@ -17,10 +19,14 @@ export interface Message {
 
 export interface More1 {
   text: string[];
-  messageId: string;
-  fixText?: string;
+  messageId: number;
+  prev?: string;
 }
 
 export interface More2 extends More1 {
   setMore: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface Color {
+  color: string;
 }

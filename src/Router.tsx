@@ -10,11 +10,12 @@ import { NamePaper } from './components/create_paper/NamePaper';
 import Theme from './components/create_paper/Theme';
 import PaperMain from './components/create_paper/PaperMain';
 import LoginEmail from './components/login/LoginEmail';
-import { AuthProvider } from './context';
+import { AuthProvider, useAuthState } from './context';
 import MessageLoading from './components/message_loading/MessageLoading';
 import PaperGift from './components/paper_view/PaperGift';
 import MessageWrite from './components/message_loading/MessageWrite';
 import ModifyNickName from './components/setting/ModifyNickName';
+import MessageFix from './components/message_loading/MessageFix';
 import { Credit } from './components/Credit';
 import ModifyPaperName from './components/setting/ModifyPaperName';
 
@@ -41,6 +42,9 @@ const Router = () => {
       });
   }, []);
 
+  // 제발 되게 해주세요 하나님맙소사울라라
+  // ㅁㄴ아머나멍ㅁ
+
   return (
     <AuthProvider>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -62,9 +66,14 @@ const Router = () => {
               path="/createPaper/selectTheme/:paperTitle"
               element={<Theme />}
             />
-            <Route path="/message" element={<MessageLoading />} />
+            {/* <Route path="/setting" element={<Setting />} /> */}
+            <Route path="/paper/:paperId" element={<MessageLoading />} />
             <Route path="/paperGift" element={<PaperGift />} />
-            <Route path="/message/write" element={<MessageWrite />} />
+            <Route path="/paper/write/:paperId" element={<MessageWrite />} />
+            <Route
+              path="/paper/fix/:messageId/:prev"
+              element={<MessageFix />}
+            />
             {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
             <Route path="/user/nickname" element={<ModifyNickName />}></Route>
             <Route

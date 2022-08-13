@@ -26,7 +26,8 @@ const StyledBtn = styled.button<IBtnStyle>`
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  min-width: 90%;
+  /* min-width: 90%; */
+  width: 100%;
   background: ${props => (props.disabled ? `gray` : 'black')};
   padding: 1rem 0;
   margin: 0.5rem;

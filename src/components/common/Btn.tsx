@@ -85,7 +85,7 @@ const StyledLink = styled(Link)<IBtnStyle>`
   height: ${props => props.height || ''};
   margin: 1rem 1rem 0;
   padding: ${props => props.padding || '1rem 1.5rem;'};
-  border-radius: 12px;
+  border-radius: 24px;
   justify-content: center;
   gap: 0.5rem;
   background: ${props => props.background || 'initial'};
@@ -98,7 +98,7 @@ const StyledBtn = styled.a<IBtnStyle>`
   height: ${props => props.height || ''};
   margin: 1rem 1rem 0;
   padding: ${props => props.padding || '1rem 1.5rem;'};
-  border-radius: 12px;
+  border-radius: 24px;
   justify-content: center;
   gap: 0.5rem;
   background: ${props => props.background || 'initial'};

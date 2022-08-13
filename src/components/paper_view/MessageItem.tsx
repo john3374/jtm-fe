@@ -17,7 +17,7 @@ const MessageItem = (msg: IMessage) => {
   const randomColor = `hsl(${randomInt * 8}, 85%, 90%)`;
 
   return (
-    <StyledMessageli color={randomColor}>
+    <StyledMessageli color={randomColor} onClick={msg.onClick}>
       <p style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>
         {msg.userName}님
       </p>
