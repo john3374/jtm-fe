@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from '../../context';
@@ -7,6 +7,7 @@ import FeedHeader from '../common/FeedHeader';
 import BottomBtn from '../common/BottomBtn';
 import PaperList from '../paper_view/PaperList';
 import FloatingButton from '../common/FloatingButton';
+import { getPaperList } from '../../api/paper';
 
 const Option = styled.div`
   width: 48px;
@@ -21,11 +22,27 @@ const Option = styled.div`
 `;
 
 const PaperMain = () => {
+  const [userPaperNum, setUserPaperNum] = useState<number>(0);
   const navigate = useNavigate();
   const { user, token } = useAuthState(); // id 토큰, user 닉네임
   if (!user) navigate('/login');
-  const userPaperNum = parseInt(localStorage.getItem('userPaperCnt') || '0');
-  console.log(userPaperNum);
+
+  useEffect(() => {
+    async function fetchPaperCnt(email: string) {
+      const allData = await getPaperList(email);
+      const paperLength = (allData?.length || 0).toString();
+      localStorage.setItem('userPaperCnt', paperLength);
+      return paperLength;
+    }
+    user &&
+      fetchPaperCnt(user.email).then(() => {
+        if (localStorage.getItem('userPaperCnt')) {
+          setUserPaperNum(
+            parseInt(localStorage.getItem('userPaperCnt') || '0')
+          );
+        }
+      });
+  }, []);
 
   return (
     <>
@@ -33,7 +50,7 @@ const PaperMain = () => {
       {user && userPaperNum > 0 ? (
         <ViewPapers user={user} paperCnt={userPaperNum} />
       ) : (
-        <SuggestCreation user={user} />
+        user && <SuggestCreation userName={user?.userName} />
       )}
     </>
   );
@@ -74,37 +91,33 @@ const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
 };
 
 // 유저의 페이퍼가 없는 경우
-const SuggestCreation = ({ user }: { user: IUser | null }) => {
+const SuggestCreation = ({ userName }: { userName: string }) => {
   const navigate = useNavigate();
 
   return (
     <>
-      {user && (
-        <>
-          <FloatingButton />
-          <StyledSuggestCreation>
-            <p style={{ color: '#CCCCCC' }}>
-              {user.userName}님,
-              <br />
-              안녕하세요!
-            </p>
-            <p style={{ color: '#999999' }}>
-              아직 롤링페이퍼가
-              <br />
-              없으시군요,
-            </p>
-            <p style={{ color: 'gray' }}>
-              한 번 새롭게
-              <br />
-              만들어보시겠어요?
-            </p>
-          </StyledSuggestCreation>
-          <BottomBtn
-            text={'새 롤링페이퍼 만들기'}
-            onclick={() => navigate('/createPaper/decideName')}
-          />
-        </>
-      )}
+      <FloatingButton />
+      <StyledSuggestCreation>
+        <p style={{ color: '#CCCCCC' }}>
+          {userName}님,
+          <br />
+          안녕하세요!
+        </p>
+        <p style={{ color: '#999999' }}>
+          아직 롤링페이퍼가
+          <br />
+          없으시군요,
+        </p>
+        <p style={{ color: 'gray' }}>
+          한 번 새롭게
+          <br />
+          만들어보시겠어요?
+        </p>
+      </StyledSuggestCreation>
+      <BottomBtn
+        text={'새 롤링페이퍼 만들기'}
+        onclick={() => navigate('/createPaper/decideName')}
+      />
     </>
   );
 };

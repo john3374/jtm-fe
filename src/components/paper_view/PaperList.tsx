@@ -14,9 +14,6 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
   const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
   const [onComponent, setOnComponent] = useState<boolean>(true);
 
-  // const papers = await getPaperMsgList(userEmail);
-  // const data = await getPaperMsgList('lanto@gmail.com');
-  // if (data) setPaperAndMsgs(data);
   useEffect(() => {
     async function fetchAndSetPapers() {
       const allData = await getPaperList(userEmail);
