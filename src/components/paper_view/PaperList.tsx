@@ -12,7 +12,7 @@ interface IPaperAndMsg {
 
 const PaperList = ({ userEmail }: { userEmail: string }) => {
   const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
-  const [onComponent, setOnComponent] = useState<boolean>(true);
+  const [onComponent, setOnComponent] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchAndSetPapers() {
