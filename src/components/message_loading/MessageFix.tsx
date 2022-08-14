@@ -15,9 +15,8 @@ const ColorBox = styled.div<Color>`
   background-color: ${props => (props.color ? `${props.color}` : 'unset')};
 `;
 
-const MessageWrite = () => {
-  const { messageId } = useParams();
-  const { prev } = useParams();
+const MessageFixed = () => {
+  const { messageId, paperSkin, prev } = useParams();
   const [message, setMessage] = useState<string>(prev!);
   const [textLength, setTextLength] = useState<number>(0);
   const [color, setColor] = useState<string>();
@@ -65,4 +64,4 @@ const MessageWrite = () => {
   );
 };
 
-export default MessageWrite;
+export default MessageFixed;

@@ -21,6 +21,7 @@ export interface More1 {
   text: string[];
   messageId: number;
   prev?: string;
+  paperTheme?: string;
 }
 
 export interface More2 extends More1 {
@@ -29,4 +30,9 @@ export interface More2 extends More1 {
 
 export interface Color {
   color: string;
+}
+
+export interface MessageLoadingInt {
+  full: boolean;
+  theme: string;
 }

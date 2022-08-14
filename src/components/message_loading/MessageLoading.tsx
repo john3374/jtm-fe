@@ -5,8 +5,8 @@ import Header from '../layout/Header';
 import { Btn } from '../common/Btn';
 import { messageInitialState, messageReducer } from './messageStore';
 import MoreBtn from '../common/MoreBtn';
-import { Loading, Message } from './messageInterface';
-import { paperDetail, stickerPost } from './messageFunction';
+import { Loading, Message, MessageLoadingInt } from './messageInterface';
+import { paperDetail, reactionAmount, stickerPost } from './messageFunction';
 import { Link, useParams } from 'react-router-dom';
 import StickerWrite from './StickerWrite';
 import Sticker from './Sticker';
@@ -14,6 +14,7 @@ import BottomBtn from '../common/BottomBtn';
 import Reaction from './Reaction';
 import { useAuthState } from 'src/context';
 import { MoveBtn } from '../common/MoveBtn';
+import { themeColor } from './messageData';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 // 모바일 버전 스티커 가능하게 따로 만들어야 할 듯
@@ -49,42 +50,18 @@ const MessageLoading = () => {
   const { user, token } = useAuthState();
   const email = user?.email;
 
+  const paperTheme = state.paper.skin;
   const paperName = state.paper.paperTitle;
   const reactionAll = state.reaction;
 
   useEffect(() => {
     paperDetail(email!, paperId!, dispatch);
-    console.log(123);
   }, []);
 
-  const Message = styled.div<Loading>`
-    width: ${props => (props.width ? props.width : '327px')};
-    background-color: ${props =>
-      props.backColor ? props.backColor : '#ffbba6'};
-    font-family: ${props => (props.font ? props.font : 'sans-serif')};
-    border-radius: 12px;
-    padding: 16px 16px 20px 16px;
-    margin-top: 34px;
-    display: flex;
-    flex-direction: column;
-    align-self: ${props => props.left && props.width && props.left};
-    p {
-      font-size: 13px;
-      line-height: 24px;
-    }
-    p:first-child {
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 7px;
-    }
-    p:nth-child(2) {
-      margin-bottom: 13px;
-    }
-  `;
-
   return (
-    <div
-      className={stickerPop ? `message-loading full` : 'message-loading'}
+    <MessageLoadingComponent
+      theme={themeColor[paperTheme - 1]}
+      full={stickerPop ? true : false}
       onMouseMove={e => {
         move && setX(e.clientX);
         move && setY(e.clientY + e.currentTarget.scrollTop);
@@ -118,8 +95,11 @@ const MessageLoading = () => {
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
+                const myReaction = reactionAll.filter(
+                  (re: any) => re.messageId === item.messageId
+                );
                 return (
-                  <Message
+                  <MessageComponent
                     key={idx}
                     // backColor={'#fff'}
                     backColor={item.color}
@@ -135,16 +115,17 @@ const MessageLoading = () => {
                       <MoreBtn
                         text={['수정하기', '삭제하기']}
                         messageId={item.messageId}
+                        paperTheme={paperTheme}
                         prev={item.content}
                       />
                       {/* )} */}
                       <Reaction
                         messageId={item.messageId}
                         user={user}
-                        reactionAll={reactionAll}
+                        myReaction={myReaction}
                       />
                     </div>
-                  </Message>
+                  </MessageComponent>
                 );
               })
             ) : (
@@ -167,7 +148,7 @@ const MessageLoading = () => {
         <div className="message-btns">
           <div className="btn">
             <Btn
-              link={`/message/write/${paperId!}`}
+              link={`/paper/write/${paperTheme!}/${paperId!}`}
               width="48px"
               height="48px"
               text=""
@@ -206,8 +187,44 @@ const MessageLoading = () => {
           </div>
         </Link>
       )}
-    </div>
+    </MessageLoadingComponent>
   );
 };
+
+export const MessageLoadingComponent = styled.div<MessageLoadingInt>`
+  width: 100%;
+  position: relative;
+  background-color: ${props => (props.theme ? props.theme : '#fff')};
+  padding: 0 24px;
+  box-sizing: border-box;
+  min-height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: ${props => (props.full ? '100vh' : 'uunset')};
+`;
+
+const MessageComponent = styled.div<Loading>`
+  width: ${props => (props.width ? props.width : '327px')};
+  background-color: ${props => (props.backColor ? props.backColor : '#ffbba6')};
+  font-family: ${props => (props.font ? props.font : 'sans-serif')};
+  border-radius: 12px;
+  padding: 16px 16px 20px 16px;
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  align-self: ${props => props.left && props.width && props.left};
+  p {
+    font-size: 13px;
+    line-height: 24px;
+  }
+  p:first-child {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+  p:nth-child(2) {
+    margin-bottom: 13px;
+  }
+`;
 
 export default MessageLoading;

@@ -176,7 +176,7 @@ export const reactionMinus = async (
 ) => {
   try {
     const reactionTouch = await axios({
-      url: `${EnvConfig.LANTO_SERVER}reaction`,
+      url: `${EnvConfig.LANTO_SERVER}reaction/${reactionId}`,
       method: 'delete',
       data: {
         message: {
@@ -184,9 +184,6 @@ export const reactionMinus = async (
         },
         user: {
           email: email,
-        },
-        reaction: {
-          reactionId: reactionId,
         },
       },
     });

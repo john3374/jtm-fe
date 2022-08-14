@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { reactionAdd, reactionAmount, reactionMinus } from './messageFunction';
 
-const Reaction = ({ messageId, user, reactionAll }: any) => {
+const Reaction = ({ messageId, user, myReaction }: any) => {
   const [reactionAm, setReactionAm] = useState<any>(0);
   const [click, setClick] = useState<boolean>(false);
+  const yourReaction = myReaction.filter(
+    (item: any) => item.userName === user.userName
+  );
   useEffect(() => {
     (async () => {
       try {
@@ -13,23 +16,15 @@ const Reaction = ({ messageId, user, reactionAll }: any) => {
         console.log(e);
       }
     })();
-    if (
-      reactionAll[0] &&
-      reactionAll[0].userName === user.userName &&
-      reactionAll[0].messageId === messageId
-    )
-      setClick(true);
+    if (yourReaction.length > 0) setClick(true);
     else setClick(false);
-    // console.log(reactionAll.filter((item: any) => item.userName));
-    // console.log(user.userName);
   }, []);
-  //   const reactionAm = reactionAmount(messageId);
   return (
     <div
       className="reaction-wrap"
       onClick={() => {
         if (click)
-          reactionMinus(user.email, messageId, reactionAll[0].reactionId);
+          reactionMinus(user.email, messageId, yourReaction[0].reactionId);
         else reactionAdd(user.email, messageId);
         setClick(prev => !prev);
       }}

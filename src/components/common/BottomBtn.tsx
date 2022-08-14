@@ -6,6 +6,7 @@ interface IBottomBtn {
   disabled?: boolean;
   onclick?: any; // state로도 사용 가능하고 navigate 목적도 가능
   fixed?: string;
+  link?: string;
 }
 
 interface IBtnStyle {
