@@ -77,7 +77,7 @@ const Router = () => {
             {/* <Route path="/message/sticker" element={<StickerWrite />} /> */}
             <Route path="/user/nickname" element={<ModifyNickName />}></Route>
             <Route
-              path="/changePaperName:paperId"
+              path="/changePaperName/:paperId"
               element={<ModifyPaperName />}
             ></Route>
           </Route>

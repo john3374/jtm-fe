@@ -1,18 +1,32 @@
 import { IMessage, IPaper } from 'src/interfaces/IPaper';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MessageItem, NoMessageItem } from './MessageItem';
 import EnvConfig from 'src/config/EnvConfig';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
 interface IPaperAndMsg {
   paper: IPaper[];
 }
 
-const PaperList = ({ userEmail }: { userEmail: string }) => {
+const PaperList = ({
+  userEmail,
+  setPaperId,
+  onSelect,
+  setSelect,
+}: {
+  userEmail: string;
+  setPaperId: any;
+  onSelect: boolean;
+  setSelect: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [paperAndMsgs, setPaperAndMsgs] = useState<IPaper[]>();
-  const [onComponent, setOnComponent] = useState<boolean>(false);
+
+  const [selectPaper, setSelectPaper] = useState<string>();
+  const [onWindow, setOnWindow] = useState<boolean>(onSelect);
 
   useEffect(() => {
     async function fetchAndSetPapers() {
@@ -31,35 +45,36 @@ const PaperList = ({ userEmail }: { userEmail: string }) => {
     if (parseInt(pId) >= 0) navigate(`/paper/${pId}`);
   };
 
-  const modifyPaper = (pId: string) => {
-    console.log('modify', pId);
-    navigate(`/changePaperName/${pId}`);
+  const onClick = (paperId: string) => {
+    setSelect(!onSelect);
+    setPaperId(paperId);
+    console.log('value', onSelect, 'id', paperId);
   };
 
-  const deletePaper = (pId: string) => {
-    console.log('deleted', pId);
+  const hoverEvent = (e: any) => {
+    e.target.style.color = '#00b860';
+  };
+
+  const leaveEvent = (e: any) => {
+    e.target.style.color = '#333';
   };
 
   return (
     <StyledPaperList>
       {paperAndMsgs?.map((p: IPaper) => (
         <>
-          {onComponent ? (
-            <ModifyDelete>
-              <Item onClick={() => modifyPaper(p.paperId)}>
-                {' '}
-                페이퍼 제목 수정하기{' '}
-              </Item>
-              <Item onClick={() => deletePaper(p.paperId)}>
-                {' '}
-                페이퍼 삭제하기{' '}
-              </Item>
-            </ModifyDelete>
-          ) : null}
           <PaperItem key={p.paperId}>
-            <TitleDiv onClick={() => viewPaperDetail(p.paperId)}>
-              <StyledPaperTitle>{p.paperTitle}</StyledPaperTitle>
-              <p style={{ cursor: 'pointer' }}>․․․</p>
+            <TitleDiv>
+              <StyledPaperTitle onClick={() => viewPaperDetail(p.paperId)}>
+                {p.paperTitle}
+              </StyledPaperTitle>
+              <FontAwesomeIcon
+                style={{ paddingRight: '2rem' }}
+                onMouseEnter={hoverEvent}
+                onMouseLeave={leaveEvent}
+                onClick={() => onClick(p.paperId)}
+                icon={faEllipsis}
+              />
             </TitleDiv>
             <ul>
               {p.messageCount > 0 ? (
@@ -79,11 +94,6 @@ const TitleDiv = styled.div`
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  p {
-    font-weight: bold;
-    font-size: 20px;
-    padding-right: 2rem;
-  }
 `;
 
 const StyledPaperList = styled.section`
@@ -114,16 +124,6 @@ const StyledPaperTitle = styled.p`
   &:hover {
     // color:
   }
-`;
-
-const ModifyDelete = styled.div`
-  bottom: 0;
-  height: 60px;
-`;
-
-const Item = styled.button`
-  width: 100%;
-  font-size: 0.8rem;
 `;
 
 const getPaperList = async (email: string) => {
