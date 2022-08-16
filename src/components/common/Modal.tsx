@@ -45,7 +45,7 @@ function Modal(props: PropsType) {
             </BtnsItem>
           ) : (
             <BtnItem>
-              <Button onClick={closeModal}>취소</Button>
+              <Button onClick={closeModal}>확인</Button>
             </BtnItem>
           )}
         </Btn>
@@ -78,8 +78,8 @@ const Text = styled.div`
   color: white;
   font-size: 1rem;
   white-space: pre-line;
-  margin: 0.8rem;
-  padding: 0.3rem;
+  padding: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const Btn = styled.div`
@@ -103,7 +103,7 @@ const Button = styled.button`
   padding: 0.2rem 2.6rem;
   color: white;
   background-color: #000000;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  //border: 2px solid rgba(255, 255, 255, 0.1);
 `;
 
 export default Modal;

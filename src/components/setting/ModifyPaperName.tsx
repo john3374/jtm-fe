@@ -11,7 +11,6 @@ import Modal from '../common/Modal';
 
 function ModifyNickName() {
   const [paperName, setPaperName] = useState<string>('');
-  const [paperTheme, setPaperTheme] = useState<string>('');
   const [onModal, setOnModal] = useState<boolean>(false);
   const [onInfo, setOnInfo] = useState<string>('');
   const navigate = useNavigate();
@@ -20,16 +19,17 @@ function ModifyNickName() {
 
   const [selectPaperId, setSelectPaperId] = useState<number>(0);
   const { paperId } = useParams();
+  const nav = useNavigate();
 
   const sendChangeName = async () => {
     try {
       await axios({
         method: 'put',
-        url: `${EnvConfig.LANTO_SERVER}update`,
+        url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
         data: {
           paper: {
             paperTitle: paperName,
-            skin: paperTheme,
+            skin: selectPaperId,
           },
           user: {
             email: userEmail,
@@ -77,7 +77,7 @@ function ModifyNickName() {
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
-          // onChange={(e: any) => setNickName(e.target.value)}
+          onChange={(e: any) => setPaperName(e.target.value)}
         />
         <Margin />
         <SubText> 테마도 변경 하실 건가요? </SubText>
@@ -101,7 +101,7 @@ function ModifyNickName() {
         <BottomBtn
           onclick={sendChangeName}
           text="변경하기"
-          disabled={paperName.length <= 0 ? true : false}
+          disabled={paperName.length <= 0 && selectPaperId > 0 ? true : false}
         />
       </Component>
     </>
