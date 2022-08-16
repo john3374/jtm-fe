@@ -11,6 +11,8 @@ import { Btn } from '../common/Btn';
 import { messageInitialState, messageReducer } from './messageStore';
 import Sticker from './Sticker';
 
+import one from '../../static/sticker/1.png';
+
 const StickerWrite = ({ setStickerPop, setSt }: any) => {
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
   return (
@@ -27,7 +29,8 @@ const StickerWrite = ({ setStickerPop, setSt }: any) => {
               setStickerPop(false);
               setSt(1);
             }}
-            src={`${process.env.PUBLIC_URL}/img/1.png`}
+            // src={`${process.env.PUBLIC_URL}/img/1.png`}
+            src={one}
           />
           <img
             onClick={() => {

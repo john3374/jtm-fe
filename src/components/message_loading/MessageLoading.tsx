@@ -66,7 +66,7 @@ const MessageLoading = () => {
       reactionAll!
     );
     // console.log(user?.email !== null && st === 0);
-    // console.log(123);
+    console.log(123);
     // dispatch(message(123));
   }, [messageList, reactionAll]);
 
@@ -118,7 +118,6 @@ const MessageLoading = () => {
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
-                console.log(item);
                 const myReaction = reactionAll.filter(
                   (re: any) => re.messageId === item.messageId
                 );
