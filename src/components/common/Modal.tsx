@@ -8,6 +8,7 @@ interface PropsType {
   onModal: boolean;
   setOnModal: Dispatch<SetStateAction<boolean>>;
   href?: string;
+  onButtonHref?: string;
   onClick?: any;
 }
 
@@ -45,7 +46,14 @@ function Modal(props: PropsType) {
             </BtnsItem>
           ) : (
             <BtnItem>
-              <Button onClick={closeModal}>확인</Button>
+              <Link to={props.onButtonHref! ? props.onButtonHref! : ''}>
+                <Button
+                  onClick={props.onClick ? props.onClick : ''}
+                  style={{ fontWeight: 'bold' }}
+                >
+                  확인
+                </Button>
+              </Link>
             </BtnItem>
           )}
         </Btn>
