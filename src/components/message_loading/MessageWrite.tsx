@@ -8,13 +8,7 @@ import { Color } from './messageInterface';
 import { useAuthState } from 'src/context';
 import { useParams } from 'react-router-dom';
 import { MessageLoadingComponent } from './MessageLoading';
-
-const ColorBox = styled.div<Color>`
-  width: 40px;
-  height: 40px;
-  border-radius: 40px;
-  background-color: ${props => (props.color ? `${props.color}` : 'unset')};
-`;
+import Header from '../layout/Header';
 
 const MessageWrite = () => {
   const [message, setMessage] = useState<string>();
@@ -23,56 +17,61 @@ const MessageWrite = () => {
   const { user, token } = useAuthState();
   const email = user?.email;
   const { paperId, paperSkin } = useParams();
+  // const [select, setSelect] = useState<boolean>(false);
 
   const writeData = Object.values(themeMessageColor[Number(paperSkin) - 1]);
 
   // console.log();
 
   return (
-    <MessageLoadingComponent
-      full={true}
-      theme={themeColor[Number(paperSkin) - 1]}
-    >
-      <div className="title">
-        <p>마라님께</p>
-        {/* 페이퍼쪽에서 유저네임 받아와야함 */}
-        <p>한마디를 남겨주세요!</p>
-      </div>
-      <div className="message-wrap">
-        <div className="write-box">
-          <InputBox
-            maxLength={420}
-            color={themeInput[Number(paperSkin) - 1]}
-            onChange={(e: any) => {
-              setTextLength(e.target.value.length);
-              setMessage(e.target.value);
-            }}
-          ></InputBox>
-          <span>{textLength}/420</span>
+    <>
+      <MessageLoadingComponent
+        full={true}
+        theme={themeColor[Number(paperSkin) - 1]}
+      >
+        <Header to={`/paper/${paperId}`} pageNm="메시지 남기기" />
+        <div className="message-wrap">
+          <div className="write-box">
+            <InputBox
+              maxLength={420}
+              color={themeInput[Number(paperSkin) - 1]}
+              onChange={(e: any) => {
+                setTextLength(e.target.value.length);
+                setMessage(e.target.value);
+              }}
+            ></InputBox>
+            <span>{textLength}/420</span>
+          </div>
         </div>
-      </div>
-      <div className="message-color">
-        {
+        <div className="message-color">
           <>
             {writeData[0].map((item: any) => (
-              <ColorBox
-                key={item}
-                onClick={() => setColor(item)}
-                color={item}
-              />
+              <ColorBoxBorder color={item}>
+                <ColorBox
+                  key={item}
+                  onClick={() => setColor(item)}
+                  color={item}
+                  on={color === item ? true : false}
+                />
+              </ColorBoxBorder>
             ))}
           </>
-        }
-      </div>
-      <BottomBtn
-        onclick={() => messagePost(email!, message, '굴림', color, paperId!)}
-        text="작성 완료"
-      />
-    </MessageLoadingComponent>
+        </div>
+        <BottomFix>
+          <BottomBtn
+            link={`/paper/${paperId}`}
+            onclick={() =>
+              messagePost(email!, message, '굴림', color, paperId!)
+            }
+            text="작성 완료"
+          />
+        </BottomFix>
+      </MessageLoadingComponent>
+    </>
   );
 };
 
-const InputBox = styled.textarea`
+export const InputBox = styled.textarea`
   width: 327px;
   height: 300px;
   border-radius: 12px;
@@ -84,6 +83,34 @@ const InputBox = styled.textarea`
   font-size: 16px;
   font-weight: 500;
   font-family: inherit;
+`;
+
+export const BottomFix = styled.div`
+  width: 300px;
+  height: 60px;
+  position: absolute;
+  bottom: 34px;
+`;
+
+export const ColorBox = styled.div<Color>`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: ${props => (props.color ? `${props.color}` : 'unset')};
+  transform: ${props =>
+    props.on ? 'scale(0.9) translate(-50%, -50%)' : 'unset'};
+  position: ${props => (props.on ? 'absolute' : 'unset')};
+  top: 45%;
+  left: 45%;
+`;
+
+export const ColorBoxBorder = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 2px solid;
+  border-color: ${props => (props.color ? `${props.color}` : 'unset')};
+  position: relative;
 `;
 
 export default MessageWrite;

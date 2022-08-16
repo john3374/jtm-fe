@@ -1,4 +1,5 @@
 import React, { MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface IBottomBtn {
@@ -14,12 +15,22 @@ interface IBtnStyle {
   disabled?: boolean;
 }
 
-const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
+const BottomBtn = ({ text, onclick, disabled, fixed, link }: IBottomBtn) => {
   //
   return (
-    <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
-      {text}
-    </StyledBtn>
+    <>
+      {link ? (
+        <Link to={link}>
+          <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
+            {text}
+          </StyledBtn>
+        </Link>
+      ) : (
+        <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
+          {text}
+        </StyledBtn>
+      )}
+    </>
   );
 };
 

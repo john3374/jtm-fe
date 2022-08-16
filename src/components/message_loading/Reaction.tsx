@@ -13,7 +13,7 @@ const Reaction = ({ messageId, user, myReaction }: any) => {
         const result = await reactionAmount(messageId);
         setReactionAm(result.reactionCnt);
       } catch (e) {
-        console.log(e);
+        throw new Error('리액션 목록 불러오기를 실패했습니다');
       }
     })();
     if (yourReaction.length > 0) setClick(true);
@@ -23,10 +23,15 @@ const Reaction = ({ messageId, user, myReaction }: any) => {
     <div
       className="reaction-wrap"
       onClick={() => {
-        if (click)
+        if (click) {
           reactionMinus(user.email, messageId, yourReaction[0].reactionId);
-        else reactionAdd(user.email, messageId);
-        setClick(prev => !prev);
+          setReactionAm((prev: number) => prev - 1);
+          setClick(false);
+        } else {
+          reactionAdd(user.email, messageId);
+          setClick(true);
+          setReactionAm((prev: number) => prev + 1);
+        }
       }}
     >
       <svg

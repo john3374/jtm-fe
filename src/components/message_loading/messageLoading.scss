@@ -37,31 +37,12 @@
     }
     .message-color{
         width: 100%;
-        // padding: 36px;
-        // box-sizing: border-box;
         margin: 36px 0;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        place-items: center;
         row-gap: 20px;
         column-gap: 25px;
-        .one {
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
-            background-color: aqua;
-        }
-        .two {
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
-            background-color:cadetblue ;
-        }
-        .thr {
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
-            background-color:darkblue;
-        }
     }
     .sticker-wrap {
         width: 93%;

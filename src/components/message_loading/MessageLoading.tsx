@@ -56,7 +56,7 @@ const MessageLoading = () => {
 
   useEffect(() => {
     paperDetail(email!, paperId!, dispatch);
-  }, []);
+  }, [messageList, reactionAll]);
 
   return (
     <MessageLoadingComponent
@@ -114,6 +114,7 @@ const MessageLoading = () => {
                       {/* {item.userName === user?.userName && ( */}
                       <MoreBtn
                         text={['수정하기', '삭제하기']}
+                        paperId={paperId!}
                         messageId={item.messageId}
                         paperTheme={paperTheme}
                         prev={item.content}
@@ -198,9 +199,9 @@ export const MessageLoadingComponent = styled.div<MessageLoadingInt>`
   padding: 0 24px;
   box-sizing: border-box;
   min-height: 100%;
-  overflow-y: scroll;
+  overflow-y: ${props => (props.full ? 'unset' : 'scroll')};
   overflow-x: hidden;
-  height: ${props => (props.full ? '100vh' : 'uunset')};
+  height: ${props => (props.full ? '100vh' : 'unset')};
 `;
 
 const MessageComponent = styled.div<Loading>`
