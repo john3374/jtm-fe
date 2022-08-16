@@ -46,9 +46,9 @@
     }
     .sticker-wrap {
         width: 93%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr ;
+        place-items: center;
         margin-top: 32px;
         .sticker{
             width: 95px;
@@ -102,4 +102,45 @@ header {
     bottom: 0;
     z-index: 52;
     width: 300px;
+}
+
+.solo-sticker-wrap{
+    width: 98px;
+    height: 98px;
+    .x-box{
+        width: 28px;
+        height: 28px;
+        border-radius: 28px;
+        background-color: #333;
+        position: absolute;
+        right: -14px;
+        top: -14px;
+        cursor: pointer;
+        svg{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .check-box{
+        width: 28px;
+        height: 28px;
+        border-radius: 28px;
+        background-color: #333;
+        position: absolute;
+        left: -14px;
+        top: -14px;
+        cursor: pointer;
+        svg{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+.click {
+    border: 1.5px dashed;
+    border-radius: 5px;
 }

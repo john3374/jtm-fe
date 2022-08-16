@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import BottomBtn from '../common/BottomBtn';
 import { messagePost } from './messageFunction';
 import { themeColor, themeInput, themeMessageColor } from './messageData';
@@ -9,6 +9,7 @@ import { useAuthState } from 'src/context';
 import { useParams } from 'react-router-dom';
 import { MessageLoadingComponent } from './MessageLoading';
 import Header from '../layout/Header';
+import { messageInitialState, messageReducer } from './messageStore';
 
 const MessageWrite = () => {
   const [message, setMessage] = useState<string>();
@@ -17,9 +18,10 @@ const MessageWrite = () => {
   const { user, token } = useAuthState();
   const email = user?.email;
   const { paperId, paperSkin } = useParams();
+  const [state, dispatch] = useReducer(messageReducer, messageInitialState);
   // const [select, setSelect] = useState<boolean>(false);
 
-  const writeData = Object.values(themeMessageColor[Number(paperSkin) - 1]);
+  const writeData = Object.values(themeMessageColor[Number(paperSkin)]);
 
   // console.log();
 
@@ -27,14 +29,14 @@ const MessageWrite = () => {
     <>
       <MessageLoadingComponent
         full={true}
-        theme={themeColor[Number(paperSkin) - 1]}
+        theme={themeColor[Number(paperSkin)]}
       >
         <Header to={`/paper/${paperId}`} pageNm="메시지 남기기" />
         <div className="message-wrap">
           <div className="write-box">
             <InputBox
               maxLength={420}
-              color={themeInput[Number(paperSkin) - 1]}
+              color={themeInput[Number(paperSkin)]}
               onChange={(e: any) => {
                 setTextLength(e.target.value.length);
                 setMessage(e.target.value);
@@ -61,7 +63,7 @@ const MessageWrite = () => {
           <BottomBtn
             link={`/paper/${paperId}`}
             onclick={() =>
-              messagePost(email!, message, '굴림', color, paperId!)
+              messagePost(email!, message, '굴림', color, paperId!, dispatch)
             }
             text="작성 완료"
           />

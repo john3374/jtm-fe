@@ -19,19 +19,16 @@ const MessageFixed = () => {
   const { user, token } = useAuthState();
   const email = user?.email;
 
-  const writeData = Object.values(themeMessageColor[Number(paperSkin) - 1]);
+  const writeData = Object.values(themeMessageColor[Number(paperSkin)]);
 
   return (
-    <MessageLoadingComponent
-      full={true}
-      theme={themeColor[Number(paperSkin) - 1]}
-    >
+    <MessageLoadingComponent full={true} theme={themeColor[Number(paperSkin)]}>
       <Header to={`/paper/${paperId}`} pageNm="메시지 수정하기" />
       <div className="message-wrap">
         <div className="write-box">
           <InputBox
             maxLength={420}
-            color={themeInput[Number(paperSkin) - 1]}
+            color={themeInput[Number(paperSkin)]}
             onChange={(e: any) => {
               setTextLength(e.target.value.length);
               setMessage(e.target.value);

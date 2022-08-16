@@ -85,8 +85,8 @@ const SignUp = () => {
             />
           </div>
           <BottomBtn
-            text={'다음'}
-            // text={doubleState ? '다음' : '인증메일 받기'}
+            // text={'다음'}
+            text={doubleState ? '다음' : '인증메일 받기'}
             onclick={(e: any) =>
               passVerify(e, {
                 emailTest,
@@ -103,7 +103,7 @@ const SignUp = () => {
               })
             }
           />
-          {/* <BottomBtn
+          <BottomBtn
             text={doubleState ? '다음' : '인증메일 받기'}
             onclick={(e: any) =>
               doubleState
@@ -122,7 +122,7 @@ const SignUp = () => {
                   })
                 : emailVerify(e, emailState, dispatch, double, veriftNum)
             }
-          /> */}
+          />
         </form>
       </div>
     </>

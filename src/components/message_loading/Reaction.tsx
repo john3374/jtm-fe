@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { reactionAdd, reactionAmount, reactionMinus } from './messageFunction';
+import { messageInitialState, messageReducer, reaction } from './messageStore';
 
 const Reaction = ({ messageId, user, myReaction }: any) => {
   const [reactionAm, setReactionAm] = useState<any>(0);
   const [click, setClick] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(messageReducer, messageInitialState);
   const yourReaction = myReaction.filter(
     (item: any) => item.userName === user.userName
   );

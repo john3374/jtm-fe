@@ -5,7 +5,11 @@ import { message, paper, reaction, sticker } from './messageStore';
 export const paperDetail = async (
   email: string,
   paperId: string,
-  dispatch: any
+  dispatch: any,
+  me: any,
+  st: any,
+  pa: any,
+  re: any
 ) => {
   try {
     const a = await axios({
@@ -18,10 +22,19 @@ export const paperDetail = async (
         },
       },
     });
-    dispatch(message(a.data.messages));
-    dispatch(sticker(a.data.stickers));
-    dispatch(paper(a.data.papers));
-    dispatch(reaction(a.data.reactions));
+    if (
+      a.data.messages.toString() !== me.toString() ||
+      a.data.stickers.toString() !== st.toString() ||
+      a.data.papers.toString() !== pa.toString() ||
+      a.data.reactions.toString() !== re.toString()
+    ) {
+      dispatch(message(a.data.messages));
+      dispatch(sticker(a.data.stickers));
+      dispatch(paper(a.data.papers));
+      dispatch(reaction(a.data.reactions));
+    }
+    // console.log(a.data.messages);
+    console.log('로딩완료');
   } catch (e) {
     throw new Error('페이퍼 목록 불러오기에 실패했습니다');
   }
@@ -32,7 +45,8 @@ export const messagePost = async (
   content: any,
   font: any,
   color: any,
-  paperId: string
+  paperId: string,
+  dispatch: any
 ) => {
   try {
     const a = await axios({
@@ -52,6 +66,7 @@ export const messagePost = async (
         },
       },
     });
+    // paperDetail(email, paperId, dispatch);
   } catch (e) {
     alert('메세지 작성에 실패했습니다');
     throw new Error('메세지 작성에 실패했습니다');
@@ -127,9 +142,35 @@ export const stickerPost = async (
         },
       },
     });
+    if (q) alert('스티커 작성이 완료됐습니다');
   } catch (e) {
-    alert('스티커 작성에 실패했습니다');
+    alert('스티커를 이미 작성했거나 오류로 인해 작성에 실패했습니다');
     throw new Error('스티커 작성에 실패했습니다');
+  }
+};
+
+export const stickerDelete = async (
+  stickerId: any,
+  email: any,
+  paperId: any
+) => {
+  try {
+    const q = await axios({
+      method: 'delete',
+      url: `${EnvConfig.LANTO_SERVER}sticker/${stickerId}`,
+      data: {
+        user: {
+          email: email,
+        },
+        paper: {
+          paperId: paperId,
+        },
+      },
+    });
+    if (q) alert('스티커 삭제가 완료됐습니다');
+  } catch (e) {
+    alert('오류로 인해 스티커 삭제에 실패했습니다');
+    throw new Error('스티커 삭제에 실패했습니다');
   }
 };
 

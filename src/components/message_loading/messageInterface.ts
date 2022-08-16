@@ -3,6 +3,7 @@ export interface Loading {
   font: string;
   width: string;
   left: string;
+  color: string;
 }
 
 export interface Message {

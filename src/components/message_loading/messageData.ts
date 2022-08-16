@@ -56,3 +56,5 @@ export const themeMessageColor = [
 export const themeColor = ['#fff', '#FFEF9D', '#FFEAEA'];
 
 export const themeInput = ['#EEECE0', '#FFFBD9', '#FFD8D8'];
+
+export const themeTextColor = ['#787878', '#404040', '#000'];

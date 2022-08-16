@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import './messageLoading.scss';
 import Header from '../layout/Header';
 import { Btn } from '../common/Btn';
-import { messageInitialState, messageReducer } from './messageStore';
+import { message, messageInitialState, messageReducer } from './messageStore';
 import MoreBtn from '../common/MoreBtn';
 import { Loading, Message, MessageLoadingInt } from './messageInterface';
 import { paperDetail, reactionAmount, stickerPost } from './messageFunction';
@@ -14,7 +14,7 @@ import BottomBtn from '../common/BottomBtn';
 import Reaction from './Reaction';
 import { useAuthState } from 'src/context';
 import { MoveBtn } from '../common/MoveBtn';
-import { themeColor } from './messageData';
+import { themeColor, themeTextColor } from './messageData';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 // 모바일 버전 스티커 가능하게 따로 만들어야 할 듯
@@ -50,21 +50,39 @@ const MessageLoading = () => {
   const { user, token } = useAuthState();
   const email = user?.email;
 
+  const paperData = state.paper;
   const paperTheme = state.paper.skin;
   const paperName = state.paper.paperTitle;
   const reactionAll = state.reaction;
 
   useEffect(() => {
-    paperDetail(email!, paperId!, dispatch);
+    paperDetail(
+      email!,
+      paperId!,
+      dispatch,
+      messageList!,
+      stickerList!,
+      paperData!,
+      reactionAll!
+    );
+    // console.log(user?.email !== null && st === 0);
+    // console.log(123);
+    // dispatch(message(123));
   }, [messageList, reactionAll]);
 
   return (
     <MessageLoadingComponent
-      theme={themeColor[paperTheme - 1]}
+      theme={themeColor[paperTheme]}
       full={stickerPop ? true : false}
       onMouseMove={e => {
         move && setX(e.clientX);
         move && setY(e.clientY + e.currentTarget.scrollTop);
+      }}
+      onTouchMove={e => {
+        // console.log();
+        // console.log();
+        move && setX(e.touches[0].clientX);
+        move && setY(e.touches[0].clientY + e.currentTarget.scrollTop);
       }}
       // 페이퍼 페이지에서 마우스 위치에 따라 스티커의 위치를 잡아줌
     >
@@ -82,12 +100,17 @@ const MessageLoading = () => {
         <>
           {st && (
             <Sticker
+              email={email!}
               url={st}
               setMove={setMove}
               x={x}
               y={y}
+              postX={postX}
+              postY={postY}
+              paperId={paperId!}
               setPostX={setPostX}
               setPostY={setPostY}
+              setSt={setSt}
             />
             // 스티커를 선택한 겂이 있을 때 그 스티커가 메세지 페이지에 나타납니다
           )}
@@ -95,6 +118,7 @@ const MessageLoading = () => {
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
+                console.log(item);
                 const myReaction = reactionAll.filter(
                   (re: any) => re.messageId === item.messageId
                 );
@@ -103,6 +127,13 @@ const MessageLoading = () => {
                     key={idx}
                     // backColor={'#fff'}
                     backColor={item.color}
+                    color={
+                      isNaN(Number(item.color[1]))
+                        ? 'unset'
+                        : Number(item.color[1]) < 7
+                        ? themeTextColor[paperTheme]
+                        : 'unset'
+                    }
                     font={item.font}
                     width={item.content.length <= 84 ? '234px' : ''}
                     left={(idx + 1) % 2 !== 0 ? 'flex-start' : 'flex-end'}
@@ -136,16 +167,19 @@ const MessageLoading = () => {
               stickerList.map((item: any) => {
                 return (
                   <Sticker
+                    email={email!}
                     url={item.stickerType}
-                    x={item.poisitionX}
-                    y={item.poisitionY}
+                    x={item.positionX}
+                    y={item.positionY}
+                    stickerId={item.stickerId}
+                    paperId={paperId!}
                   />
                 );
               })}
           </div>
         </>
       )}
-      {user?.email !== null && (
+      {user?.email !== null && !stickerPop && (
         <div className="message-btns">
           <div className="btn">
             <Btn
@@ -173,12 +207,12 @@ const MessageLoading = () => {
             />
           </div>
           {/* 임시로 만들어놓은 스티커 붙이기 버튼 */}
-          {st && (
+          {/* {st && (
             <BottomBtn
               onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
               text="스티커 붙이기"
             />
-          )}
+          )} */}
         </div>
       )}
       {email === null && (
@@ -214,6 +248,7 @@ const MessageComponent = styled.div<Loading>`
   display: flex;
   flex-direction: column;
   align-self: ${props => props.left && props.width && props.left};
+  color: ${props => props.color && props.color};
   p {
     font-size: 13px;
     line-height: 24px;
