@@ -47,7 +47,7 @@ function Theme() {
       setOnModal(true);
     } catch (err) {
       setOnInfo('페이퍼 개설에 \n 실패했습니다.');
-      setOnUrl('./createPaper');
+      setOnUrl('/createPaper');
       setOnButton(false);
       setOnModal(true);
       console.log(err);
@@ -87,6 +87,7 @@ function Theme() {
           confirm={onButton}
           onModal={onModal}
           setOnModal={setOnModal}
+          onButtonHref={onUrl}
           href={onUrl}
         />
       ) : null}

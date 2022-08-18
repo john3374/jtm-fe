@@ -273,6 +273,7 @@ const ButtonWrapper = styled.div`
 
 const ModifyDelete = styled.div`
   background-color: white;
+  z-index: 30;
   bottom: 0;
   width: 100%;
   position: absolute;
