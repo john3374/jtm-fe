@@ -16,13 +16,15 @@ const Sticker = ({
   setPostY,
   setSt,
   stickerId,
+  stickerUserName,
+  currentUserName,
 }: any) => {
   const [leftLimit, setLeftLimit] = useState<number>(0);
   const [topLimit, setTopLimit] = useState<number>(0);
   const [currentFix, setCurrentFix] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [cancel, setCancel] = useState<boolean>(false);
-  const [change, setChange] = useState<boolean>(false);
+  // const [change, setChange] = useState<boolean>(false);
   // const [rightLimit, setRightLimit] = useState<number>(0);
   // const [bottomLimit, setBottomLimit] = useState<number>(0);
   // const [x, setX] = useState<number>(0);
@@ -40,7 +42,6 @@ const Sticker = ({
     // setBottomLimit(
     // wrapRef.current.parentElement.getBoundingClientRect().bottom
     // );
-    // console.log();
   }, [window.innerWidth, window.innerHeight]);
 
   return (
@@ -69,7 +70,6 @@ const Sticker = ({
                   stickerPost(email, postX, postY, paperId!, url);
                   setOpen(false);
                   setCurrentFix(false);
-                  setChange(true);
                 }
           }
         />
@@ -84,7 +84,11 @@ const Sticker = ({
           top: `${setPostY ? y - topLimit - 133 / 2 : y}px`,
           zIndex: 60,
         }}
-        onClick={() => setCurrentFix(true)}
+        onClick={() => {
+          if (stickerUserName === currentUserName) {
+            setCurrentFix(prev => !prev);
+          }
+        }}
         onTouchStart={() => {
           window.innerWidth < 1000 && currentFix && setPostY && setMove(true);
           // console.log(123);
@@ -105,7 +109,7 @@ const Sticker = ({
       >
         {currentFix && (
           <>
-            {setPostX && !change && (
+            {setPostX && (
               <div
                 className="check-box"
                 onClick={() => {

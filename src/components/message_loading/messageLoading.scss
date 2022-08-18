@@ -4,9 +4,12 @@
         flex-direction: column;
     }
     .message-btns{
-       position: sticky;
-        left: 335px;
+       position: fixed;
+        // left: 335px;
         bottom: 35px;
+        right: 30px;
+        width: 85px;
+        height: 112px;
         .btn{
           text-align: -webkit-right;
         }

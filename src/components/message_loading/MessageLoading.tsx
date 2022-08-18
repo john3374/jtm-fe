@@ -62,6 +62,7 @@ const MessageLoading = () => {
 
   const { user, token } = useAuthState();
   const email = user?.email;
+  const userName = user?.userName;
 
   const paperData = state.paper;
   const paperTheme = state.paper.skin;
@@ -79,9 +80,9 @@ const MessageLoading = () => {
       reactionAll!
     );
     // console.log(user?.email !== null && st === 0);
-    // console.log(messageList);
+    // console.log('바뀌고있나?');
     // dispatch(message(123));
-  }, [messageList, reactionAll, stickerList]);
+  }, []);
 
   return (
     <MessageLoadingComponent
@@ -131,6 +132,7 @@ const MessageLoading = () => {
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
+                // console.log(item);
                 const myReaction = reactionAll.filter(
                   (re: any) => re.messageId === item.messageId
                 );
@@ -154,15 +156,16 @@ const MessageLoading = () => {
                     <p>{item.userName}</p>
                     <p>{item.content}</p>
                     <div className="more-wrap">
-                      {/* {item.userName === user?.userName && ( */}
-                      <MoreBtn
-                        text={['수정하기', '삭제하기']}
-                        paperId={paperId!}
-                        messageId={item.messageId}
-                        paperTheme={paperTheme}
-                        prev={item.content}
-                      />
-                      {/* )} */}
+                      {item.userName === user?.userName && (
+                        <MoreBtn
+                          text={['수정하기', '삭제하기']}
+                          paperId={paperId!}
+                          messageId={item.messageId}
+                          paperTheme={paperTheme}
+                          prev={item.content}
+                          prevColor={item.color}
+                        />
+                      )}
                       <Reaction
                         messageId={item.messageId}
                         user={user}
@@ -185,6 +188,8 @@ const MessageLoading = () => {
                     y={item.positionY}
                     stickerId={item.stickerId}
                     paperId={paperId!}
+                    stickerUserName={item.userName}
+                    currentUserName={userName!}
                   />
                 );
               })}
@@ -193,31 +198,31 @@ const MessageLoading = () => {
       )}
       {user?.email !== null && !stickerPop && (
         <div className="message-btns">
-          <div className="btn">
-            <Btn
-              link={`/paper/write/${paperTheme!}/${paperId!}`}
-              width="48px"
-              height="48px"
-              text=""
-              padding="0"
-              background="#111"
-              logo="message.svg"
-              imgSize="20px"
-              center="center"
-            />
-            <Btn
-              href="#"
-              width="48px"
-              height="48px"
-              text=""
-              padding="0"
-              background="#FED700"
-              logo="star.svg"
-              imgSize="20px"
-              center="center"
-              onClick={() => setStickerPop(true)}
-            />
-          </div>
+          {/* <div className="btn">/ */}
+          <Btn
+            link={`/paper/write/${paperTheme!}/${paperId!}`}
+            width="48px"
+            height="48px"
+            text=""
+            padding="0"
+            background="#111"
+            logo="message.svg"
+            imgSize="20px"
+            center="center"
+          />
+          <Btn
+            href="#"
+            width="48px"
+            height="48px"
+            text=""
+            padding="0"
+            background="#FED700"
+            logo="star.svg"
+            imgSize="20px"
+            center="center"
+            onClick={() => setStickerPop(true)}
+          />
+          {/* </div> */}
           {/* 임시로 만들어놓은 스티커 붙이기 버튼 */}
           {/* {st && (
             <BottomBtn

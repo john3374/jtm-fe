@@ -13,10 +13,10 @@ import Header from '../layout/Header';
 import { messageInitialState, messageReducer } from './messageStore';
 
 const MessageFixed = () => {
-  const { paperId, messageId, paperSkin, prev } = useParams();
+  const { paperId, messageId, paperSkin, prev, prevColor } = useParams();
   const [message, setMessage] = useState<string>(prev!);
   const [textLength, setTextLength] = useState<number>(0);
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<string>('#' + prevColor!);
   const { user, token } = useAuthState();
   const email = user?.email;
   const [state, dispatch] = useReducer(messageReducer, messageInitialState);
@@ -61,7 +61,7 @@ const MessageFixed = () => {
           link={`/paper/${paperId}`}
           onclick={() => {
             messageFix(email!, message, messageId!, color!);
-            messageRe(email!, paperId, dispatch);
+            // messageRe(email!, paperId, dispatch);
           }}
           text="수정 완료"
         />

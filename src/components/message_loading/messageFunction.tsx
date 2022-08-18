@@ -33,6 +33,10 @@ export const paperDetail = async (
         dispatch(sticker(a.data.stickers));
         dispatch(paper(a.data.papers));
         dispatch(reaction(a.data.reactions));
+        // console.log('메세지', a.data.messages.toString() !== me.toString());
+        // console.log('스티커', a.data.stickers.toString() !== st.toString());
+        // console.log('페이퍼', a.data.papers.toString() !== pa.toString());
+        // console.log('리액션', a.data.reactions.toString() !== re.toString());
       }
     } else {
       const a = await axios({
@@ -51,12 +55,40 @@ export const paperDetail = async (
         dispatch(reaction(a.data.reactions));
       }
     }
-    // console.log(a.data.messages);
-    console.log('로딩완료');
+    // console.log('로딩완료');
   } catch (e) {
     throw new Error('페이퍼 목록 불러오기에 실패했습니다');
   }
 };
+
+// export const solorRe = async () => {
+//   try{
+//     if (email) {
+//       const a = await axios({
+//         method: 'post',
+//         url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+//         // url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+//         data: {
+//           user: {
+//             email: email,
+//           },
+//         },
+//       });
+//       if (a.data.messages.toString() !== me.toString()) {
+//         dispatch(message(a.data.messages));
+//         console.log('메세지 리롤');
+//       } else if (a.data.stickers.toString() !== st.toString()) {
+//         dispatch(sticker(a.data.stickers));
+//         console.log('스티커 리롤');
+//       } else if (a.data.papers.toString() !== pa.toString()) {
+//         dispatch(paper(a.data.papers));
+//         console.log('페이퍼 리롤');
+//       } else if (a.data.reactions.toString() !== re.toString()) {
+//         dispatch(reaction(a.data.reactions));
+//         console.log('리액션 리롤');
+//       }
+//   }
+// }
 
 export const messageRe = async (email: string, paperId: any, dispatch: any) => {
   try {
@@ -102,6 +134,7 @@ export const messagePost = async (
           },
         },
       });
+      alert('메세지가 작성됐습니다');
     } else {
       alert('색을 골라주세요');
     }
@@ -123,6 +156,7 @@ export const messageDelete = async (email: string, messageId: any) => {
         },
       },
     });
+    alert('메세지가 삭제됐습니다');
   } catch (e) {
     alert('메세지 삭제를 실패했습니다');
     throw new Error('메세지 삭제를 실패했습니다');
@@ -150,6 +184,10 @@ export const messageFix = async (
         },
       },
     });
+    if (a) {
+      alert('메세지가 수정됐습니다');
+      location.reload();
+    }
   } catch (e) {
     alert('메세지 수정에 실패했습니다');
     throw new Error('메세지 수정에 실패했습니다');
@@ -188,7 +226,10 @@ export const stickerPost = async (
         },
       },
     });
-    if (q) alert('스티커 작성이 완료됐습니다');
+    if (q) {
+      alert('스티커 작성이 완료됐습니다');
+      location.reload();
+    }
   } catch (e) {
     alert('스티커를 이미 작성했거나 오류로 인해 작성에 실패했습니다');
     throw new Error('스티커 작성에 실패했습니다');
@@ -213,7 +254,10 @@ export const stickerDelete = async (
         },
       },
     });
-    if (q) alert('스티커 삭제가 완료됐습니다');
+    if (q) {
+      alert('스티커 삭제가 완료됐습니다');
+      location.reload();
+    }
   } catch (e) {
     alert('오류로 인해 스티커 삭제에 실패했습니다');
     throw new Error('스티커 삭제에 실패했습니다');
