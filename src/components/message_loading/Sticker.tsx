@@ -22,6 +22,7 @@ const Sticker = ({
   const [currentFix, setCurrentFix] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [cancel, setCancel] = useState<boolean>(false);
+  const [change, setChange] = useState<boolean>(false);
   // const [rightLimit, setRightLimit] = useState<number>(0);
   // const [bottomLimit, setBottomLimit] = useState<number>(0);
   // const [x, setX] = useState<number>(0);
@@ -59,10 +60,16 @@ const Sticker = ({
           onClick={
             cancel
               ? stickerId
-                ? () => stickerDelete(stickerId, email, paperId)
+                ? () => {
+                    stickerDelete(stickerId, email, paperId);
+                    setOpen(false);
+                  }
                 : setSt(0)
               : () => {
                   stickerPost(email, postX, postY, paperId!, url);
+                  setOpen(false);
+                  setCurrentFix(false);
+                  setChange(true);
                 }
           }
         />
@@ -98,7 +105,7 @@ const Sticker = ({
       >
         {currentFix && (
           <>
-            {setPostX && (
+            {setPostX && !change && (
               <div
                 className="check-box"
                 onClick={() => {

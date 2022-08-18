@@ -12,31 +12,66 @@ export const paperDetail = async (
   re: any
 ) => {
   try {
-    const a = await axios({
-      method: 'post',
-      url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
-      // url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
-      data: {
-        user: {
-          email: email,
+    if (email) {
+      const a = await axios({
+        method: 'post',
+        url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+        // url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+        data: {
+          user: {
+            email: email,
+          },
         },
-      },
-    });
-    if (
-      a.data.messages.toString() !== me.toString() ||
-      a.data.stickers.toString() !== st.toString() ||
-      a.data.papers.toString() !== pa.toString() ||
-      a.data.reactions.toString() !== re.toString()
-    ) {
-      dispatch(message(a.data.messages));
-      dispatch(sticker(a.data.stickers));
-      dispatch(paper(a.data.papers));
-      dispatch(reaction(a.data.reactions));
+      });
+      if (
+        a.data.messages.toString() !== me.toString() ||
+        a.data.stickers.toString() !== st.toString() ||
+        a.data.papers.toString() !== pa.toString() ||
+        a.data.reactions.toString() !== re.toString()
+      ) {
+        dispatch(message(a.data.messages));
+        dispatch(sticker(a.data.stickers));
+        dispatch(paper(a.data.papers));
+        dispatch(reaction(a.data.reactions));
+      }
+    } else {
+      const a = await axios({
+        method: 'get',
+        url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+      });
+      if (
+        a.data.messages.toString() !== me.toString() ||
+        a.data.stickers.toString() !== st.toString() ||
+        a.data.papers.toString() !== pa.toString() ||
+        a.data.reactions.toString() !== re.toString()
+      ) {
+        dispatch(message(a.data.messages));
+        dispatch(sticker(a.data.stickers));
+        dispatch(paper(a.data.papers));
+        dispatch(reaction(a.data.reactions));
+      }
     }
     // console.log(a.data.messages);
     console.log('로딩완료');
   } catch (e) {
     throw new Error('페이퍼 목록 불러오기에 실패했습니다');
+  }
+};
+
+export const messageRe = async (email: string, paperId: any, dispatch: any) => {
+  try {
+    const a = await axios({
+      method: 'get',
+      url: `${EnvConfig.LANTO_SERVER}message`,
+      // url: `${EnvConfig.LANTO_SERVER}paper/${paperId}`,
+      headers: {
+        ['User-Email']: email,
+      },
+    });
+    dispatch(message(a.data.messages));
+    // a.data.filter((item: any) => console.log(item.paperId));
+  } catch (e) {
+    throw new Error('메세지 로딩에 실패했습니다');
   }
 };
 
@@ -49,25 +84,29 @@ export const messagePost = async (
   dispatch: any
 ) => {
   try {
-    const a = await axios({
-      method: 'post',
-      url: `${EnvConfig.LANTO_SERVER}message`,
-      data: {
-        user: {
-          email: email,
+    if (color) {
+      const a = await axios({
+        method: 'post',
+        url: `${EnvConfig.LANTO_SERVER}message`,
+        data: {
+          user: {
+            email: email,
+          },
+          paper: {
+            paperId: paperId,
+          },
+          message: {
+            content: content,
+            font: font,
+            color: color,
+          },
         },
-        paper: {
-          paperId: paperId,
-        },
-        message: {
-          content: content,
-          font: font,
-          color: color,
-        },
-      },
-    });
-    // paperDetail(email, paperId, dispatch);
+      });
+    } else {
+      alert('색을 골라주세요');
+    }
   } catch (e) {
+    // paperDetail(email, paperId, dispatch);
     alert('메세지 작성에 실패했습니다');
     throw new Error('메세지 작성에 실패했습니다');
   }
@@ -116,6 +155,13 @@ export const messageFix = async (
     throw new Error('메세지 수정에 실패했습니다');
   }
 };
+
+// export const stickerRe = async () => {
+//   try {
+//   } catch (e) {
+//     throw new Error('스티커 목록 로딩에 실패했습니다');
+//   }
+// };
 
 export const stickerPost = async (
   email: string,

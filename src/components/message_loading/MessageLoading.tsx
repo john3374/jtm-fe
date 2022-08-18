@@ -6,7 +6,12 @@ import { Btn } from '../common/Btn';
 import { message, messageInitialState, messageReducer } from './messageStore';
 import MoreBtn from '../common/MoreBtn';
 import { Loading, Message, MessageLoadingInt } from './messageInterface';
-import { paperDetail, reactionAmount, stickerPost } from './messageFunction';
+import {
+  messageRe,
+  paperDetail,
+  reactionAmount,
+  stickerPost,
+} from './messageFunction';
 import { Link, useParams } from 'react-router-dom';
 import StickerWrite from './StickerWrite';
 import Sticker from './Sticker';
@@ -18,6 +23,14 @@ import { themeColor, themeTextColor } from './messageData';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 // 모바일 버전 스티커 가능하게 따로 만들어야 할 듯
+
+// 1. GET 방식으로  ~/paper/{paperId}  요청시 (body x) 기존의 페이퍼 상세보기 와 동일한 형식의 데이터 리턴할 수 있도록 하였습니다.
+
+// @Jam/백앤드 잼님 확인 하신 후 반영 부탁드립니다.
+
+// 2. postman과 시트에 내용 추가해두었습니다.
+// postman :
+// https://documenter.getpostman.com/view/15855367/UVkvJXf8#f56370e6-1e8e-4f95-b0d3-14cd9df15368
 
 const MessageLoading = () => {
   // const [messagePop, setMessagePop] = useState<boolean>(false);
@@ -66,9 +79,9 @@ const MessageLoading = () => {
       reactionAll!
     );
     // console.log(user?.email !== null && st === 0);
-    console.log(123);
+    // console.log(messageList);
     // dispatch(message(123));
-  }, [messageList, reactionAll]);
+  }, [messageList, reactionAll, stickerList]);
 
   return (
     <MessageLoadingComponent
@@ -114,7 +127,7 @@ const MessageLoading = () => {
             />
             // 스티커를 선택한 겂이 있을 때 그 스티커가 메세지 페이지에 나타납니다
           )}
-          <Header to="/createPaper" pageNm={paperName} />
+          <Header to={email ? '/createPaper' : '/'} pageNm={paperName} />
           <div className="message-wrap">
             {messageList[0] ? (
               messageList.map((item: Message, idx: number) => {
@@ -234,6 +247,7 @@ export const MessageLoadingComponent = styled.div<MessageLoadingInt>`
   min-height: 100%;
   overflow-y: ${props => (props.full ? 'unset' : 'scroll')};
   overflow-x: hidden;
+  overscroll-behavior-y: none;
   height: ${props => (props.full ? '100vh' : 'unset')};
 `;
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import BottomBtn from '../common/BottomBtn';
-import { messageFix, messagePost } from './messageFunction';
+import { messageFix, messagePost, messageRe } from './messageFunction';
 import { themeColor, themeInput, themeMessageColor } from './messageData';
 import './messageLoading.scss';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import { useAuthState } from 'src/context';
 import { MessageLoadingComponent } from './MessageLoading';
 import { BottomFix, ColorBox, ColorBoxBorder, InputBox } from './MessageWrite';
 import Header from '../layout/Header';
+import { messageInitialState, messageReducer } from './messageStore';
 
 const MessageFixed = () => {
   const { paperId, messageId, paperSkin, prev } = useParams();
@@ -18,6 +19,7 @@ const MessageFixed = () => {
   const [color, setColor] = useState<string>();
   const { user, token } = useAuthState();
   const email = user?.email;
+  const [state, dispatch] = useReducer(messageReducer, messageInitialState);
 
   const writeData = Object.values(themeMessageColor[Number(paperSkin)]);
 
@@ -57,7 +59,10 @@ const MessageFixed = () => {
       <BottomFix>
         <BottomBtn
           link={`/paper/${paperId}`}
-          onclick={() => messageFix(email!, message, messageId!, color!)}
+          onclick={() => {
+            messageFix(email!, message, messageId!, color!);
+            messageRe(email!, paperId, dispatch);
+          }}
           text="수정 완료"
         />
       </BottomFix>
