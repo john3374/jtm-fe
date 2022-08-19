@@ -45,6 +45,10 @@ function KakaoLogin(props: PropsType): null {
             idToken: res.data.id_token,
           },
         });
+        const userData = {
+          email: res.data.email,
+        };
+        localStorage.setItem('currentUser', JSON.stringify(userData));
         nv('/createPaper');
       } catch (err) {
         nv('/');
