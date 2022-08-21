@@ -57,7 +57,7 @@ function ModifyPassword() {
           {' '}
           변경할 비밀번호를 <br /> 입력해주세요.{' '}
         </MainText>
-        <SubText />
+        <SubText> 특수문자를 포함한 8~15자 내외로 입력해주세요. </SubText>
         <TextInput
           title=""
           isPassword={true}
