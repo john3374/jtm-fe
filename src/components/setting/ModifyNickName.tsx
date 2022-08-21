@@ -25,9 +25,14 @@ function ModifyNickName() {
         url: `${EnvConfig.LANTO_SERVER}user/name`,
         data: {
           email: userEmail,
-          name: nickName,
+          userName: nickName,
         },
       });
+      const userData = JSON.parse(
+        localStorage.getItem('currentUser') as string
+      );
+      userData.userName = nickName;
+      localStorage.setItem('currentUser', JSON.stringify(userData));
       setOnInfo('성공적으로 변경되었습니다.');
       setOnModal(true);
       setUrl('/createPaper');
