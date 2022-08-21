@@ -78,7 +78,6 @@ const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
   const [onInfo, setOnInfo] = useState<string>('');
 
   const deletePaper = async (pId: string) => {
-    console.log('deleted', pId);
     try {
       await axios({
         method: 'delete',
@@ -126,8 +125,13 @@ const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
   }, [close]);
 
   const onClose = () => {
-    console.log('click?');
     setOnComponent(!onComponent);
+  };
+
+  const copy = (e: string) => {
+    navigator.clipboard.writeText(`https://www.byeolmal.today/paper/${e}`);
+    setOnModal(true);
+    setOnInfo('성공적으로 페이퍼 링크가 \n 복사 되었습니다.');
   };
 
   return (
@@ -175,6 +179,7 @@ const ViewPapers = ({ user, paperCnt }: { user: IUser; paperCnt: number }) => {
                 {' '}
                 페이퍼 삭제하기{' '}
               </Item>
+              <Item onClick={() => copy(paperId)}> 페이퍼 공유하기 </Item>
             </ModifyDelete>
           </ButtonWrapper>
         </Wrapper>
