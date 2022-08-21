@@ -31,9 +31,13 @@ function ModifyPassword() {
       setOnModal(true);
     } catch (err) {
       console.log(err);
-      setOnInfo('닉네임 변경에 실패했습니다.');
+      setOnInfo('비밀번호 변경에 실패했습니다.');
       setOnModal(true);
     }
+  };
+
+  const onClick = () => {
+    window.location.href = '/createPaper';
   };
 
   return (
@@ -44,6 +48,7 @@ function ModifyPassword() {
           info={onInfo}
           confirm={false}
           onModal={onModal}
+          onClick={onClick}
           setOnModal={setOnModal}
         />
       ) : null}
@@ -65,7 +70,7 @@ function ModifyPassword() {
         <BottomBtn
           onclick={sendChangeName}
           text="다음"
-          disabled={password.length <= 0 ? true : false}
+          disabled={password.length > 0 ? true : false}
         />
       </Component>
     </>
