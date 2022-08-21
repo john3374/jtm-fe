@@ -35,13 +35,15 @@ function ModifyNickName() {
       localStorage.setItem('currentUser', JSON.stringify(userData));
       setOnInfo('성공적으로 변경되었습니다.');
       setOnModal(true);
-      setUrl('/createPaper');
     } catch (err) {
       console.log(err);
       setOnInfo('닉네임 변경에 실패했습니다.');
       setOnModal(true);
-      setUrl('/user/nickname');
     }
+  };
+
+  const onClick = () => {
+    window.location.href = '/createPaper';
   };
 
   return (
@@ -52,7 +54,7 @@ function ModifyNickName() {
           info={onInfo}
           confirm={false}
           onModal={onModal}
-          onButtonHref={url}
+          onClick={onClick}
           setOnModal={setOnModal}
         />
       ) : null}
