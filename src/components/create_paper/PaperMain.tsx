@@ -271,7 +271,7 @@ const ButtonWrapper = styled.div`
   position: fixed;
   overflow: hidden;
   bottom: 0;
-  height: 200px;
+  height: 20%;
   background-color: white;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
@@ -281,7 +281,7 @@ const ModifyDelete = styled.div`
   background-color: white;
   width: 100%;
   position: fixed;
-  height: 200px;
+  height: 20%;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
 `;
