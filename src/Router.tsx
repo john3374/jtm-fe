@@ -18,6 +18,7 @@ import ModifyNickName from './components/setting/ModifyNickName';
 import MessageFix from './components/message_loading/MessageFix';
 import { Credit } from './components/Credit';
 import ModifyPaperName from './components/setting/ModifyPaperName';
+import ModifyPassword from './components/setting/ModifyPassword';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -80,6 +81,7 @@ const Router = () => {
               path="/changePaperName/:paperId"
               element={<ModifyPaperName />}
             ></Route>
+            <Route path="/user/password" element={<ModifyPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
