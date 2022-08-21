@@ -267,9 +267,10 @@ const SettingButton = () => {
 };
 
 const ButtonWrapper = styled.div`
-  bottom: 0;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  overflow: hidden;
+  bottom: 0;
   height: 200px;
   background-color: white;
   border-top-left-radius: 1.5rem;
@@ -278,10 +279,8 @@ const ButtonWrapper = styled.div`
 
 const ModifyDelete = styled.div`
   background-color: white;
-  z-index: 30;
-  bottom: 0;
   width: 100%;
-  position: absolute;
+  position: fixed;
   height: 200px;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
@@ -307,7 +306,7 @@ const Wrapper = styled.div`
   top: 0;
   width: 100%;
   max-width: 375px;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   background-color: rgba(23, 23, 23, 0.5);
   z-index: 100;
