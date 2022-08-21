@@ -13,6 +13,7 @@ function ModifyNickName() {
   const [nickName, setNickName] = useState<string>('');
   const [onModal, setOnModal] = useState<boolean>(false);
   const [onInfo, setOnInfo] = useState<string>('');
+  const [url, setUrl] = useState<string>('');
   const navigate = useNavigate();
   const { user, token } = useAuthState();
   const userEmail = user?.email;
@@ -21,19 +22,20 @@ function ModifyNickName() {
     try {
       await axios({
         method: 'put',
-        url: `${EnvConfig.LANTO_SERVER}update`,
+        url: `${EnvConfig.LANTO_SERVER}user/name`,
         data: {
           email: userEmail,
-          userName: nickName,
-          password: '123',
+          name: nickName,
         },
       });
       setOnInfo('성공적으로 변경되었습니다.');
       setOnModal(true);
+      setUrl('/createPaper');
     } catch (err) {
       console.log(err);
       setOnInfo('닉네임 변경에 실패했습니다.');
       setOnModal(true);
+      setUrl('/user/nickname');
     }
   };
 
@@ -45,6 +47,7 @@ function ModifyNickName() {
           info={onInfo}
           confirm={false}
           onModal={onModal}
+          onButtonHref={url}
           setOnModal={setOnModal}
         />
       ) : null}
@@ -59,7 +62,7 @@ function ModifyNickName() {
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
-          // onChange={(e: any) => setNickName(e.target.value)}
+          onChange={(e: any) => setNickName(e.target.value)}
         />
         <Temp />
         <BottomBtn
