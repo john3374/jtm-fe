@@ -19,6 +19,7 @@ import MessageFix from './components/message_loading/MessageFix';
 import { Credit } from './components/Credit';
 import ModifyPaperName from './components/setting/ModifyPaperName';
 import ModifyPassword from './components/setting/ModifyPassword';
+import { Ask } from './components/Ask';
 
 const Router = () => {
   const [KAKAO_API, set_KAKAO_API] = useState<string>('');
@@ -52,6 +53,7 @@ const Router = () => {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<GoToLogin api={KAKAO_API} />} />
+            <Route path="/Ask" element={<Ask />} />
             <Route path="/credit" element={<Credit />} />
             <Route path="/login" element={<LoginEmail />} />
             <Route path="/login/signUp" element={<SignUp />} />
