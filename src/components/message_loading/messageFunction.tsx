@@ -254,7 +254,7 @@ export const reactionAdd = async (email: string, messageId: number) => {
           email: email,
         },
         reaction: {
-          emoji: 'asd',
+          emoji: '❤',
         },
       },
     });
