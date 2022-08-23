@@ -48,7 +48,7 @@ function FeedHeader() {
           )}
           <ul>
             <li>FAQ</li>
-            <li>문의하기</li>
+            <li onClick={() => navigate('/ask')}>문의하기</li>
             <li onClick={() => navigate('/user/password')}>비밀번호 변경</li>
             {user && <li onClick={onClickLogout}>로그아웃</li>}
             <li>
