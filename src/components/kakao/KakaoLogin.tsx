@@ -11,8 +11,8 @@ interface PropsType {
 
 function KakaoLogin(props: PropsType): null {
   const KAKAO_API_KEY: string = props.api;
-  // local 사용시
-  // EnvConfig.REDIRECT_URI_LOCAL
+  // local 이용 : REDIRECT_URI_LOCAL
+  // 도메인 이용 : KAKAO_REDIRECT_URI
   const REDIRECT_URI = EnvConfig.KAKAO_REDIRECT_URI;
   const CLIENT_SECRET: string = props.client;
   const code: string =
@@ -38,17 +38,15 @@ function KakaoLogin(props: PropsType): null {
       Kakao.init(KAKAO_API_KEY);
       Kakao.Auth.setAccessToken(res.data.access_token);
       try {
-        await axios({
+        const sendRequest: any = await axios({
           method: 'post',
           url: `${ROOT_URL}login`,
           data: {
             idToken: res.data.id_token,
           },
         });
-        const userData = {
-          email: res.data.id_token,
-        };
-        localStorage.setItem('currentUser', JSON.stringify(userData));
+        console.log(sendRequest.data);
+        localStorage.setItem('currentUser', JSON.stringify(sendRequest.data));
         nv('/createPaper');
       } catch (err) {
         nv('/');
