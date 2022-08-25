@@ -8,11 +8,13 @@ const currentUser = localStorage.getItem('currentUser');
 const id = currentUser ? JSON.parse(currentUser).id : null;
 const userName = currentUser ? JSON.parse(currentUser).userName : null;
 const userId = currentUser ? JSON.parse(currentUser).userId : null;
+const email = currentUser ? JSON.parse(currentUser).email : null;
 
 const initialState: IState = {
   user: {
     userName: userName,
     userId: userId,
+    email: email,
   },
   token: id,
   loading: false,

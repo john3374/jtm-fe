@@ -27,6 +27,7 @@ export const AuthReducer = (initialState: IState, action: LoginAction) => {
         user: {
           userName: action.payload.userName,
           userId: action.payload.userId,
+          email: action.payload.email,
         },
         token: action.payload.id,
         loading: false,

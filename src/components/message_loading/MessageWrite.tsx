@@ -57,7 +57,7 @@ const MessageWrite = () => {
       </div>
       <BottomBtn
         onclick={(e: any) =>
-          messagePost(userId!, message, '굴림', color, paperId!)
+          messagePost(userId!, message || '', '굴림', color || '', paperId!)
         }
         text="작성 완료"
       />

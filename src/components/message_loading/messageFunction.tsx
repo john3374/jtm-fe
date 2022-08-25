@@ -58,7 +58,7 @@ export const messagePost = async (
   }
 };
 
-export const messageDelete = async (email: string, messageId: string) => {
+export const messageDelete = async (email: string, messageId: number) => {
   try {
     const a = await axios({
       url: `${EnvConfig.LANTO_SERVER}message/${messageId}`,
