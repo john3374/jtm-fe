@@ -29,9 +29,9 @@ export const paperDetail = async (
 
 export const messagePost = async (
   email: string,
-  content: any,
-  font: any,
-  color: any,
+  content: string,
+  font: string,
+  color: string,
   paperId: string
 ) => {
   try {
@@ -58,7 +58,7 @@ export const messagePost = async (
   }
 };
 
-export const messageDelete = async (email: string, messageId: any) => {
+export const messageDelete = async (email: string, messageId: string) => {
   try {
     const a = await axios({
       url: `${EnvConfig.LANTO_SERVER}message/${messageId}`,

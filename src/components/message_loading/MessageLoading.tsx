@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import styled from 'styled-components';
 import './messageLoading.scss';
 import Header from '../layout/Header';
@@ -13,7 +13,6 @@ import Sticker from './Sticker';
 import BottomBtn from '../common/BottomBtn';
 import Reaction from './Reaction';
 import { useAuthState } from 'src/context';
-import { MoveBtn } from '../common/MoveBtn';
 
 // 회원가입에서 인증번호 useState 말고 유저단에 안 보여줄 방법 찾아봐야
 // 모바일 버전 스티커 가능하게 따로 만들어야 할 듯

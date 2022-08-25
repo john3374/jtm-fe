@@ -64,7 +64,6 @@ function ModifyPassword() {
           htmlFor="paperNm"
           background="white"
           border="1px solid black"
-          // onChange={(e: any) => setNickName(e.target.value)}
         />
         <Temp />
         <BottomBtn

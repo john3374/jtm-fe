@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import BottomBtn from '../common/BottomBtn';
 import { messagePost } from './messageFunction';
 import { themeMessageColor } from './messageData';
@@ -34,7 +34,7 @@ const MessageWrite = () => {
         <div className="write-box">
           <textarea
             maxLength={420}
-            onChange={(e: any) => {
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
               setTextLength(e.target.value.length);
               setMessage(e.target.value);
             }}

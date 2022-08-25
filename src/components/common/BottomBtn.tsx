@@ -26,15 +26,13 @@ const StyledBtn = styled.button<IBtnStyle>`
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  /* min-width: 90%; */
-  width: 100%;
+  width: 90%;
   background: ${props => (props.disabled ? `gray` : 'black')};
   padding: 1rem 0;
   margin: 0.5rem;
   text-align: center;
   color: white;
   font-size: 1.2rem;
-  /* position: ${props => (props.fixed ? 'fixed' : 'unset')}; */
   ${props => (props.fixed ? 'width : 343px' : '')}
   position: sticky;
   bottom: 34px;
