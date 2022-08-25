@@ -58,7 +58,7 @@ function ModifyNickName() {
           setOnModal={setOnModal}
         />
       ) : null}
-      <Component>
+      <main>
         <MainText>
           {' '}
           변경할 닉네임을 <br /> 입력해주세요.{' '}
@@ -71,13 +71,13 @@ function ModifyNickName() {
           border="1px solid black"
           onChange={(e: any) => setNickName(e.target.value)}
         />
-        <Temp />
-        <BottomBtn
-          onclick={sendChangeName}
-          text="다음"
-          disabled={nickName.length <= 0 ? true : false}
-        />
-      </Component>
+        {/* <Temp /> */}
+      </main>
+      <BottomBtn
+        onclick={sendChangeName}
+        text="다음"
+        disabled={nickName.length <= 0 ? true : false}
+      />
     </>
   );
 }

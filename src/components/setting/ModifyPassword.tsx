@@ -52,7 +52,7 @@ function ModifyPassword() {
           setOnModal={setOnModal}
         />
       ) : null}
-      <Component>
+      <main>
         <MainText>
           {' '}
           변경할 비밀번호를 <br /> 입력해주세요.{' '}
@@ -65,13 +65,13 @@ function ModifyPassword() {
           background="white"
           border="1px solid black"
         />
-        <Temp />
-        <BottomBtn
-          onclick={sendChangeName}
-          text="다음"
-          disabled={password.length > 0 ? true : false}
-        />
-      </Component>
+        {/* <Temp /> */}
+      </main>
+      <BottomBtn
+        onclick={sendChangeName}
+        text="다음"
+        disabled={password.length > 0 ? true : false}
+      />
     </>
   );
 }

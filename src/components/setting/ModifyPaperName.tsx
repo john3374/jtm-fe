@@ -71,7 +71,7 @@ function ModifyNickName() {
           onButtonHref={'/createPaper'}
         />
       ) : null}
-      <Component>
+      <main>
         <MainText>
           {' '}
           변경할 제목을 <br /> 입력해주세요.{' '}
@@ -108,7 +108,7 @@ function ModifyNickName() {
           text="변경하기"
           disabled={paperName.length <= 0 && selectPaperId > 0 ? true : false}
         />
-      </Component>
+      </main>
     </>
   );
 }
