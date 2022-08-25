@@ -46,7 +46,6 @@ const PaperMain = () => {
         }
       });
   }, []);
-  console.log('user:');
   console.log(user);
   // user의 userName 없으면 페이지 login으로 리디렉트
   return (
@@ -284,6 +283,7 @@ const ModifyDelete = styled.div`
   width: 100%;
   position: fixed;
   height: 20%;
+  bottom: 20px;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
 `;

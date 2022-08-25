@@ -14,7 +14,6 @@ interface IBtnStyle {
 }
 
 const BottomBtn = ({ text, onclick, disabled, fixed }: IBottomBtn) => {
-  //
   return (
     <StyledBtn onClick={onclick} disabled={disabled} fixed={fixed}>
       {text}

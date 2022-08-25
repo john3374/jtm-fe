@@ -30,7 +30,6 @@ const LoginEmail = () => {
     if (isValidated) {
       try {
         const responseData = await loginUser(dispatch, inputs);
-        // 이거 userName 나중에 token으로 바꿔야함
         console.log(responseData);
         if (!responseData?.userId) {
           alert('아이디 또는 비밀번호를 다시 확인해주세요.');
