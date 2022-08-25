@@ -72,7 +72,7 @@ const MoreBottom = ({ setMore, text, prev, messageId }: More2) => {
           confirm={true}
           onModal={open}
           setOnModal={setOpen}
-          onClick={() => messageDelete(userId!, messageId)}
+          onClick={() => messageDelete(userId!, messageId.toString())}
         />
       )}
     </BottomWrap>
