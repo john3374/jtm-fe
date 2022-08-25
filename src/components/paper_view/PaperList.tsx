@@ -1,4 +1,4 @@
-import { IMessage, IPaper } from 'src/interfaces/IPaper';
+import { IPaper } from 'src/interfaces/IPaper';
 import axios from 'axios';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

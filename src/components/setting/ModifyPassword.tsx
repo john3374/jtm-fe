@@ -15,7 +15,7 @@ function ModifyPassword() {
   const [onInfo, setOnInfo] = useState<string>('');
   const navigate = useNavigate();
   const { user, token } = useAuthState();
-  const userEmail = user?.email;
+  const userId = user?.userId;
 
   const sendChangeName = async () => {
     try {
@@ -23,7 +23,7 @@ function ModifyPassword() {
         method: 'put',
         url: `${EnvConfig.LANTO_SERVER}update`,
         data: {
-          email: userEmail,
+          userId: userId,
           password: password,
         },
       });

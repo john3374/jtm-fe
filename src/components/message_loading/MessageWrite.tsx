@@ -20,7 +20,7 @@ const MessageWrite = () => {
   const [textLength, setTextLength] = useState<number>(0);
   const [color, setColor] = useState<string>();
   const { user, token } = useAuthState();
-  const email = user?.email;
+  const userId = user?.userId;
   const { paperId } = useParams();
 
   return (
@@ -57,7 +57,7 @@ const MessageWrite = () => {
       </div>
       <BottomBtn
         onclick={(e: any) =>
-          messagePost(email!, message, '굴림', color, paperId!)
+          messagePost(userId!, message, '굴림', color, paperId!)
         }
         text="작성 완료"
       />

@@ -15,7 +15,7 @@ function ModifyNickName() {
   const [onInfo, setOnInfo] = useState<string>('');
   const navigate = useNavigate();
   const { user, token } = useAuthState();
-  const userEmail = user?.email;
+  const userId = user?.userId;
 
   const [selectPaperId, setSelectPaperId] = useState<number>(0);
   const { paperId } = useParams();
@@ -32,7 +32,7 @@ function ModifyNickName() {
             skin: selectPaperId,
           },
           user: {
-            email: userEmail,
+            userId: userId,
           },
         },
       });

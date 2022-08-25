@@ -16,7 +16,7 @@ function ModifyNickName() {
   const [url, setUrl] = useState<string>('');
   const navigate = useNavigate();
   const { user, token } = useAuthState();
-  const userEmail = user?.email;
+  const userId = user?.userId;
 
   const sendChangeName = async () => {
     try {
@@ -24,7 +24,7 @@ function ModifyNickName() {
         method: 'put',
         url: `${EnvConfig.LANTO_SERVER}user/name`,
         data: {
-          email: userEmail,
+          userId: userId,
           userName: nickName,
         },
       });

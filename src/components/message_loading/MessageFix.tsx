@@ -22,7 +22,7 @@ const MessageWrite = () => {
   const [textLength, setTextLength] = useState<number>(0);
   const [color, setColor] = useState<string>();
   const { user, token } = useAuthState();
-  const email = user?.email;
+  const userId = user?.userId;
 
   return (
     <div className="message-loading full">
@@ -58,7 +58,7 @@ const MessageWrite = () => {
         }
       </div>
       <BottomBtn
-        onclick={() => messageFix(email!, message, messageId!, color!)}
+        onclick={() => messageFix(userId!, message, messageId!, color!)}
         text="수정 완료"
       />
     </div>

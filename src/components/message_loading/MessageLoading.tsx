@@ -46,13 +46,13 @@ const MessageLoading = () => {
   const messageList = state.message;
 
   const { user, token } = useAuthState();
-  const email = user?.email;
+  const userId = user?.userId;
 
   const paperName = state.paper.paperTitle;
   const reactionAll = state.reaction;
 
   useEffect(() => {
-    paperDetail(email!, paperId!, dispatch);
+    paperDetail(userId!, paperId!, dispatch);
     console.log(123);
   }, []);
 
@@ -90,7 +90,7 @@ const MessageLoading = () => {
       }}
       // 페이퍼 페이지에서 마우스 위치에 따라 스티커의 위치를 잡아줌
     >
-      {user?.email === null && (
+      {user?.userId === null && (
         <>
           <div className="dis"></div>
         </>
@@ -162,7 +162,7 @@ const MessageLoading = () => {
           </div>
         </>
       )}
-      {user?.email !== null && (
+      {user?.userId !== null && (
         <div className="message-btns">
           <div className="btn">
             <Btn
@@ -192,13 +192,13 @@ const MessageLoading = () => {
           {/* 임시로 만들어놓은 스티커 붙이기 버튼 */}
           {st && (
             <BottomBtn
-              onclick={() => stickerPost(email!, postX, postY, paperId!, st)}
+              onclick={() => stickerPost(userId!, postX, postY, paperId!, st)}
               text="스티커 붙이기"
             />
           )}
         </div>
       )}
-      {email === null && (
+      {userId === null && (
         <Link to="/login">
           <div className="go-login">
             <BottomBtn text="로그인하러 가기" />

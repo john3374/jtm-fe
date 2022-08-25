@@ -38,7 +38,7 @@ const Tap = styled.p`
 const MoreBottom = ({ setMore, text, prev, messageId }: More2) => {
   const nav = useNavigate();
   const { user, token } = useAuthState();
-  const email = user?.email;
+  const userId = user?.userId;
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -72,7 +72,7 @@ const MoreBottom = ({ setMore, text, prev, messageId }: More2) => {
           confirm={true}
           onModal={open}
           setOnModal={setOpen}
-          onClick={() => messageDelete(email!, messageId)}
+          onClick={() => messageDelete(userId!, messageId)}
         />
       )}
     </BottomWrap>
