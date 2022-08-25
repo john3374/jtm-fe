@@ -13,12 +13,12 @@ interface IPaperAndMsg {
 }
 
 const PaperList = ({
-  userEmail,
+  userId,
   setPaperId,
   onSelect,
   setSelect,
 }: {
-  userEmail: string;
+  userId: string;
   setPaperId: any;
   onSelect: boolean;
   setSelect: Dispatch<SetStateAction<boolean>>;
@@ -30,14 +30,14 @@ const PaperList = ({
 
   useEffect(() => {
     async function fetchAndSetPapers() {
-      const allData = await getPaperList(userEmail);
+      const allData = await getPaperList(userId);
       setPaperAndMsgs(allData);
 
       const paperLength = allData?.length || 0;
       localStorage.setItem('userPaperCnt', paperLength.toString());
     }
     fetchAndSetPapers();
-  }, [userEmail]);
+  }, [userId]);
 
   const navigate = useNavigate();
 
@@ -61,9 +61,9 @@ const PaperList = ({
 
   return (
     <StyledPaperList>
-      {paperAndMsgs?.map((p: IPaper) => (
+      {paperAndMsgs?.map((p: IPaper, idx: number) => (
         <>
-          <PaperItem key={p.paperId}>
+          <PaperItem key={idx}>
             <TitleDiv>
               <StyledPaperTitle onClick={() => viewPaperDetail(p.paperId)}>
                 {p.paperTitle}
@@ -126,13 +126,13 @@ const StyledPaperTitle = styled.p`
   }
 `;
 
-const getPaperList = async (email: string) => {
+const getPaperList = async (userId: string) => {
   try {
     const response = await axios({
       method: 'get',
       url: `${EnvConfig.LANTO_SERVER}paper`,
       headers: {
-        ['User-Email']: email,
+        ['User-Id']: userId,
       },
     });
     if (response.status == 200) {

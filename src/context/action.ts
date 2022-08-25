@@ -10,6 +10,7 @@ type LoginInfoType = {
 
 export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
   try {
+    // console.log('ss');
     const response = await axios({
       method: 'POST',
       url: `${ROOT_URL}login`,
@@ -27,10 +28,10 @@ export const loginUser = async (dispatch: any, loginPayload: LoginInfoType) => {
       const userData = {
         id: response.data.idToken,
         userName: response.data.userName,
-        email: response.data.email,
+        userId: response.data.userId,
       };
       dispatch({ type: 'LOGIN_SUCCESS', payload: userData });
-      localStorage.setItem('currentUser', JSON.stringify(userData));
+      // localStorage.setItem('currentUser', JSON.stringify(userData));
       return userData;
     } else {
       dispatch({ type: 'LOGIN_ERROR', error: response.data.error[0] });
